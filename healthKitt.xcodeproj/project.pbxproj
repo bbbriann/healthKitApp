@@ -7,18 +7,44 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D3A3884E2C726A30001CE3EA /* healthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3884D2C726A30001CE3EA /* healthKitService.swift */; };
+		D3A388532C726D1C001CE3EA /* CommonSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388522C726D1C001CE3EA /* CommonSelectButton.swift */; };
+		D3A388562C726D5C001CE3EA /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388552C726D5C001CE3EA /* ColorExtensions.swift */; };
+		D3A3885A2C727691001CE3EA /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388592C727691001CE3EA /* SignUpView.swift */; };
+		D3A3885C2C727704001CE3EA /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3885B2C727704001CE3EA /* LoginView.swift */; };
+		D3A3885E2C73970D001CE3EA /* CommonInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3885D2C73970D001CE3EA /* CommonInputView.swift */; };
+		D3A388602C7398A4001CE3EA /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3885F2C7398A4001CE3EA /* ViewExtension.swift */; };
+		D3A388622C73A558001CE3EA /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388612C73A558001CE3EA /* UIApplicationExtensions.swift */; };
+		D3A388652C73AFDE001CE3EA /* BackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388642C73AFDE001CE3EA /* BackButtonView.swift */; };
 		D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E272C14569E00049383 /* healthKittApp.swift */; };
-		D3B19E2A2C14569E00049383 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E292C14569E00049383 /* ContentView.swift */; };
+		D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E292C14569E00049383 /* OnboardingView.swift */; };
 		D3B19E2C2C14569E00049383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B19E2B2C14569E00049383 /* Assets.xcassets */; };
 		D3B19E2F2C14569E00049383 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B19E2E2C14569E00049383 /* Preview Assets.xcassets */; };
+		D3B19E372C148E0500049383 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E362C148E0500049383 /* HealthKitService.swift */; };
+		D3B19E3A2C14CC4900049383 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E392C14CC4900049383 /* AppDelegate.swift */; };
+		D3B19E3C2C15C70E00049383 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E3B2C15C70E00049383 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D3A3884D2C726A30001CE3EA /* healthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthKitService.swift; sourceTree = "<group>"; };
+		D3A388522C726D1C001CE3EA /* CommonSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSelectButton.swift; sourceTree = "<group>"; };
+		D3A388552C726D5C001CE3EA /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
+		D3A388592C727691001CE3EA /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		D3A3885B2C727704001CE3EA /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		D3A3885D2C73970D001CE3EA /* CommonInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonInputView.swift; sourceTree = "<group>"; };
+		D3A3885F2C7398A4001CE3EA /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		D3A388612C73A558001CE3EA /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
+		D3A388642C73AFDE001CE3EA /* BackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonView.swift; sourceTree = "<group>"; };
 		D3B19E242C14569E00049383 /* healthKitt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthKitt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B19E272C14569E00049383 /* healthKittApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthKittApp.swift; sourceTree = "<group>"; };
-		D3B19E292C14569E00049383 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		D3B19E292C14569E00049383 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D3B19E2B2C14569E00049383 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3B19E2E2C14569E00049383 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		D3B19E352C146A5500049383 /* healthKitt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = healthKitt.entitlements; sourceTree = "<group>"; };
+		D3B19E362C148E0500049383 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		D3B19E382C14BAB400049383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		D3B19E392C14CC4900049383 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D3B19E3B2C15C70E00049383 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +58,76 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D3A3884C2C726A18001CE3EA /* service */ = {
+			isa = PBXGroup;
+			children = (
+				D3A3884D2C726A30001CE3EA /* healthKitService.swift */,
+			);
+			path = service;
+			sourceTree = "<group>";
+		};
+		D3A3884F2C726A76001CE3EA /* feature */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388582C72767F001CE3EA /* SignUp */,
+				D3A388572C727676001CE3EA /* Login */,
+				D3A388502C726A7D001CE3EA /* onboarding */,
+			);
+			path = feature;
+			sourceTree = "<group>";
+		};
+		D3A388502C726A7D001CE3EA /* onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				D3B19E292C14569E00049383 /* OnboardingView.swift */,
+			);
+			path = onboarding;
+			sourceTree = "<group>";
+		};
+		D3A388512C726CF0001CE3EA /* util */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388632C73AFD3001CE3EA /* customView */,
+				D3A388522C726D1C001CE3EA /* CommonSelectButton.swift */,
+				D3A3885D2C73970D001CE3EA /* CommonInputView.swift */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		D3A388542C726D53001CE3EA /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388552C726D5C001CE3EA /* ColorExtensions.swift */,
+				D3A3885F2C7398A4001CE3EA /* ViewExtension.swift */,
+				D3A388612C73A558001CE3EA /* UIApplicationExtensions.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
+		D3A388572C727676001CE3EA /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D3A3885B2C727704001CE3EA /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		D3A388582C72767F001CE3EA /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388592C727691001CE3EA /* SignUpView.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		D3A388632C73AFD3001CE3EA /* customView */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388642C73AFDE001CE3EA /* BackButtonView.swift */,
+			);
+			path = customView;
+			sourceTree = "<group>";
+		};
 		D3B19E1B2C14569D00049383 = {
 			isa = PBXGroup;
 			children = (
@@ -51,10 +147,18 @@
 		D3B19E262C14569E00049383 /* healthKitt */ = {
 			isa = PBXGroup;
 			children = (
+				D3A388542C726D53001CE3EA /* extension */,
+				D3A388512C726CF0001CE3EA /* util */,
+				D3A3884F2C726A76001CE3EA /* feature */,
+				D3A3884C2C726A18001CE3EA /* service */,
+				D3B19E382C14BAB400049383 /* Info.plist */,
+				D3B19E352C146A5500049383 /* healthKitt.entitlements */,
 				D3B19E272C14569E00049383 /* healthKittApp.swift */,
-				D3B19E292C14569E00049383 /* ContentView.swift */,
 				D3B19E2B2C14569E00049383 /* Assets.xcassets */,
 				D3B19E2D2C14569E00049383 /* Preview Content */,
+				D3B19E362C148E0500049383 /* HealthKitService.swift */,
+				D3B19E392C14CC4900049383 /* AppDelegate.swift */,
+				D3B19E3B2C15C70E00049383 /* SceneDelegate.swift */,
 			);
 			path = healthKitt;
 			sourceTree = "<group>";
@@ -137,8 +241,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3B19E2A2C14569E00049383 /* ContentView.swift in Sources */,
+				D3A3884E2C726A30001CE3EA /* healthKitService.swift in Sources */,
+				D3A388652C73AFDE001CE3EA /* BackButtonView.swift in Sources */,
+				D3A388532C726D1C001CE3EA /* CommonSelectButton.swift in Sources */,
+				D3B19E3C2C15C70E00049383 /* SceneDelegate.swift in Sources */,
+				D3B19E3A2C14CC4900049383 /* AppDelegate.swift in Sources */,
+				D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */,
 				D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */,
+				D3A388622C73A558001CE3EA /* UIApplicationExtensions.swift in Sources */,
+				D3A388602C7398A4001CE3EA /* ViewExtension.swift in Sources */,
+				D3A3885E2C73970D001CE3EA /* CommonInputView.swift in Sources */,
+				D3B19E372C148E0500049383 /* HealthKitService.swift in Sources */,
+				D3A3885A2C727691001CE3EA /* SignUpView.swift in Sources */,
+				D3A3885C2C727704001CE3EA /* LoginView.swift in Sources */,
+				D3A388562C726D5C001CE3EA /* ColorExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,11 +385,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = healthKitt/healthKitt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"healthKitt/Preview Content\"";
+				DEVELOPMENT_TEAM = FJQNU6W6N4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = healthKitt/Info.plist;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -297,11 +419,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = healthKitt/healthKitt.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"healthKitt/Preview Content\"";
+				DEVELOPMENT_TEAM = FJQNU6W6N4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = healthKitt/Info.plist;
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
