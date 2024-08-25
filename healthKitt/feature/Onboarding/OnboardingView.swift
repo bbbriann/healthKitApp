@@ -10,6 +10,7 @@ import UserNotifications
 import SwiftUI
 
 struct OnboardingView: View {
+    @Binding var path: [StackViewType]
     var body: some View {
         VStack {
             Spacer(minLength: 24)
@@ -26,7 +27,9 @@ struct OnboardingView: View {
                 .resizable()
                 .frame(height: UIScreen.main.bounds.width - 48)
             VStack(spacing: 16) {
-                NavigationLink(destination: SignUpView()) {
+                Button {
+                    path.append(.singup)
+                } label: {
                     CommonSelectButton(title: "회원가입",
                                        titleColor: Color.mainColor,
                                        bgColor: Color.mainColor.opacity(0.18))
@@ -39,23 +42,27 @@ struct OnboardingView: View {
                 }
 
                 HStack(alignment: .center, spacing: 48) {
-                    HStack(alignment: .center, spacing: 4) {
-                        Text("비밀번호 재설정")
-                            .font(.system(size: 14))
-                            .foregroundColor(Color(hex: "#020C1C"))
-                        Image("IcRightArrow")
-                            .resizable()
-                            .frame(width: 16, height: 16)
+                    NavigationLink(destination: ResetPWView()) {
+                        HStack(alignment: .center, spacing: 4) {
+                            Text("비밀번호 재설정")
+                                .font(.system(size: 14))
+                                .foregroundColor(Color(hex: "#020C1C"))
+                            Image("IcRightArrow")
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                        }
                     }
-                    HStack(alignment: .center, spacing: 4) {
-                        Text("아이디 찾기")
-                            .font(.system(size: 14))
-                            .foregroundColor(Color(hex: "#0056E6"))
-                        Image("IcRightArrow")
-                            .resizable()
-                            .renderingMode(.template)
-                            .foregroundColor(Color(hex: "#0056E6"))
-                            .frame(width: 16, height: 16)
+                    NavigationLink(destination: FindIdView()) {
+                        HStack(alignment: .center, spacing: 4) {
+                            Text("아이디 찾기")
+                                .font(.system(size: 14))
+                                .foregroundColor(Color(hex: "#0056E6"))
+                            Image("IcRightArrow")
+                                .resizable()
+                                .renderingMode(.template)
+                                .foregroundColor(Color(hex: "#0056E6"))
+                                .frame(width: 16, height: 16)
+                        }
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -66,6 +73,21 @@ struct OnboardingView: View {
         .frame(maxWidth: .infinity)
         .padding(.horizontal, 24)
         .background(Color.white)
+        .navigationDestination(for: StackViewType.self) { viewType in
+            switch viewType {
+            case .singup:
+                SignUpView(path: $path)
+            case .login:
+                LoginView()
+            case .signupComplete:
+                EmptyView()
+            }
+        }
         
     }
+}
+
+
+extension Notification.Name {
+  static let loggedIn = Notification.Name("loggedIn")
 }

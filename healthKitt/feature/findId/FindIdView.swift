@@ -1,20 +1,19 @@
 //
-//  SignUpView.swift
+//  FindIdView.swift
 //  healthKitt
 //
-//  Created by brian on 8/19/24.
+//  Created by brian on 8/21/24.
 //
 
 import SwiftUI
 
-struct SignUpView: View {
+struct FindIdView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
-    @State private var email: String = ""
+    @State private var phone: String = ""
     
     var body: some View {
         VStack {
-//            headerView
             Spacer(minLength: 61)
             ZStack {
                 Rectangle()
@@ -28,7 +27,7 @@ struct SignUpView: View {
         .background(Color(hex: "#1068FD"))
         .frame(maxHeight: .infinity)
         .ignoresSafeArea(edges: .bottom)
-        .navigationBarTitle("회원 가입")
+        .navigationBarTitle("아이디 찾기")
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItemGroup(placement: .topBarLeading) {
@@ -48,18 +47,20 @@ struct SignUpView: View {
     var contentView: some View {
         ZStack {
             VStack {
-                Text("로그인에 사용할\n아이디(이메일)를 입력해 주세요")
+                Text("가입시 등록한 휴대폰 번호를\n입력해 주세요")
                     .font(.system(size: 20, weight: .medium))
                     .foregroundColor(Color(hex: "#020C1C"))
                     .frame(width: 345, alignment: .topLeading)
-                CommonInputView(text: $email, image: "IcEmail", placeholder: "이메일 입력")
+                VStack(spacing: 12) {
+                    CommonInputView(text: $phone, image: "IcPhone", placeholder: "휴대폰 번호 입력")
+                }
                 
                 Spacer()
                 
-                CommonSelectButton(title: "다음 ( 1/4 )",
+                CommonSelectButton(title: "확인",
                                    titleColor: .white,
                                    bgColor: nextButtonBGColor)
-                .disabled(email.isEmpty)
+                .disabled(phone.isEmpty)
                 .padding(.bottom, safeAreaInsets.bottom)
             }
             .padding(.horizontal, 24)
@@ -72,6 +73,6 @@ struct SignUpView: View {
     }
     
     var nextButtonBGColor: Color {
-        return Color(hex: "#1068FD").opacity(email.isEmpty ? 0.2 : 1.0)
+        return Color(hex: "#1068FD").opacity(phone.isEmpty ? 0.2 : 1.0)
     }
 }

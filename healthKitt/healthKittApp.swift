@@ -7,9 +7,19 @@
 
 import SwiftUI
 
+enum StackViewType {
+    case login
+    case singup
+    case signupComplete
+    
+}
+
 @main
 struct healthKittApp: App {
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
+    @State private var path: [StackViewType] = []
+    
+    @State private var isLoogedIn: Bool = false
     
     init() {
         customozieNavigationBar()
@@ -29,8 +39,17 @@ struct healthKittApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                OnboardingView()
+            Group {
+                if isLoogedIn {
+                    AppTabBarView()
+                } else {
+                    NavigationStack(path: $path) {
+                        OnboardingView(path: $path)
+                    }
+                }
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .loggedIn)) { notification in
+                isLoogedIn = true
             }
         }
     }

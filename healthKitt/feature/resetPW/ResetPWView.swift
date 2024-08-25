@@ -1,17 +1,16 @@
 //
-//  LoginView.swift
+//  ResetPWView.swift
 //  healthKitt
 //
-//  Created by brian on 8/19/24.
+//  Created by brian on 8/21/24.
 //
 
 import SwiftUI
 
-struct LoginView: View {
+struct ResetPWView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     @State private var email: String = ""
-    @State private var pw: String = ""
     
     var body: some View {
         VStack {
@@ -28,7 +27,7 @@ struct LoginView: View {
         .background(Color(hex: "#1068FD"))
         .frame(maxHeight: .infinity)
         .ignoresSafeArea(edges: .bottom)
-        .navigationBarTitle("회원 가입")
+        .navigationBarTitle("비밀번호 재설정")
         .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItemGroup(placement: .topBarLeading) {
@@ -48,22 +47,20 @@ struct LoginView: View {
     var contentView: some View {
         ZStack {
             VStack {
-                Text("PhoneTrack에 오신 것을 환영합니다.\n로그인해주세요")
+                Text("비밀번호 재설정을 위한 메일을 보내드리겠습니다. 등록된 이메일을 입력하세요")
                     .font(.system(size: 20, weight: .medium))
                     .foregroundColor(Color(hex: "#020C1C"))
                     .frame(width: 345, alignment: .topLeading)
                 VStack(spacing: 12) {
                     CommonInputView(text: $email, image: "IcEmail", placeholder: "이메일 입력")
-                    CommonInputView(text: $pw, image: "IcPW",
-                                    placeholder: "비밀번호 입력", isSecure: true)
                 }
                 
                 Spacer()
                 
-                CommonSelectButton(title: "로그인",
+                CommonSelectButton(title: "확인",
                                    titleColor: .white,
                                    bgColor: nextButtonBGColor)
-                .disabled(email.isEmpty || pw.isEmpty)
+                .disabled(email.isEmpty)
                 .padding(.bottom, safeAreaInsets.bottom)
             }
             .padding(.horizontal, 24)

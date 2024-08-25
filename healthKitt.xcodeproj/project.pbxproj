@@ -16,6 +16,22 @@
 		D3A388602C7398A4001CE3EA /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3885F2C7398A4001CE3EA /* ViewExtension.swift */; };
 		D3A388622C73A558001CE3EA /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388612C73A558001CE3EA /* UIApplicationExtensions.swift */; };
 		D3A388652C73AFDE001CE3EA /* BackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388642C73AFDE001CE3EA /* BackButtonView.swift */; };
+		D3A388952C74E7CB0059C3BB /* FindIdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388942C74E7CB0059C3BB /* FindIdView.swift */; };
+		D3A388972C74EFDD0059C3BB /* ResetPWView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388962C74EFDD0059C3BB /* ResetPWView.swift */; };
+		D3A388992C74F6150059C3BB /* BindingExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388982C74F6150059C3BB /* BindingExtensions.swift */; };
+		D3A3889B2C7501D40059C3BB /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3889A2C7501D40059C3BB /* SignUpViewModel.swift */; };
+		D3A3889D2C78F2390059C3BB /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3889C2C78F2390059C3BB /* CalendarView.swift */; };
+		D3A3889F2C78F4C10059C3BB /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3889E2C78F4C10059C3BB /* RadioButton.swift */; };
+		D3A388A12C7A339F0059C3BB /* CalendarInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388A02C7A339F0059C3BB /* CalendarInputView.swift */; };
+		D3A388A32C7B17580059C3BB /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388A22C7B17580059C3BB /* DateExtensions.swift */; };
+		D3A388A62C7B52B50059C3BB /* AuthCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388A52C7B52B50059C3BB /* AuthCompleteView.swift */; };
+		D3A388A82C7B56090059C3BB /* GIFImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388A72C7B56090059C3BB /* GIFImageView.swift */; };
+		D3A388AA2C7B56230059C3BB /* complete.gif in Resources */ = {isa = PBXBuildFile; fileRef = D3A388A92C7B56230059C3BB /* complete.gif */; };
+		D3A388AD2C7B7AD70059C3BB /* AppTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388AC2C7B7AD70059C3BB /* AppTabBarView.swift */; };
+		D3A388B32C7B7E6B0059C3BB /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388B22C7B7E6B0059C3BB /* ProfileView.swift */; };
+		D3A388B52C7B7E7C0059C3BB /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388B42C7B7E7C0059C3BB /* HistoryView.swift */; };
+		D3A388B72C7B7E8A0059C3BB /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388B62C7B7E8A0059C3BB /* DiaryView.swift */; };
+		D3A388B92C7B7E960059C3BB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388B82C7B7E960059C3BB /* HomeView.swift */; };
 		D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E272C14569E00049383 /* healthKittApp.swift */; };
 		D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E292C14569E00049383 /* OnboardingView.swift */; };
 		D3B19E2C2C14569E00049383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B19E2B2C14569E00049383 /* Assets.xcassets */; };
@@ -35,6 +51,22 @@
 		D3A3885F2C7398A4001CE3EA /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		D3A388612C73A558001CE3EA /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		D3A388642C73AFDE001CE3EA /* BackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonView.swift; sourceTree = "<group>"; };
+		D3A388942C74E7CB0059C3BB /* FindIdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdView.swift; sourceTree = "<group>"; };
+		D3A388962C74EFDD0059C3BB /* ResetPWView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPWView.swift; sourceTree = "<group>"; };
+		D3A388982C74F6150059C3BB /* BindingExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingExtensions.swift; sourceTree = "<group>"; };
+		D3A3889A2C7501D40059C3BB /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		D3A3889C2C78F2390059C3BB /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		D3A3889E2C78F4C10059C3BB /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		D3A388A02C7A339F0059C3BB /* CalendarInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarInputView.swift; sourceTree = "<group>"; };
+		D3A388A22C7B17580059C3BB /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
+		D3A388A52C7B52B50059C3BB /* AuthCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCompleteView.swift; sourceTree = "<group>"; };
+		D3A388A72C7B56090059C3BB /* GIFImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFImageView.swift; sourceTree = "<group>"; };
+		D3A388A92C7B56230059C3BB /* complete.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = complete.gif; sourceTree = "<group>"; };
+		D3A388AC2C7B7AD70059C3BB /* AppTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarView.swift; sourceTree = "<group>"; };
+		D3A388B22C7B7E6B0059C3BB /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		D3A388B42C7B7E7C0059C3BB /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		D3A388B62C7B7E8A0059C3BB /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
+		D3A388B82C7B7E960059C3BB /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D3B19E242C14569E00049383 /* healthKitt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthKitt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B19E272C14569E00049383 /* healthKittApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthKittApp.swift; sourceTree = "<group>"; };
 		D3B19E292C14569E00049383 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -69,19 +101,25 @@
 		D3A3884F2C726A76001CE3EA /* feature */ = {
 			isa = PBXGroup;
 			children = (
-				D3A388582C72767F001CE3EA /* SignUp */,
-				D3A388572C727676001CE3EA /* Login */,
-				D3A388502C726A7D001CE3EA /* onboarding */,
+				D3A388B12C7B7DE60059C3BB /* profile */,
+				D3A388B02C7B7DE10059C3BB /* history */,
+				D3A388AF2C7B7DDD0059C3BB /* diary */,
+				D3A388AE2C7B7DD90059C3BB /* home */,
+				D3A388932C74E7A00059C3BB /* resetPW */,
+				D3A388922C74E7980059C3BB /* findId */,
+				D3A388582C72767F001CE3EA /* signUp */,
+				D3A388572C727676001CE3EA /* login */,
+				D3A388502C726A7D001CE3EA /* Onboarding */,
 			);
 			path = feature;
 			sourceTree = "<group>";
 		};
-		D3A388502C726A7D001CE3EA /* onboarding */ = {
+		D3A388502C726A7D001CE3EA /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
 				D3B19E292C14569E00049383 /* OnboardingView.swift */,
 			);
-			path = onboarding;
+			path = Onboarding;
 			sourceTree = "<group>";
 		};
 		D3A388512C726CF0001CE3EA /* util */ = {
@@ -100,32 +138,96 @@
 				D3A388552C726D5C001CE3EA /* ColorExtensions.swift */,
 				D3A3885F2C7398A4001CE3EA /* ViewExtension.swift */,
 				D3A388612C73A558001CE3EA /* UIApplicationExtensions.swift */,
+				D3A388982C74F6150059C3BB /* BindingExtensions.swift */,
+				D3A388A22C7B17580059C3BB /* DateExtensions.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
 		};
-		D3A388572C727676001CE3EA /* Login */ = {
+		D3A388572C727676001CE3EA /* login */ = {
 			isa = PBXGroup;
 			children = (
 				D3A3885B2C727704001CE3EA /* LoginView.swift */,
 			);
-			path = Login;
+			path = login;
 			sourceTree = "<group>";
 		};
-		D3A388582C72767F001CE3EA /* SignUp */ = {
+		D3A388582C72767F001CE3EA /* signUp */ = {
 			isa = PBXGroup;
 			children = (
+				D3A388A42C7B528D0059C3BB /* AuthComplete */,
 				D3A388592C727691001CE3EA /* SignUpView.swift */,
+				D3A3889A2C7501D40059C3BB /* SignUpViewModel.swift */,
 			);
-			path = SignUp;
+			path = signUp;
 			sourceTree = "<group>";
 		};
 		D3A388632C73AFD3001CE3EA /* customView */ = {
 			isa = PBXGroup;
 			children = (
 				D3A388642C73AFDE001CE3EA /* BackButtonView.swift */,
+				D3A3889C2C78F2390059C3BB /* CalendarView.swift */,
+				D3A3889E2C78F4C10059C3BB /* RadioButton.swift */,
+				D3A388A02C7A339F0059C3BB /* CalendarInputView.swift */,
+				D3A388A72C7B56090059C3BB /* GIFImageView.swift */,
 			);
 			path = customView;
+			sourceTree = "<group>";
+		};
+		D3A388922C74E7980059C3BB /* findId */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388942C74E7CB0059C3BB /* FindIdView.swift */,
+			);
+			path = findId;
+			sourceTree = "<group>";
+		};
+		D3A388932C74E7A00059C3BB /* resetPW */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388962C74EFDD0059C3BB /* ResetPWView.swift */,
+			);
+			path = resetPW;
+			sourceTree = "<group>";
+		};
+		D3A388A42C7B528D0059C3BB /* AuthComplete */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388A52C7B52B50059C3BB /* AuthCompleteView.swift */,
+			);
+			path = AuthComplete;
+			sourceTree = "<group>";
+		};
+		D3A388AE2C7B7DD90059C3BB /* home */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388B82C7B7E960059C3BB /* HomeView.swift */,
+			);
+			path = home;
+			sourceTree = "<group>";
+		};
+		D3A388AF2C7B7DDD0059C3BB /* diary */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388B62C7B7E8A0059C3BB /* DiaryView.swift */,
+			);
+			path = diary;
+			sourceTree = "<group>";
+		};
+		D3A388B02C7B7DE10059C3BB /* history */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388B42C7B7E7C0059C3BB /* HistoryView.swift */,
+			);
+			path = history;
+			sourceTree = "<group>";
+		};
+		D3A388B12C7B7DE60059C3BB /* profile */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388B22C7B7E6B0059C3BB /* ProfileView.swift */,
+			);
+			path = profile;
 			sourceTree = "<group>";
 		};
 		D3B19E1B2C14569D00049383 = {
@@ -154,6 +256,8 @@
 				D3B19E382C14BAB400049383 /* Info.plist */,
 				D3B19E352C146A5500049383 /* healthKitt.entitlements */,
 				D3B19E272C14569E00049383 /* healthKittApp.swift */,
+				D3A388AC2C7B7AD70059C3BB /* AppTabBarView.swift */,
+				D3A388A92C7B56230059C3BB /* complete.gif */,
 				D3B19E2B2C14569E00049383 /* Assets.xcassets */,
 				D3B19E2D2C14569E00049383 /* Preview Content */,
 				D3B19E362C148E0500049383 /* HealthKitService.swift */,
@@ -229,6 +333,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3A388AA2C7B56230059C3BB /* complete.gif in Resources */,
 				D3B19E2F2C14569E00049383 /* Preview Assets.xcassets in Resources */,
 				D3B19E2C2C14569E00049383 /* Assets.xcassets in Resources */,
 			);
@@ -242,13 +347,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A3884E2C726A30001CE3EA /* healthKitService.swift in Sources */,
+				D3A388972C74EFDD0059C3BB /* ResetPWView.swift in Sources */,
 				D3A388652C73AFDE001CE3EA /* BackButtonView.swift in Sources */,
+				D3A388A12C7A339F0059C3BB /* CalendarInputView.swift in Sources */,
+				D3A388992C74F6150059C3BB /* BindingExtensions.swift in Sources */,
+				D3A388A32C7B17580059C3BB /* DateExtensions.swift in Sources */,
+				D3A3889B2C7501D40059C3BB /* SignUpViewModel.swift in Sources */,
+				D3A388B52C7B7E7C0059C3BB /* HistoryView.swift in Sources */,
 				D3A388532C726D1C001CE3EA /* CommonSelectButton.swift in Sources */,
 				D3B19E3C2C15C70E00049383 /* SceneDelegate.swift in Sources */,
+				D3A388B72C7B7E8A0059C3BB /* DiaryView.swift in Sources */,
+				D3A388A82C7B56090059C3BB /* GIFImageView.swift in Sources */,
+				D3A388B92C7B7E960059C3BB /* HomeView.swift in Sources */,
+				D3A3889F2C78F4C10059C3BB /* RadioButton.swift in Sources */,
 				D3B19E3A2C14CC4900049383 /* AppDelegate.swift in Sources */,
+				D3A388AD2C7B7AD70059C3BB /* AppTabBarView.swift in Sources */,
+				D3A388A62C7B52B50059C3BB /* AuthCompleteView.swift in Sources */,
+				D3A388B32C7B7E6B0059C3BB /* ProfileView.swift in Sources */,
 				D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */,
+				D3A388952C74E7CB0059C3BB /* FindIdView.swift in Sources */,
 				D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */,
 				D3A388622C73A558001CE3EA /* UIApplicationExtensions.swift in Sources */,
+				D3A3889D2C78F2390059C3BB /* CalendarView.swift in Sources */,
 				D3A388602C7398A4001CE3EA /* ViewExtension.swift in Sources */,
 				D3A3885E2C73970D001CE3EA /* CommonInputView.swift in Sources */,
 				D3B19E372C148E0500049383 /* HealthKitService.swift in Sources */,
@@ -401,6 +521,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -435,6 +556,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
