@@ -86,8 +86,3 @@ struct OnboardingView: View {
         
     }
 }
-
-
-extension Notification.Name {
-  static let loggedIn = Notification.Name("loggedIn")
-}

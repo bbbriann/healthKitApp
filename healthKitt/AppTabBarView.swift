@@ -14,6 +14,9 @@ struct AppTabBarView: View {
     
     @State private var selected: Tab = .home
     
+    @State private var showLogoutAlert = false
+    @State private var showTabBar = true
+    
     var body: some View {
         ZStack {
             TabView(selection: $selected) {
@@ -34,17 +37,48 @@ struct AppTabBarView: View {
                     .tag(Tab.history)
                     
                     NavigationStack {
-                        ProfileView()
+                        ProfileView(showLogoutAlert: $showLogoutAlert)
                     }
                     .tag(Tab.profile)
                 }
                 .toolbar(.hidden, for: .tabBar)
             }
             
-            VStack {
-                Spacer()
-                tabBar
+            if showTabBar {
+                VStack {
+                    Spacer()
+                    tabBar
+                }
+                .zIndex(0)
             }
+            
+            if showLogoutAlert {
+                ZStack {
+                    Color.black.opacity(0.4) // 반투명한 배경
+                        .ignoresSafeArea()
+                    
+                    CustomAlertView(
+                        title: "확인 통지",
+                        message: "정말로 로그아웃 하시겠습니까?",
+                        onCancel: {
+                            showLogoutAlert = false
+                        },
+                        onConfirm: {
+                            showLogoutAlert = false
+                            NotificationCenter.default.post(Notification(name: .loggedOut))
+                        }
+                    )
+                    .padding(.horizontal, 24)
+                    .transition(.scale)
+                    .zIndex(1)
+                }
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .showTabBar)) { notification in
+            showTabBar = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .hideTabBar)) { notification in
+            showTabBar = false
         }
     }
     

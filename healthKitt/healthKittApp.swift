@@ -11,7 +11,6 @@ enum StackViewType {
     case login
     case singup
     case signupComplete
-    
 }
 
 @main
@@ -19,7 +18,7 @@ struct healthKittApp: App {
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
     @State private var path: [StackViewType] = []
     
-    @State private var isLoogedIn: Bool = false
+    @State private var isLoogedIn: Bool = true
     
     init() {
         customozieNavigationBar()
@@ -50,6 +49,9 @@ struct healthKittApp: App {
             }
             .onReceive(NotificationCenter.default.publisher(for: .loggedIn)) { notification in
                 isLoogedIn = true
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .loggedOut)) { notification in
+                isLoogedIn = false
             }
         }
     }

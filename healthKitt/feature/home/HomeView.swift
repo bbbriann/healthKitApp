@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var showBottomSheet: Bool = false
+    @State private var bottomSheetHeight: CGFloat = 0
+    private var maxHeightBottomSheet = (UIScreen.main.bounds.height * 0.8)
+    
     var body: some View {
         ZStack {
             VStack {
@@ -61,20 +65,24 @@ struct HomeView: View {
                             }
                             Spacer()
                             
-                            HStack(alignment: .center, spacing: 4) {
-                                Image("IcInfo")
-                                    .resizable()
-                                    .frame(width: 16, height: 16)
-                                // Body/12px/Medium
-                                Text("승인 대기중")
-                                    .font(.system(size: 12, weight: .medium))
-                                    .foregroundColor(.white)
+                            Button {
+                                showBottomSheet.toggle()
+                            } label: {
+                                HStack(alignment: .center, spacing: 4) {
+                                    Image("IcInfo")
+                                        .resizable()
+                                        .frame(width: 16, height: 16)
+                                    // Body/12px/Medium
+                                    Text("승인 대기중")
+                                        .font(.system(size: 12, weight: .medium))
+                                        .foregroundColor(.white)
+                                }
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .frame(height: 24, alignment: .leading)
+                                .background(Color(hex: "#1068FD"))
+                                .cornerRadius(12)
                             }
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .frame(height: 24, alignment: .leading)
-                            .background(Color(hex: "#1068FD"))
-                            .cornerRadius(12)
                         }
                         .padding(.horizontal, 20)
                         .padding(.vertical, 16)
@@ -107,5 +115,189 @@ struct HomeView: View {
             .padding(.horizontal, 24)
         }
         .background(Color(red: 0.95, green: 0.96, blue: 0.98))
+        .sheet(isPresented: $showBottomSheet, content: {
+            // 작성 방법 시트
+            ReportGuideView(height: $bottomSheetHeight)
+                .presentationDetents([.height(472)])
+                .presentationDragIndicator(.visible)
+            
+            // 연구자 승인 대기 시트
+//            PendingApprovalView(height: $bottomSheetHeight)
+//                .presentationDetents([.height(472)])
+//                .presentationDragIndicator(.visible)
+            
+            // 연구 안내 시트
+//            ResearchInfoSheetView(height: $bottomSheetHeight)
+//                .presentationDetents([.height(472)])
+//                .presentationDragIndicator(.visible)
+        })
+    }
+}
+
+
+struct PendingApprovalView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var height: CGFloat
+    
+    var body: some View {
+        VStack {
+            Text("승인 대기중")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(Color(hex: "#020C1C"))
+                .frame(maxWidth: .infinity)
+            Color.clear
+                .frame(height: 20)
+            Text("어플리케이션을 이용하시기 위해서는 연구자 승인이 필요합니다.")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundColor(Color(hex: "#020C1C"))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Color.clear
+                .frame(height: 12)
+            
+            Text("동의서 작성 후 연구자가 승인하면, 어플리케이션 사용이 가능합니다. 이용방법은 연구자에게 문의하시기 바랍니다.")
+                .font(.system(size: 16))
+                .foregroundColor(Color(hex: "#020C1C"))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Color.clear
+                .frame(height: 48)
+            
+            Button {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                CommonSelectButton(title: "확인",
+                                   titleColor: .white,
+                                   bgColor: Color(hex: "#1068FD"))
+            }
+        }
+        .padding(.horizontal, 24)
+        .readSize { calculatedHeight in
+            height = calculatedHeight.height
+        }
+    }
+}
+
+
+struct ResearchInfoSheetView: View {
+    
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var height: CGFloat
+    private var textList: [String] = [
+        "본 연구는 강남세브란스 병원에서 진행되며, 이용 기간 동안 수집된 휴대폰 데이터와 설문 결과를 바탕으로 딥러닝 및 머신러닝 기법을 활용하여 섭식장애 증상을 예측하는 것을 목표로 합니다 이용 기간 종료일에 어플리케이션이 종료되오니, 연구진의 지시사항을 잘 따라 주시길 부탁드립니다.",
+        "본 연구에서는 두 가지 설문조사를 실시할 예정이다.\n[무작위 설문조사] 하루에 5번 설문조사가 완료됩니다.\n[식사일지] 식사 때마다 설문조사가 완료됩니다.\n\n1차 설문조사는 알림 후 1시간 이내 식사 또는 간식을 마친 후 하단 버튼을 눌러 2차 설문조사를 작성해주세요.",
+        "2주 연속으로 3일 미만 사용하시는 경우 중도 탈락 될 수 있습니다. 연구기간 동안 성실히 작성 부탁드립니다 3주간 Phenotrack을 사용하신 이후에는 3주간 Mindful Diary를 사용하시게 됩니다. 연구 기간에 맞추어 연락을 드리도록 하겠습니다"
+    ]
+    
+    init(height: Binding<CGFloat>) {
+        self._height = height
+    }
+    
+    var body: some View {
+        VStack {
+            Color.clear
+                .frame(height: 32)
+            Text("연구 안내")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(Color(hex: "#020C1C"))
+                .frame(maxWidth: .infinity)
+            Color.clear
+                .frame(height: 20)
+            VStack(spacing: 12) {
+                Text("휴대폰 데이터로 섭식장애 증상 예측하는 연구")
+                    .font(.system(size: 16, weight: .bold))
+                    .foregroundColor(Color(hex: "#020C1C"))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                HStack() {
+                    HStack(alignment: .center, spacing: 10) {
+                        Text("2024.06.13 ~ 2024.07.04")
+                            .font(.system(size: 12, weight: .medium))
+                          .foregroundColor(Color(hex: "#006EEF"))
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color(hex: "#006EEF").opacity(0.2))
+                    .cornerRadius(999)
+                    
+                    Spacer()
+                }
+            }
+            
+            TabView {
+                ForEach(0..<3) { index in
+                    VStack {
+                        Text(textList[index])
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(hex: "#020C1C"))
+                    }
+                    .frame(height: 266)
+                }
+            }
+            .tabViewStyle(.page(indexDisplayMode: .automatic)) // 캐러셀 스타일 적용
+            .indexViewStyle(.page)
+            .onAppear {
+                  setupAppearance()
+                }
+            Color.clear
+                .frame(height: 32)
+            
+            Button {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                CommonSelectButton(title: "확인",
+                                   titleColor: .white,
+                                   bgColor: Color(hex: "#1068FD"))
+            }
+        }
+        .padding(.horizontal, 24)
+        .readSize { calculatedHeight in
+            print("calculatedHeight.height \(calculatedHeight.height)")
+            height = calculatedHeight.height
+        }
+    }
+    
+    private func setupAppearance() {
+       UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color(hex: "#1068FD"))
+       UIPageControl.appearance().pageIndicatorTintColor = UIColor(Color(hex: "#E3E5E5"))
+     }
+}
+
+
+struct ReportGuideView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var height: CGFloat
+    
+    var body: some View {
+        VStack {
+            Text("작성 방법")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(Color(hex: "#020C1C"))
+                .frame(maxWidth: .infinity)
+            Color.clear
+                .frame(height: 20)
+            Text("휴대폰 데이터로 섭식장애 증상 예측하는 연구")
+                .font(.system(size: 16, weight: .bold))
+                .foregroundColor(Color(hex: "#020C1C"))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Color.clear
+                .frame(height: 12)
+            
+            Text("[랜덤 설문] 하루 5번 알림이 오면\n1시간 이내에 메시지 박스를 작성해주세요.\n계속해주세요 \n[식사일기] 식사나 간식을 먹은 후 바로 식사일지를 작성해주세요\n* 식사일지는 바로 쓰지 못하더라도 나중에 생각나면 적어두시면 됩니다.")
+                .font(.system(size: 16))
+                .foregroundColor(Color(hex: "#020C1C"))
+                .frame(maxWidth: .infinity, alignment: .leading)
+            Color.clear
+                .frame(height: 48)
+            
+            Button {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                CommonSelectButton(title: "확인",
+                                   titleColor: .white,
+                                   bgColor: Color(hex: "#1068FD"))
+            }
+        }
+        .padding(.horizontal, 24)
+        .readSize { calculatedHeight in
+            height = calculatedHeight.height
+        }
     }
 }

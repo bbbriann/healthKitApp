@@ -28,7 +28,7 @@ struct AuthCompleteView: View {
                     // Title/20px/Medium
                     Text("회원 가입 완료")
                         .font(.system(size: 20, weight: .medium))
-                      .foregroundColor(Color(red: 0.01, green: 0.05, blue: 0.11))
+                        .foregroundColor(Color(hex: "#020C1C"))
                       .frame(maxWidth: .infinity, alignment: .top)
                 }
                 .frame(maxWidth: .infinity)

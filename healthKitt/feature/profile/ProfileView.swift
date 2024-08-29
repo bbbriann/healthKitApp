@@ -10,8 +10,10 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
-    @State private var email: String = ""
-    @State private var pw: String = ""
+    
+    @Binding var showLogoutAlert: Bool
+    
+    @State private var showResearchInfoView: Bool = false
     
     var body: some View {
         VStack {
@@ -22,9 +24,13 @@ struct ProfileView: View {
                         .font(.system(size: 20, weight: .bold))
                         .foregroundColor(.white)
                     Spacer()
-                    Image("IcLogout")
-                        .resizable()
-                        .frame(width: 48, height: 48)
+                    Button {
+                        showLogoutAlert.toggle()
+                    } label: {
+                        Image("IcLogout")
+                            .resizable()
+                            .frame(width: 48, height: 48)
+                    }
                 }
             }
             .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
@@ -37,6 +43,10 @@ struct ProfileView: View {
                     .rotationEffect(Angle(degrees: -4))
                 contentView
                     .cornerRadius(24)
+            }
+            
+            NavigationLink(destination: ResearchInfoView(), isActive: $showResearchInfoView) {
+                EmptyView()
             }
         }
         .background(Color(hex: "#1068FD"))
@@ -72,10 +82,6 @@ struct ProfileView: View {
         .padding(.vertical, 32)
         .background(Color(hex: "#F1F5F9"))
         .cornerRadius(24)
-    }
-    
-    var nextButtonBGColor: Color {
-        return Color(hex: "#1068FD").opacity(email.isEmpty ? 0.2 : 1.0)
     }
     
     var infoView: some View {
@@ -201,20 +207,24 @@ struct ProfileView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .border(width: 1, edges: [.bottom], color: .black.opacity(0.05), padding: 20)
                 
-                HStack(alignment: .center) {
-                    // Body/14px/Medium
-                    Text("연구 관련 정보")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(Color(hex: "#020C1C"))
-                    Spacer()
-                    // Alternative Views and Spacers
-                    Image("IcRightArrowBlue")
-                        .resizable()
-                        .frame(width: 16, height: 16)
+                Button {
+                    showResearchInfoView.toggle()
+                } label: {
+                    HStack(alignment: .center) {
+                        // Body/14px/Medium
+                        Text("연구 관련 정보")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(Color(hex: "#020C1C"))
+                        Spacer()
+                        // Alternative Views and Spacers
+                        Image("IcRightArrowBlue")
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 18)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 18)
-                .frame(maxWidth: .infinity, alignment: .center)
             }
             .padding(0)
             .frame(maxWidth: .infinity, alignment: .center)
