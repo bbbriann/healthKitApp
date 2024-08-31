@@ -12,6 +12,9 @@ struct FindIdView: View {
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     @State private var phone: String = ""
     
+    @State private var showBottomSheet: Bool = false
+    @State private var bottomSheetHeight: CGFloat = 0
+    
     var body: some View {
         VStack {
             Spacer(minLength: 61)
@@ -34,6 +37,12 @@ struct FindIdView: View {
                 backButton
             }
         }
+        .sheet(isPresented: $showBottomSheet, content: {
+            // 작성 방법 시트
+            FindIdResultView(height: $bottomSheetHeight)
+                .presentationDetents([.height(240)])
+                .presentationDragIndicator(.visible)
+        })
     }
     
     var backButton: some View {
@@ -56,12 +65,15 @@ struct FindIdView: View {
                 }
                 
                 Spacer()
-                
-                CommonSelectButton(title: "확인",
-                                   titleColor: .white,
-                                   bgColor: nextButtonBGColor)
-                .disabled(phone.isEmpty)
-                .padding(.bottom, safeAreaInsets.bottom)
+                Button {
+                    showBottomSheet.toggle()
+                } label: {
+                    CommonSelectButton(title: "확인",
+                                       titleColor: .white,
+                                       bgColor: nextButtonBGColor)
+                    .disabled(phone.isEmpty)
+                    .padding(.bottom, safeAreaInsets.bottom)
+                }
             }
             .padding(.horizontal, 24)
             .background(.white)
@@ -74,5 +86,46 @@ struct FindIdView: View {
     
     var nextButtonBGColor: Color {
         return Color(hex: "#1068FD").opacity(phone.isEmpty ? 0.2 : 1.0)
+    }
+}
+
+
+struct FindIdResultView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var height: CGFloat
+    
+    var body: some View {
+        VStack {
+            Text("신분증 확인")
+                .font(.system(size: 20, weight: .bold))
+                .foregroundColor(Color(hex: "#020C1C"))
+                .frame(maxWidth: .infinity)
+            Color.clear
+                .frame(height: 20)
+            HStack(spacing: 0) {
+                Text("등록된 아이디는 ")
+                    .font(.system(size: 16))
+                    .foregroundColor(Color(hex: "#020C1C"))
+                Text("jennysbg1108@gmail.com")
+                    .font(.system(size: 16))
+                    .foregroundColor(Color(hex: "#020C1C"))
+                Spacer()
+            }
+            
+            Color.clear
+                .frame(height: 40)
+            
+            Button {
+                presentationMode.wrappedValue.dismiss()
+            } label: {
+                CommonSelectButton(title: "확인",
+                                   titleColor: Color(hex: "#1068FD"),
+                                   bgColor: Color(hex: "#1068FD").opacity(0.08))
+            }
+        }
+        .padding(.horizontal, 24)
+        .readSize { calculatedHeight in
+            height = calculatedHeight.height
+        }
     }
 }

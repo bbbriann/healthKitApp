@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct HomeView: View {
+    @StateObject private var viewModel = HomeViewModel()
     @State private var showBottomSheet: Bool = false
+    @State private var showReadyToStartSheet: Bool = false
+    @State private var showSurveyGuideSheet: Bool = false
     @State private var bottomSheetHeight: CGFloat = 0
-    private var maxHeightBottomSheet = (UIScreen.main.bounds.height * 0.8)
+    
     
     var body: some View {
         ZStack {
@@ -32,6 +35,14 @@ struct HomeView: View {
                             .font(.system(size: 12))
                             .foregroundColor(Color(hex: "##0056E6"))
                         Spacer()
+                        
+                        Picker("Select State", selection: $viewModel.homeState) {
+                            ForEach(HomeState.allCases) { state in
+                                Text(state.rawValue.capitalized).tag(state)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .padding()
                     }
                 }
                 .padding(.top, 8)
@@ -64,24 +75,34 @@ struct HomeView: View {
                                     .foregroundColor(Color(hex: "#020C1C"))
                             }
                             Spacer()
-                            
-                            Button {
-                                showBottomSheet.toggle()
-                            } label: {
-                                HStack(alignment: .center, spacing: 4) {
-                                    Image("IcInfo")
-                                        .resizable()
-                                        .frame(width: 16, height: 16)
-                                    // Body/12px/Medium
-                                    Text("승인 대기중")
-                                        .font(.system(size: 12, weight: .medium))
-                                        .foregroundColor(.white)
+                            if viewModel.showInfoButton {
+                                Button {
+                                    switch viewModel.homeState {
+                                    case .notApproved:
+                                        showBottomSheet.toggle()
+                                    case .readyToStart:
+                                        showReadyToStartSheet.toggle()
+                                    case .noSurvey:
+                                        do {}
+                                    case .survey:
+                                        showSurveyGuideSheet.toggle()
+                                    }
+                                } label: {
+                                    HStack(alignment: .center, spacing: 4) {
+                                        Image("IcInfo")
+                                            .resizable()
+                                            .frame(width: 16, height: 16)
+                                        // Body/12px/Medium
+                                        Text(viewModel.infoTitle)
+                                            .font(.system(size: 12, weight: .medium))
+                                            .foregroundColor(.white)
+                                    }
+                                    .padding(.horizontal, 8)
+                                    .padding(.vertical, 4)
+                                    .frame(height: 24, alignment: .leading)
+                                    .background(Color(hex: "#1068FD"))
+                                    .cornerRadius(12)
                                 }
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 4)
-                                .frame(height: 24, alignment: .leading)
-                                .background(Color(hex: "#1068FD"))
-                                .cornerRadius(12)
                             }
                         }
                         .padding(.horizontal, 20)
@@ -89,22 +110,122 @@ struct HomeView: View {
                         .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56, alignment: .center)
                         .background(Color(red: 0.88, green: 0.94, blue: 1))
                         
-                        HStack(alignment: .center, spacing: 0) {
-                            Image("IcHomeNoData")
-                                .resizable()
-                                .frame(width: 140, height: 140)
-                        }
-                        .padding(.top, 16)
-                        .padding(.bottom, 24)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        
-                        // Body/16px/Medium
-                        Text("어플리케이션을 이용하시기 위해서는 연구자\n승인이 필요합니다.")
-                            .font(.system(size: 16, weight: .medium))
-                            .foregroundColor(Color(hex: "#020C1C"))
+                        switch viewModel.homeState {
+                        case .notApproved:
+                            HStack(alignment: .center, spacing: 0) {
+                                Image("IcHomeNoData")
+                                    .resizable()
+                                    .frame(width: 140, height: 140)
+                            }
+                            .padding(.top, 16)
+                            .padding(.bottom, 24)
                             .frame(maxWidth: .infinity, alignment: .center)
+                            
+                            Text("어플리케이션을 이용하시기 위해서는 연구자\n승인이 필요합니다.")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(Color(hex: "#020C1C"))
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        case .readyToStart:
+                            Image("IcHomeApproval")
+                                .frame(maxWidth: .infinity, alignment: .center)
+                            VStack(alignment: .leading, spacing: 32) {
+                                VStack(alignment: .leading, spacing: 16) {
+                                    VStack(alignment: .leading, spacing: 0) {
+                                        HStack(alignment: .center) {
+                                            Text("총 연구 기간 (6주):")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(Color(hex: "#020C1C"))
+                                            
+                                            Text("2024.06.13 ~ 2024.07.25")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(Color(hex: "#020C1C"))
+                                        }
+                                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                                        
+                                        HStack(alignment: .center) {
+                                            Text("이용 기간 (3주):")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(Color(hex: "#020C1C"))
+                                            
+                                            Text("2024.06.13 ~ 2024.07.04")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(Color(hex: "#020C1C"))
+                                        }
+                                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                                    
+                                    // Body/14px/Medium
+                                    Text("이용 기간 동안 수집된 휴대폰 데이터와 설문을 바탕으로 섭식장애 증상을 예측 하는 연구를 진행합니다")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(Color(hex: "#020C1C"))
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                                .padding(.horizontal, 20)
+                                .frame(maxWidth: .infinity, alignment: .topLeading)
+                                Button {
+                                    showReadyToStartSheet.toggle()
+                                } label: {
+                                    CommonSelectButton(title: "연구를 시작하세요",
+                                                       titleColor: .white,
+                                                       bgColor: Color(hex: "#1068FD"))
+                                    .padding(.horizontal, 20)
+                                    .cornerRadius(16)
+                                }
+                            }
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                        case .noSurvey:
+                            HStack(alignment: .center, spacing: 0) {
+                                Image("IcHomeNoSurvey")
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                            }
+                            .padding(.top, 15)
+                            .padding(.bottom, 15)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            
+                            Text("작성 대기중인 설문이 없습니다.")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(Color(hex: "#020C1C"))
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        case .survey:
+                            HStack(alignment: .center, spacing: 0) {
+                                Image("IcHomeSurvey")
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                            }
+                            .padding(.top, 15)
+                            .padding(.bottom, 15)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            VStack(alignment: .center, spacing: 32) {
+                                VStack(alignment: .center, spacing: 16) {
+                                    Text("설문 작성 대기중")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .foregroundColor(Color(hex: "#020C1C"))
+                                        .frame(maxWidth: .infinity, alignment: .center)
+                                    HStack(alignment: .center, spacing: 10) {
+                                        // Body/14px/Medium
+                                        Text("00:59:12")
+                                            .font(.system(size: 14, weight: .medium))
+                                            .multilineTextAlignment(.center)
+                                            .foregroundColor(Color(hex: "#DA072D"))
+                                    }
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 4)
+                                    .background(Color(hex: "#DA072D").opacity(0.2))
+                                    .cornerRadius(14)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                CommonSelectButton(title: "작성하기",
+                                                   titleColor: .white,
+                                                   bgColor: Color(hex: "#1068FD"))
+                                .padding(.horizontal, 20)
+                                .cornerRadius(16)
+                            }
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 0)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                        }
                     }
-                    .padding(.bottom, 32)
+                    .padding(.bottom, viewModel.bottomPadding)
                     .frame(maxWidth: .infinity)
                     .background(.white)
                     .cornerRadius(16)
@@ -116,20 +237,23 @@ struct HomeView: View {
         }
         .background(Color(red: 0.95, green: 0.96, blue: 0.98))
         .sheet(isPresented: $showBottomSheet, content: {
-            // 작성 방법 시트
-            ReportGuideView(height: $bottomSheetHeight)
+            // 연구자 승인 대기 시트
+            PendingApprovalView(height: $bottomSheetHeight)
+                .presentationDetents([.height(370)])
+                .presentationDragIndicator(.visible)
+        })
+        .sheet(isPresented: $showReadyToStartSheet, content: {
+            // 연구 안내 시트
+            ResearchInfoSheetView(height: $bottomSheetHeight)
                 .presentationDetents([.height(472)])
                 .presentationDragIndicator(.visible)
+        })
+        .sheet(isPresented: $showSurveyGuideSheet, content: {
+            // 작성 방법 시트
+            ReportGuideView(height: $bottomSheetHeight)
+                .presentationDetents([.height(432)])
+                .presentationDragIndicator(.visible)
             
-            // 연구자 승인 대기 시트
-//            PendingApprovalView(height: $bottomSheetHeight)
-//                .presentationDetents([.height(472)])
-//                .presentationDragIndicator(.visible)
-            
-            // 연구 안내 시트
-//            ResearchInfoSheetView(height: $bottomSheetHeight)
-//                .presentationDetents([.height(472)])
-//                .presentationDragIndicator(.visible)
         })
     }
 }

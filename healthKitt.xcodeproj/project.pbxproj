@@ -35,6 +35,7 @@
 		D3A388BB2C7CBFDB0059C3BB /* CustomAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388BA2C7CBFDB0059C3BB /* CustomAlertView.swift */; };
 		D3A388BD2C7CCC430059C3BB /* NotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388BC2C7CCC430059C3BB /* NotificationExtensions.swift */; };
 		D3A388C02C7CD4620059C3BB /* ResearchInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388BF2C7CD4620059C3BB /* ResearchInfoView.swift */; };
+		D3A388C22C81B83F0059C3BB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388C12C81B83F0059C3BB /* HomeViewModel.swift */; };
 		D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E272C14569E00049383 /* healthKittApp.swift */; };
 		D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E292C14569E00049383 /* OnboardingView.swift */; };
 		D3B19E2C2C14569E00049383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B19E2B2C14569E00049383 /* Assets.xcassets */; };
@@ -73,6 +74,7 @@
 		D3A388BA2C7CBFDB0059C3BB /* CustomAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAlertView.swift; sourceTree = "<group>"; };
 		D3A388BC2C7CCC430059C3BB /* NotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtensions.swift; sourceTree = "<group>"; };
 		D3A388BF2C7CD4620059C3BB /* ResearchInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchInfoView.swift; sourceTree = "<group>"; };
+		D3A388C12C81B83F0059C3BB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D3B19E242C14569E00049383 /* healthKitt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthKitt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B19E272C14569E00049383 /* healthKittApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthKittApp.swift; sourceTree = "<group>"; };
 		D3B19E292C14569E00049383 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				D3A388B82C7B7E960059C3BB /* HomeView.swift */,
+				D3A388C12C81B83F0059C3BB /* HomeViewModel.swift */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A388BB2C7CBFDB0059C3BB /* CustomAlertView.swift in Sources */,
+				D3A388C22C81B83F0059C3BB /* HomeViewModel.swift in Sources */,
 				D3A3884E2C726A30001CE3EA /* healthKitService.swift in Sources */,
 				D3A388972C74EFDD0059C3BB /* ResetPWView.swift in Sources */,
 				D3A388652C73AFDE001CE3EA /* BackButtonView.swift in Sources */,
