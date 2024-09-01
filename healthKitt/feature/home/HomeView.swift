@@ -14,6 +14,8 @@ struct HomeView: View {
     @State private var showSurveyGuideSheet: Bool = false
     @State private var bottomSheetHeight: CGFloat = 0
     
+    @State private var showRandomSurveyView: Bool = false
+    
     
     var body: some View {
         ZStack {
@@ -168,9 +170,9 @@ struct HomeView: View {
                                 } label: {
                                     CommonSelectButton(title: "연구를 시작하세요",
                                                        titleColor: .white,
-                                                       bgColor: Color(hex: "#1068FD"))
+                                                       bgColor: Color(hex: "#1068FD"),
+                                                       cornerRadius: 16)
                                     .padding(.horizontal, 20)
-                                    .cornerRadius(16)
                                 }
                             }
                             .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -214,15 +216,22 @@ struct HomeView: View {
                                     .cornerRadius(14)
                                 }
                                 .frame(maxWidth: .infinity, alignment: .center)
-                                CommonSelectButton(title: "작성하기",
-                                                   titleColor: .white,
-                                                   bgColor: Color(hex: "#1068FD"))
-                                .padding(.horizontal, 20)
-                                .cornerRadius(16)
+                                Button {
+                                    showRandomSurveyView.toggle()
+                                } label: {
+                                    CommonSelectButton(title: "작성하기",
+                                                       titleColor: .white,
+                                                       bgColor: Color(hex: "#1068FD"),
+                                                       cornerRadius: 16)
+                                }
                             }
                             .padding(.horizontal, 20)
                             .padding(.vertical, 0)
                             .frame(maxWidth: .infinity, alignment: .center)
+                            
+                            NavigationLink(destination: RandomSurveyView(), isActive: $showRandomSurveyView) {
+                                EmptyView()
+                            }
                         }
                     }
                     .padding(.bottom, viewModel.bottomPadding)

@@ -16,7 +16,7 @@ enum HomeState: String, CaseIterable, Identifiable {
 }
 
 final class HomeViewModel: ObservableObject {
-    @Published var homeState: HomeState = .noSurvey
+    @Published var homeState: HomeState = .survey
     init() { }
     
     var bottomPadding: CGFloat {

@@ -11,6 +11,7 @@ struct CommonSelectButton: View {
     let title: String
     let titleColor: Color
     let bgColor: Color
+    var cornerRadius: CGFloat = 28
     
     var body: some View {
         HStack {
@@ -23,7 +24,7 @@ struct CommonSelectButton: View {
         }
         .background(bgColor)
         .frame(height: 56)
-        .cornerRadius(28)
+        .cornerRadius(cornerRadius)
 //        .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
     }
 }
