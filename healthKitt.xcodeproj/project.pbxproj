@@ -38,6 +38,13 @@
 		D3A388C22C81B83F0059C3BB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388C12C81B83F0059C3BB /* HomeViewModel.swift */; };
 		D3A388C62C8430E20059C3BB /* RandomSurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388C52C8430E20059C3BB /* RandomSurveyView.swift */; };
 		D3A388C82C843E9D0059C3BB /* IntExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388C72C843E9D0059C3BB /* IntExtensions.swift */; };
+		D3A388CA2C89F8F90059C3BB /* DiaryRandomSurveyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388C92C89F8F90059C3BB /* DiaryRandomSurveyView.swift */; };
+		D3A388CC2C89FABB0059C3BB /* CalendarScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388CB2C89FABB0059C3BB /* CalendarScrollView.swift */; };
+		D3A388CE2C89FAE10059C3BB /* HistoryAddButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388CD2C89FAE10059C3BB /* HistoryAddButtonView.swift */; };
+		D3A388D02C8A02750059C3BB /* RandomSurveyCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388CF2C8A02750059C3BB /* RandomSurveyCardView.swift */; };
+		D3A388D22C8A04230059C3BB /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388D12C8A04230059C3BB /* TimePickerView.swift */; };
+		D3A388D42C8B605E0059C3BB /* TextEditorWithPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388D32C8B605E0059C3BB /* TextEditorWithPlaceholderView.swift */; };
+		D3A388D72C8B6E3D0059C3BB /* DiaryResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388D62C8B6E3D0059C3BB /* DiaryResultView.swift */; };
 		D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E272C14569E00049383 /* healthKittApp.swift */; };
 		D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E292C14569E00049383 /* OnboardingView.swift */; };
 		D3B19E2C2C14569E00049383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B19E2B2C14569E00049383 /* Assets.xcassets */; };
@@ -79,6 +86,13 @@
 		D3A388C12C81B83F0059C3BB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		D3A388C52C8430E20059C3BB /* RandomSurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyView.swift; sourceTree = "<group>"; };
 		D3A388C72C843E9D0059C3BB /* IntExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtensions.swift; sourceTree = "<group>"; };
+		D3A388C92C89F8F90059C3BB /* DiaryRandomSurveyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyView.swift; sourceTree = "<group>"; };
+		D3A388CB2C89FABB0059C3BB /* CalendarScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarScrollView.swift; sourceTree = "<group>"; };
+		D3A388CD2C89FAE10059C3BB /* HistoryAddButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryAddButtonView.swift; sourceTree = "<group>"; };
+		D3A388CF2C8A02750059C3BB /* RandomSurveyCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyCardView.swift; sourceTree = "<group>"; };
+		D3A388D12C8A04230059C3BB /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
+		D3A388D32C8B605E0059C3BB /* TextEditorWithPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorWithPlaceholderView.swift; sourceTree = "<group>"; };
+		D3A388D62C8B6E3D0059C3BB /* DiaryResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryResultView.swift; sourceTree = "<group>"; };
 		D3B19E242C14569E00049383 /* healthKitt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthKitt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B19E272C14569E00049383 /* healthKittApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthKittApp.swift; sourceTree = "<group>"; };
 		D3B19E292C14569E00049383 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -186,6 +200,9 @@
 				D3A388A02C7A339F0059C3BB /* CalendarInputView.swift */,
 				D3A388A72C7B56090059C3BB /* GIFImageView.swift */,
 				D3A388BA2C7CBFDB0059C3BB /* CustomAlertView.swift */,
+				D3A388CB2C89FABB0059C3BB /* CalendarScrollView.swift */,
+				D3A388D12C8A04230059C3BB /* TimePickerView.swift */,
+				D3A388D32C8B605E0059C3BB /* TextEditorWithPlaceholderView.swift */,
 			);
 			path = customView;
 			sourceTree = "<group>";
@@ -226,7 +243,10 @@
 		D3A388AF2C7B7DDD0059C3BB /* diary */ = {
 			isa = PBXGroup;
 			children = (
+				D3A388D52C8B6E330059C3BB /* result */,
 				D3A388B62C7B7E8A0059C3BB /* DiaryView.swift */,
+				D3A388C92C89F8F90059C3BB /* DiaryRandomSurveyView.swift */,
+				D3A388CD2C89FAE10059C3BB /* HistoryAddButtonView.swift */,
 			);
 			path = diary;
 			sourceTree = "<group>";
@@ -268,8 +288,17 @@
 			isa = PBXGroup;
 			children = (
 				D3A388C52C8430E20059C3BB /* RandomSurveyView.swift */,
+				D3A388CF2C8A02750059C3BB /* RandomSurveyCardView.swift */,
 			);
 			path = randomSurvey;
+			sourceTree = "<group>";
+		};
+		D3A388D52C8B6E330059C3BB /* result */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388D62C8B6E3D0059C3BB /* DiaryResultView.swift */,
+			);
+			path = result;
 			sourceTree = "<group>";
 		};
 		D3B19E1B2C14569D00049383 = {
@@ -389,6 +418,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3A388C82C843E9D0059C3BB /* IntExtensions.swift in Sources */,
+				D3A388D02C8A02750059C3BB /* RandomSurveyCardView.swift in Sources */,
 				D3A388BB2C7CBFDB0059C3BB /* CustomAlertView.swift in Sources */,
 				D3A388C22C81B83F0059C3BB /* HomeViewModel.swift in Sources */,
 				D3A3884E2C726A30001CE3EA /* healthKitService.swift in Sources */,
@@ -403,20 +433,26 @@
 				D3A388532C726D1C001CE3EA /* CommonSelectButton.swift in Sources */,
 				D3B19E3C2C15C70E00049383 /* SceneDelegate.swift in Sources */,
 				D3A388B72C7B7E8A0059C3BB /* DiaryView.swift in Sources */,
+				D3A388CE2C89FAE10059C3BB /* HistoryAddButtonView.swift in Sources */,
+				D3A388CC2C89FABB0059C3BB /* CalendarScrollView.swift in Sources */,
 				D3A388A82C7B56090059C3BB /* GIFImageView.swift in Sources */,
 				D3A388B92C7B7E960059C3BB /* HomeView.swift in Sources */,
 				D3A3889F2C78F4C10059C3BB /* RadioButton.swift in Sources */,
 				D3B19E3A2C14CC4900049383 /* AppDelegate.swift in Sources */,
 				D3A388AD2C7B7AD70059C3BB /* AppTabBarView.swift in Sources */,
+				D3A388D22C8A04230059C3BB /* TimePickerView.swift in Sources */,
 				D3A388A62C7B52B50059C3BB /* AuthCompleteView.swift in Sources */,
 				D3A388B32C7B7E6B0059C3BB /* ProfileView.swift in Sources */,
 				D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */,
+				D3A388D72C8B6E3D0059C3BB /* DiaryResultView.swift in Sources */,
 				D3A388952C74E7CB0059C3BB /* FindIdView.swift in Sources */,
 				D3A388C62C8430E20059C3BB /* RandomSurveyView.swift in Sources */,
 				D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */,
 				D3A388622C73A558001CE3EA /* UIApplicationExtensions.swift in Sources */,
 				D3A3889D2C78F2390059C3BB /* CalendarView.swift in Sources */,
 				D3A388602C7398A4001CE3EA /* ViewExtension.swift in Sources */,
+				D3A388CA2C89F8F90059C3BB /* DiaryRandomSurveyView.swift in Sources */,
+				D3A388D42C8B605E0059C3BB /* TextEditorWithPlaceholderView.swift in Sources */,
 				D3A388BD2C7CCC430059C3BB /* NotificationExtensions.swift in Sources */,
 				D3A3885E2C73970D001CE3EA /* CommonInputView.swift in Sources */,
 				D3B19E372C148E0500049383 /* HealthKitService.swift in Sources */,

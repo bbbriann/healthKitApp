@@ -36,4 +36,13 @@ extension Color {
     static var mainColor: Color {
         return Color(hex: "#1068FD")
     }
+    
+    static func random(randomOpacity: Bool = false) -> Color {
+        Color(
+            red: .random(in: 0...1),
+            green: .random(in: 0...1),
+            blue: .random(in: 0...1),
+            opacity: randomOpacity ? .random(in: 0...1) : 1
+        )
+    }
 }

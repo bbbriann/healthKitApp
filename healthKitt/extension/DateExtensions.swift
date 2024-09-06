@@ -13,4 +13,10 @@ extension Date {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         return dateFormatter.string(from: self)
     }
+    
+    func toYYYYMMDDKRString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy년MM월dd일"
+        return dateFormatter.string(from: self)
+    }
 }
