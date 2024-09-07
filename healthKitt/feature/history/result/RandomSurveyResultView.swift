@@ -1,13 +1,13 @@
 //
-//  DiaryResultView.swift
+//  RandomSurveyResultView.swift
 //  healthKitt
 //
-//  Created by brian on 9/7/24.
+//  Created by brian on 9/8/24.
 //
 
 import SwiftUI
 
-struct DiaryResultView: View {
+struct RandomSurveyResultView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     @State var showBackAlert: Bool = false
@@ -27,7 +27,7 @@ struct DiaryResultView: View {
                                     .resizable()
                                     .frame(width: 24, height: 24)
                             }
-                            Text("식사 일기")
+                            Text("랜덤 설문")
                                 .font(.system(size: 20, weight: .bold))
                                 .foregroundColor(Color(hex: "#020C1C"))
                         }
@@ -67,7 +67,7 @@ struct DiaryResultView: View {
     var contentView: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 12) {
-                ForEach(0..<6) { index in
+                ForEach(0..<3) { index in
                     let title = getCardTitle(from: index)
                     DiaryResultCardView(cardIndex: index, title: title, content: "hihihihi")
                 }
@@ -87,64 +87,13 @@ struct DiaryResultView: View {
     private func getCardTitle(from index: Int) -> String {
         switch index {
         case 0:
-            return "음식을 먹기 전에 기분이 좋지 않았나요? (지루하거나 화나거나 스트레스 받는 등)"
+            return "지금 음식이 먹고 싶은가요?"
         case 1:
-            return "음식을 먹고 싶다는 생각에 사로 잡혔었나요?"
+            return "지금 기분이 어떤가요?"
         case 2:
-            return "절제가 되지 않아 생각했던 것 보다 더 많이 먹었나요?"
-        case 3:
-            return "음식을 먹고 난 후에도 음식이 먹고 싶었나요?"
-        case 4:
-            return "폭식 했다고 생각하시나요?"
-        case 5:
-            return "메모"
+            return "지금 스트레스를 받고 있나요?"
         default:
             return ""
         }
-    }
-}
-
-struct DiaryResultCardView: View {
-    let cardIndex: Int
-    let title: String
-    let content: String
-    
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            // 헤더
-            HStack(alignment: .center, spacing: 12) {
-                // 숫자
-                HStack(alignment: .center, spacing: 4) {
-                    Text((cardIndex + 1).toTwoDigits())
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(.white)
-                }
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(Color(hex: "#1068FD"))
-                .cornerRadius(8)
-                Text(title)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(Color(hex: "#020C1C"))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
-            .frame(maxWidth: .infinity, minHeight: 54, maxHeight: 64, alignment: .center)
-            .background(.white)
-            .border(width: 1, edges: [.bottom], color: .black.opacity(0.1))
-            VStack(alignment: .center) {
-                Text("매우 그렇다")
-                    .font(.system(size: 14, weight: .medium))
-                    .foregroundColor(Color(hex: "#020C1C"))
-            }
-            .padding(.horizontal, 20)
-            .padding(.vertical, 16)
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-        }
-        .frame(maxWidth: .infinity, alignment: .topLeading)
-        .background(.white)
-        .cornerRadius(12)
     }
 }
