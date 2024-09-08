@@ -1,14 +1,16 @@
 //
-//  HistoryView.swift
+//  PreviousHistoryView.swift
 //  healthKitt
 //
-//  Created by brian on 8/26/24.
+//  Created by brian on 9/8/24.
 //
 
 import Charts
 import SwiftUI
 
-struct HistoryView: View {
+struct PreviousHistoryView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.safeAreaInsets) private var safeAreaInsets
     @StateObject private var viewModel = HistoryViewModel()
     @State private var selectedDate = Date()
     @State private var selectedIndex: Int = 0
@@ -22,8 +24,15 @@ struct HistoryView: View {
         VStack {
             ZStack {
                 HStack {
-                    Spacer()
-                    Text("식사 일기")
+                    Button {
+                        NotificationCenter.default.post(Notification(name: .showTabBar))
+                        presentationMode.wrappedValue.dismiss()
+                    } label: {
+                        Image("IcBackBtnBlue")
+                            .resizable()
+                            .frame(width: 24, height: 24)
+                    }
+                    Text("지난 기록")
                         .font(.system(size: 20, weight: .bold))
                         .foregroundColor(.black)
                     Spacer()
@@ -42,7 +51,7 @@ struct HistoryView: View {
                         }
                         .frame(maxWidth: .infinity)
                     }
-                    .padding(.bottom, 130)
+                    .padding(.bottom, safeAreaInsets.bottom)
                     .frame(maxWidth: .infinity)
                 }
                 .padding(.horizontal, 24)
@@ -61,6 +70,9 @@ struct HistoryView: View {
         .ignoresSafeArea(edges: .bottom)
         .navigationBarTitle("")
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            NotificationCenter.default.post(Notification(name: .hideTabBar))
+        }
     }
     
     var randomChartView: some View {

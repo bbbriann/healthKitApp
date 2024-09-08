@@ -16,6 +16,8 @@ struct HomeView: View {
     
     @State private var showRandomSurveyView: Bool = false
     
+    @State private var showPreviousHistoryView: Bool = false
+    
     
     var body: some View {
         ZStack {
@@ -88,6 +90,8 @@ struct HomeView: View {
                                         do {}
                                     case .survey:
                                         showSurveyGuideSheet.toggle()
+                                    case .surveyFinish:
+                                        do {}
                                     }
                                 } label: {
                                     HStack(alignment: .center, spacing: 4) {
@@ -232,6 +236,63 @@ struct HomeView: View {
                             NavigationLink(destination: RandomSurveyView(), isActive: $showRandomSurveyView) {
                                 EmptyView()
                             }
+                        case .surveyFinish:
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text("휴대폰 데이터를 이용한 섭식장애 증상\n예측 연구")
+                                    .font(.system(size: 16, weight: .bold))
+                                    .foregroundColor(Color(hex: "#020C1C"))
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                VStack(alignment: .leading, spacing: 16) {
+                                    VStack(alignment: .leading, spacing: 0) {
+                                        HStack(alignment: .center) {
+                                            Text("총 연구 기간 (6주):")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(Color(hex: "#020C1C"))
+                                            
+                                            Text("2024.06.13 ~ 2024.07.25")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(Color(hex: "#020C1C"))
+                                        }
+                                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                                        
+                                        HStack(alignment: .center) {
+                                            Text("이용 기간 (3주):")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(Color(hex: "#020C1C"))
+                                            
+                                            Text("2024.06.13 ~ 2024.07.04")
+                                                .font(.system(size: 14))
+                                                .foregroundColor(Color(hex: "#020C1C"))
+                                        }
+                                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                                    }
+                                    .frame(maxWidth: .infinity, alignment: .topLeading)
+                                    
+                                    // Body/14px/Medium
+                                    Text("이용 기간 동안 수집된 휴대폰 데이터와 설문을 바탕으로 섭식장애 증상을 예측 하는 연구를 진행합니다")
+                                        .font(.system(size: 14, weight: .medium))
+                                        .foregroundColor(Color(hex: "#020C1C"))
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .topLeading)
+                                Button {
+                                    showPreviousHistoryView.toggle()
+                                } label: {
+                                    CommonSelectButton(title: "지난 기록 보기",
+                                                       titleColor: .white,
+                                                       bgColor: Color(hex: "#1068FD"),
+                                                       cornerRadius: 16)
+//                                    .padding(.horizontal, 20)
+                                }
+                            }
+                            .padding(.horizontal, 20)
+                            .padding(.top, 20)
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                            
+                            NavigationLink(destination: PreviousHistoryView(), isActive: $showPreviousHistoryView) {
+                                EmptyView()
+                            }
                         }
                     }
                     .padding(.bottom, viewModel.bottomPadding)
@@ -343,7 +404,7 @@ struct ResearchInfoSheetView: View {
                     HStack(alignment: .center, spacing: 10) {
                         Text("2024.06.13 ~ 2024.07.04")
                             .font(.system(size: 12, weight: .medium))
-                          .foregroundColor(Color(hex: "#006EEF"))
+                            .foregroundColor(Color(hex: "#006EEF"))
                     }
                     .padding(.horizontal, 12)
                     .padding(.vertical, 6)
@@ -367,8 +428,8 @@ struct ResearchInfoSheetView: View {
             .tabViewStyle(.page(indexDisplayMode: .automatic)) // 캐러셀 스타일 적용
             .indexViewStyle(.page)
             .onAppear {
-                  setupAppearance()
-                }
+                setupAppearance()
+            }
             Color.clear
                 .frame(height: 32)
             
@@ -388,9 +449,9 @@ struct ResearchInfoSheetView: View {
     }
     
     private func setupAppearance() {
-       UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color(hex: "#1068FD"))
-       UIPageControl.appearance().pageIndicatorTintColor = UIColor(Color(hex: "#E3E5E5"))
-     }
+        UIPageControl.appearance().currentPageIndicatorTintColor = UIColor(Color(hex: "#1068FD"))
+        UIPageControl.appearance().pageIndicatorTintColor = UIColor(Color(hex: "#E3E5E5"))
+    }
 }
 
 

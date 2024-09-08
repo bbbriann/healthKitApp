@@ -13,6 +13,7 @@ enum HomeState: String, CaseIterable, Identifiable {
     case readyToStart
     case noSurvey
     case survey
+    case surveyFinish
 }
 
 final class HomeViewModel: ObservableObject {
@@ -29,6 +30,8 @@ final class HomeViewModel: ObservableObject {
             return 32
         case .survey:
             return 15
+        case .surveyFinish:
+            return 20
         }
     }
     
@@ -41,6 +44,8 @@ final class HomeViewModel: ObservableObject {
         case .noSurvey:
             return false
         case .survey:
+            return true
+        case .surveyFinish:
             return true
         }
     }
@@ -55,6 +60,8 @@ final class HomeViewModel: ObservableObject {
             return ""
         case .survey:
             return "작성 방법"
+        case .surveyFinish:
+            return "이용 종료"
         }
     }
 }
