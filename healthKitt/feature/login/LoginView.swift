@@ -10,8 +10,10 @@ import SwiftUI
 struct LoginView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
-    @State private var email: String = ""
-    @State private var pw: String = ""
+//    @State private var email: String = ""
+//    @State private var pw: String = ""
+    
+    @StateObject private var viewModel = AuthViewModel()
     
     var body: some View {
         VStack {
@@ -53,19 +55,19 @@ struct LoginView: View {
                     .foregroundColor(Color(hex: "#020C1C"))
                     .frame(width: 345, alignment: .topLeading)
                 VStack(spacing: 12) {
-                    CommonInputView(text: $email, image: "IcEmail", placeholder: "이메일 입력")
-                    CommonInputView(text: $pw, image: "IcPW",
+                    CommonInputView(text: $viewModel.email, image: "IcEmail", placeholder: "이메일 입력")
+                    CommonInputView(text: $viewModel.password, image: "IcPW",
                                     placeholder: "비밀번호 입력", isSecure: true)
                 }
                 
                 Spacer()
                 Button {
-                    NotificationCenter.default.post(Notification(name: .loggedIn))
+                    viewModel.login()
                 } label: {
                     CommonSelectButton(title: "로그인",
                                        titleColor: .white,
                                        bgColor: nextButtonBGColor)
-                    .disabled(email.isEmpty || pw.isEmpty)
+                    .disabled(disabledState)
                     .padding(.bottom, safeAreaInsets.bottom)
                 }
             }
@@ -79,6 +81,10 @@ struct LoginView: View {
     }
     
     var nextButtonBGColor: Color {
-        return Color(hex: "#1068FD").opacity(email.isEmpty ? 0.2 : 1.0)
+        return Color(hex: "#1068FD").opacity(viewModel.email.isEmpty ? 0.2 : 1.0)
+    }
+    
+    private var disabledState: Bool {
+        viewModel.email.isEmpty || viewModel.password.isEmpty
     }
 }

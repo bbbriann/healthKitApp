@@ -50,6 +50,10 @@
 		D3A388DE2C8CB8650059C3BB /* RandomSurveyResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388DD2C8CB8650059C3BB /* RandomSurveyResultView.swift */; };
 		D3A388E02C8CBB3F0059C3BB /* HistoryResultCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388DF2C8CBB3F0059C3BB /* HistoryResultCardView.swift */; };
 		D3A388E32C8DE7C30059C3BB /* PreviousHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388E22C8DE7C30059C3BB /* PreviousHistoryView.swift */; };
+		D3A388E62C8F639B0059C3BB /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388E52C8F639B0059C3BB /* APIClient.swift */; };
+		D3A388E92C8F64620059C3BB /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388E82C8F64620059C3BB /* AuthInteractor.swift */; };
+		D3A388EB2C8F64820059C3BB /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388EA2C8F64820059C3BB /* AuthViewModel.swift */; };
+		D3A388ED2C8F68790059C3BB /* UserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388EC2C8F68790059C3BB /* UserDefaultsExtensions.swift */; };
 		D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E272C14569E00049383 /* healthKittApp.swift */; };
 		D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E292C14569E00049383 /* OnboardingView.swift */; };
 		D3B19E2C2C14569E00049383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B19E2B2C14569E00049383 /* Assets.xcassets */; };
@@ -103,6 +107,10 @@
 		D3A388DD2C8CB8650059C3BB /* RandomSurveyResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyResultView.swift; sourceTree = "<group>"; };
 		D3A388DF2C8CBB3F0059C3BB /* HistoryResultCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryResultCardView.swift; sourceTree = "<group>"; };
 		D3A388E22C8DE7C30059C3BB /* PreviousHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousHistoryView.swift; sourceTree = "<group>"; };
+		D3A388E52C8F639B0059C3BB /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		D3A388E82C8F64620059C3BB /* AuthInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
+		D3A388EA2C8F64820059C3BB /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		D3A388EC2C8F68790059C3BB /* UserDefaultsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensions.swift; sourceTree = "<group>"; };
 		D3B19E242C14569E00049383 /* healthKitt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthKitt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B19E272C14569E00049383 /* healthKittApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthKittApp.swift; sourceTree = "<group>"; };
 		D3B19E292C14569E00049383 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -180,6 +188,7 @@
 				D3A388A22C7B17580059C3BB /* DateExtensions.swift */,
 				D3A388BC2C7CCC430059C3BB /* NotificationExtensions.swift */,
 				D3A388C72C843E9D0059C3BB /* IntExtensions.swift */,
+				D3A388EC2C8F68790059C3BB /* UserDefaultsExtensions.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -188,6 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				D3A3885B2C727704001CE3EA /* LoginView.swift */,
+				D3A388E82C8F64620059C3BB /* AuthInteractor.swift */,
+				D3A388EA2C8F64820059C3BB /* AuthViewModel.swift */,
 			);
 			path = login;
 			sourceTree = "<group>";
@@ -332,6 +343,14 @@
 			path = previousHistory;
 			sourceTree = "<group>";
 		};
+		D3A388E42C8F638C0059C3BB /* API */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388E52C8F639B0059C3BB /* APIClient.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		D3B19E1B2C14569D00049383 = {
 			isa = PBXGroup;
 			children = (
@@ -354,6 +373,7 @@
 				D3A388542C726D53001CE3EA /* extension */,
 				D3A388512C726CF0001CE3EA /* util */,
 				D3A3884F2C726A76001CE3EA /* feature */,
+				D3A388E42C8F638C0059C3BB /* API */,
 				D3A3884C2C726A18001CE3EA /* service */,
 				D3B19E382C14BAB400049383 /* Info.plist */,
 				D3B19E352C146A5500049383 /* healthKitt.entitlements */,
@@ -459,6 +479,7 @@
 				D3A388DE2C8CB8650059C3BB /* RandomSurveyResultView.swift in Sources */,
 				D3A388A12C7A339F0059C3BB /* CalendarInputView.swift in Sources */,
 				D3A388C02C7CD4620059C3BB /* ResearchInfoView.swift in Sources */,
+				D3A388ED2C8F68790059C3BB /* UserDefaultsExtensions.swift in Sources */,
 				D3A388992C74F6150059C3BB /* BindingExtensions.swift in Sources */,
 				D3A388A32C7B17580059C3BB /* DateExtensions.swift in Sources */,
 				D3A3889B2C7501D40059C3BB /* SignUpViewModel.swift in Sources */,
@@ -468,6 +489,7 @@
 				D3A388B72C7B7E8A0059C3BB /* DiaryView.swift in Sources */,
 				D3A388CE2C89FAE10059C3BB /* HistoryAddButtonView.swift in Sources */,
 				D3A388CC2C89FABB0059C3BB /* CalendarScrollView.swift in Sources */,
+				D3A388EB2C8F64820059C3BB /* AuthViewModel.swift in Sources */,
 				D3A388D92C8C4DA60059C3BB /* CustomSegmentedControl.swift in Sources */,
 				D3A388A82C7B56090059C3BB /* GIFImageView.swift in Sources */,
 				D3A388B92C7B7E960059C3BB /* HomeView.swift in Sources */,
@@ -478,11 +500,13 @@
 				D3A388E02C8CBB3F0059C3BB /* HistoryResultCardView.swift in Sources */,
 				D3A388A62C7B52B50059C3BB /* AuthCompleteView.swift in Sources */,
 				D3A388B32C7B7E6B0059C3BB /* ProfileView.swift in Sources */,
+				D3A388E92C8F64620059C3BB /* AuthInteractor.swift in Sources */,
 				D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */,
 				D3A388D72C8B6E3D0059C3BB /* DiaryResultView.swift in Sources */,
 				D3A388952C74E7CB0059C3BB /* FindIdView.swift in Sources */,
 				D3A388C62C8430E20059C3BB /* RandomSurveyView.swift in Sources */,
 				D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */,
+				D3A388E62C8F639B0059C3BB /* APIClient.swift in Sources */,
 				D3A388622C73A558001CE3EA /* UIApplicationExtensions.swift in Sources */,
 				D3A3889D2C78F2390059C3BB /* CalendarView.swift in Sources */,
 				D3A388602C7398A4001CE3EA /* ViewExtension.swift in Sources */,

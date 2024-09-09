@@ -18,7 +18,7 @@ struct healthKittApp: App {
     @UIApplicationDelegateAdaptor var delegate: AppDelegate
     @State private var path: [StackViewType] = []
     
-    @State private var isLoogedIn: Bool = true
+    @State private var isLoogedIn: Bool = UserDefaults.standard.accessToken != nil
     
     init() {
         customozieNavigationBar()

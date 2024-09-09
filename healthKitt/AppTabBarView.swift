@@ -65,6 +65,7 @@ struct AppTabBarView: View {
                         },
                         onConfirm: {
                             showLogoutAlert = false
+                            UserDefaults.standard.clearTokens()
                             NotificationCenter.default.post(Notification(name: .loggedOut))
                         }
                     )
