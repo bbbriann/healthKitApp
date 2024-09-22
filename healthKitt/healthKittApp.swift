@@ -20,6 +20,8 @@ struct healthKittApp: App {
     
     @State private var isLoogedIn: Bool = UserDefaults.standard.accessToken != nil
     
+    @StateObject private var viewModel = AppStateViewModel()
+    
     init() {
         customozieNavigationBar()
     }
@@ -40,7 +42,11 @@ struct healthKittApp: App {
         WindowGroup {
             Group {
                 if isLoogedIn {
-                    AppTabBarView()
+                    if viewModel.isLoading {
+                        Spinner()
+                    } else {
+                        AppTabBarView()
+                    }
                 } else {
                     NavigationStack(path: $path) {
                         OnboardingView(path: $path)

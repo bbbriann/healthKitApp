@@ -54,6 +54,9 @@
 		D3A388E92C8F64620059C3BB /* AuthInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388E82C8F64620059C3BB /* AuthInteractor.swift */; };
 		D3A388EB2C8F64820059C3BB /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388EA2C8F64820059C3BB /* AuthViewModel.swift */; };
 		D3A388ED2C8F68790059C3BB /* UserDefaultsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388EC2C8F68790059C3BB /* UserDefaultsExtensions.swift */; };
+		D3A388EF2C933FD00059C3BB /* HomeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388EE2C933FD00059C3BB /* HomeInteractor.swift */; };
+		D3A388F12C93505B0059C3BB /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388F02C93505B0059C3BB /* Spinner.swift */; };
+		D3A388F32C9350B10059C3BB /* AppStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388F22C9350B10059C3BB /* AppStateViewModel.swift */; };
 		D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E272C14569E00049383 /* healthKittApp.swift */; };
 		D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E292C14569E00049383 /* OnboardingView.swift */; };
 		D3B19E2C2C14569E00049383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3B19E2B2C14569E00049383 /* Assets.xcassets */; };
@@ -61,6 +64,11 @@
 		D3B19E372C148E0500049383 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E362C148E0500049383 /* HealthKitService.swift */; };
 		D3B19E3A2C14CC4900049383 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E392C14CC4900049383 /* AppDelegate.swift */; };
 		D3B19E3C2C15C70E00049383 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E3B2C15C70E00049383 /* SceneDelegate.swift */; };
+		D3F420242CA00BD200C2BB24 /* FindIdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F420232CA00BD200C2BB24 /* FindIdViewModel.swift */; };
+		D3F420262CA00C1700C2BB24 /* FindIdInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F420252CA00C1700C2BB24 /* FindIdInteractor.swift */; };
+		D3F420282CA084D900C2BB24 /* RandomSurveyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F420272CA084D900C2BB24 /* RandomSurveyViewModel.swift */; };
+		D3F4202A2CA084E000C2BB24 /* RandomSurveyInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F420292CA084E000C2BB24 /* RandomSurveyInteractor.swift */; };
+		D3F4202C2CA0917E00C2BB24 /* RandomSurveyCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F4202B2CA0917E00C2BB24 /* RandomSurveyCompleteView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +119,9 @@
 		D3A388E82C8F64620059C3BB /* AuthInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthInteractor.swift; sourceTree = "<group>"; };
 		D3A388EA2C8F64820059C3BB /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		D3A388EC2C8F68790059C3BB /* UserDefaultsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExtensions.swift; sourceTree = "<group>"; };
+		D3A388EE2C933FD00059C3BB /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
+		D3A388F02C93505B0059C3BB /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
+		D3A388F22C9350B10059C3BB /* AppStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateViewModel.swift; sourceTree = "<group>"; };
 		D3B19E242C14569E00049383 /* healthKitt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthKitt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B19E272C14569E00049383 /* healthKittApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthKittApp.swift; sourceTree = "<group>"; };
 		D3B19E292C14569E00049383 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
@@ -121,6 +132,11 @@
 		D3B19E382C14BAB400049383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D3B19E392C14CC4900049383 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3B19E3B2C15C70E00049383 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D3F420232CA00BD200C2BB24 /* FindIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdViewModel.swift; sourceTree = "<group>"; };
+		D3F420252CA00C1700C2BB24 /* FindIdInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdInteractor.swift; sourceTree = "<group>"; };
+		D3F420272CA084D900C2BB24 /* RandomSurveyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyViewModel.swift; sourceTree = "<group>"; };
+		D3F420292CA084E000C2BB24 /* RandomSurveyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyInteractor.swift; sourceTree = "<group>"; };
+		D3F4202B2CA0917E00C2BB24 /* RandomSurveyCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyCompleteView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +172,7 @@
 				D3A388582C72767F001CE3EA /* signUp */,
 				D3A388572C727676001CE3EA /* login */,
 				D3A388502C726A7D001CE3EA /* Onboarding */,
+				D3A388F22C9350B10059C3BB /* AppStateViewModel.swift */,
 			);
 			path = feature;
 			sourceTree = "<group>";
@@ -226,6 +243,7 @@
 				D3A388D12C8A04230059C3BB /* TimePickerView.swift */,
 				D3A388D32C8B605E0059C3BB /* TextEditorWithPlaceholderView.swift */,
 				D3A388D82C8C4DA60059C3BB /* CustomSegmentedControl.swift */,
+				D3A388F02C93505B0059C3BB /* Spinner.swift */,
 			);
 			path = customView;
 			sourceTree = "<group>";
@@ -234,6 +252,8 @@
 			isa = PBXGroup;
 			children = (
 				D3A388942C74E7CB0059C3BB /* FindIdView.swift */,
+				D3F420232CA00BD200C2BB24 /* FindIdViewModel.swift */,
+				D3F420252CA00C1700C2BB24 /* FindIdInteractor.swift */,
 			);
 			path = findId;
 			sourceTree = "<group>";
@@ -259,6 +279,7 @@
 			children = (
 				D3A388B82C7B7E960059C3BB /* HomeView.swift */,
 				D3A388C12C81B83F0059C3BB /* HomeViewModel.swift */,
+				D3A388EE2C933FD00059C3BB /* HomeInteractor.swift */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -314,6 +335,9 @@
 			children = (
 				D3A388C52C8430E20059C3BB /* RandomSurveyView.swift */,
 				D3A388CF2C8A02750059C3BB /* RandomSurveyCardView.swift */,
+				D3F420272CA084D900C2BB24 /* RandomSurveyViewModel.swift */,
+				D3F420292CA084E000C2BB24 /* RandomSurveyInteractor.swift */,
+				D3F4202B2CA0917E00C2BB24 /* RandomSurveyCompleteView.swift */,
 			);
 			path = randomSurvey;
 			sourceTree = "<group>";
@@ -472,9 +496,11 @@
 				D3A388D02C8A02750059C3BB /* RandomSurveyCardView.swift in Sources */,
 				D3A388BB2C7CBFDB0059C3BB /* CustomAlertView.swift in Sources */,
 				D3A388C22C81B83F0059C3BB /* HomeViewModel.swift in Sources */,
+				D3F420282CA084D900C2BB24 /* RandomSurveyViewModel.swift in Sources */,
 				D3A3884E2C726A30001CE3EA /* healthKitService.swift in Sources */,
 				D3A388972C74EFDD0059C3BB /* ResetPWView.swift in Sources */,
 				D3A388652C73AFDE001CE3EA /* BackButtonView.swift in Sources */,
+				D3A388EF2C933FD00059C3BB /* HomeInteractor.swift in Sources */,
 				D3A388E32C8DE7C30059C3BB /* PreviousHistoryView.swift in Sources */,
 				D3A388DE2C8CB8650059C3BB /* RandomSurveyResultView.swift in Sources */,
 				D3A388A12C7A339F0059C3BB /* CalendarInputView.swift in Sources */,
@@ -482,9 +508,11 @@
 				D3A388ED2C8F68790059C3BB /* UserDefaultsExtensions.swift in Sources */,
 				D3A388992C74F6150059C3BB /* BindingExtensions.swift in Sources */,
 				D3A388A32C7B17580059C3BB /* DateExtensions.swift in Sources */,
+				D3A388F12C93505B0059C3BB /* Spinner.swift in Sources */,
 				D3A3889B2C7501D40059C3BB /* SignUpViewModel.swift in Sources */,
 				D3A388B52C7B7E7C0059C3BB /* HistoryView.swift in Sources */,
 				D3A388532C726D1C001CE3EA /* CommonSelectButton.swift in Sources */,
+				D3F420242CA00BD200C2BB24 /* FindIdViewModel.swift in Sources */,
 				D3B19E3C2C15C70E00049383 /* SceneDelegate.swift in Sources */,
 				D3A388B72C7B7E8A0059C3BB /* DiaryView.swift in Sources */,
 				D3A388CE2C89FAE10059C3BB /* HistoryAddButtonView.swift in Sources */,
@@ -493,11 +521,13 @@
 				D3A388D92C8C4DA60059C3BB /* CustomSegmentedControl.swift in Sources */,
 				D3A388A82C7B56090059C3BB /* GIFImageView.swift in Sources */,
 				D3A388B92C7B7E960059C3BB /* HomeView.swift in Sources */,
+				D3F4202A2CA084E000C2BB24 /* RandomSurveyInteractor.swift in Sources */,
 				D3A3889F2C78F4C10059C3BB /* RadioButton.swift in Sources */,
 				D3B19E3A2C14CC4900049383 /* AppDelegate.swift in Sources */,
 				D3A388AD2C7B7AD70059C3BB /* AppTabBarView.swift in Sources */,
 				D3A388D22C8A04230059C3BB /* TimePickerView.swift in Sources */,
 				D3A388E02C8CBB3F0059C3BB /* HistoryResultCardView.swift in Sources */,
+				D3A388F32C9350B10059C3BB /* AppStateViewModel.swift in Sources */,
 				D3A388A62C7B52B50059C3BB /* AuthCompleteView.swift in Sources */,
 				D3A388B32C7B7E6B0059C3BB /* ProfileView.swift in Sources */,
 				D3A388E92C8F64620059C3BB /* AuthInteractor.swift in Sources */,
@@ -509,11 +539,13 @@
 				D3A388E62C8F639B0059C3BB /* APIClient.swift in Sources */,
 				D3A388622C73A558001CE3EA /* UIApplicationExtensions.swift in Sources */,
 				D3A3889D2C78F2390059C3BB /* CalendarView.swift in Sources */,
+				D3F4202C2CA0917E00C2BB24 /* RandomSurveyCompleteView.swift in Sources */,
 				D3A388602C7398A4001CE3EA /* ViewExtension.swift in Sources */,
 				D3A388DB2C8CB0FC0059C3BB /* HistoryViewModel.swift in Sources */,
 				D3A388CA2C89F8F90059C3BB /* DiaryRandomSurveyView.swift in Sources */,
 				D3A388D42C8B605E0059C3BB /* TextEditorWithPlaceholderView.swift in Sources */,
 				D3A388BD2C7CCC430059C3BB /* NotificationExtensions.swift in Sources */,
+				D3F420262CA00C1700C2BB24 /* FindIdInteractor.swift in Sources */,
 				D3A3885E2C73970D001CE3EA /* CommonInputView.swift in Sources */,
 				D3B19E372C148E0500049383 /* HealthKitService.swift in Sources */,
 				D3A3885A2C727691001CE3EA /* SignUpView.swift in Sources */,

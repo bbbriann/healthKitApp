@@ -3,4 +3,54 @@
    uuid = "4C2BACCD-8079-41E4-BBC9-F1800522A4D1"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C285FDAF-BE35-4B2B-9D6B-4E2F1CD14176"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "healthKitt/feature/login/AuthViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
+            landmarkName = "fetchUserInfo()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C285FDAF-BE35-4B2B-9D6B-4E2F1CD14176 - d272fe14078f5e29"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "healthKitt.AuthViewModel.fetchUserInfo() -&gt; ()"
+                  moduleName = "healthKitt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brian/Documents/Workspace/Work/healthKitt/healthKitt/feature/login/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "380">
+               </Location>
+               <Location
+                  uuid = "C285FDAF-BE35-4B2B-9D6B-4E2F1CD14176 - 22e2a37f51a896d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (healthKitt.UserInfo) -&gt; () in healthKitt.AuthViewModel.fetchUserInfo() -&gt; ()"
+                  moduleName = "healthKitt"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brian/Documents/Workspace/Work/healthKitt/healthKitt/feature/login/AuthViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "101"
+                  endingLineNumber = "101"
+                  offsetFromSymbolStart = "908">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

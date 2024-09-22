@@ -17,12 +17,14 @@ struct AppTabBarView: View {
     @State private var showLogoutAlert = false
     @State private var showTabBar = true
     
+    @State private var homePath: [HomeViewStack] = []
+    
     var body: some View {
         ZStack {
             TabView(selection: $selected) {
                 Group {
-                    NavigationStack {
-                        HomeView()
+                    NavigationStack(path: $homePath) {
+                        HomeView(path: $homePath)
                     }
                     .tag(Tab.home)
                     
@@ -207,20 +209,8 @@ struct AppTabBarView: View {
     }
 }
 
-struct AView: View {
-    var body: some View {
-        Text("View A")
-    }
-}
-
-struct BView: View {
-    var body: some View {
-        Text("View B")
-    }
-}
-
-struct CView: View {
-    var body: some View {
-        Text("View C")
-    }
+enum HomeViewStack {
+    case home
+    case survey
+    case surveyComplete
 }

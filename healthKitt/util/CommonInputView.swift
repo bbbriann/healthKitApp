@@ -24,9 +24,9 @@ enum SpecificType {
     case birth
 }
 
-enum Gender {
-    case male
-    case female
+enum Gender: String {
+    case male = "MALE"
+    case female = "FEMALE"
 }
 
 struct CommonInputView: View {

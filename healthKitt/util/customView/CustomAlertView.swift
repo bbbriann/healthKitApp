@@ -3,6 +3,7 @@ import SwiftUI
 struct CustomAlertView: View {
     var title: String
     var message: String
+    var onlyConfirm: Bool = false
     var onCancel: () -> Void
     var onConfirm: () -> Void
     
@@ -18,35 +19,56 @@ struct CustomAlertView: View {
                     .foregroundColor(Color(hex: "#020C1C"))
             }
             
-            HStack(spacing: 12) {
-                Button {
-                    onConfirm()
-                } label: {
-                    HStack(alignment: .center) {
-                        Text("종료")
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(Color(hex: "#DA072D"))
+            if onlyConfirm {
+                HStack(spacing: 12) {
+                    Spacer()
+                    Button {
+                        onConfirm()
+                    } label: {
+                        HStack(alignment: .center) {
+                            Text("종료")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(Color(hex: "#DA072D"))
+                        }
+                        .padding(.vertical, 12)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .background(Color(hex: "#FDECEF"))
+                        .cornerRadius(22)
                     }
-                    .padding(.vertical, 12)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .background(Color(hex: "#FDECEF"))
-                    .cornerRadius(22)
+                    Spacer()
                 }
-                
-                Button {
-                    onCancel()
-                } label: {
-                    HStack(alignment: .center) {
-                        Text("취소")
-                            .font(.system(size: 14, weight: .medium))
-                            .foregroundColor(Color.white)
+            } else {
+                HStack(spacing: 12) {
+                    Button {
+                        onConfirm()
+                    } label: {
+                        HStack(alignment: .center) {
+                            Text("종료")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(Color(hex: "#DA072D"))
+                        }
+                        .padding(.vertical, 12)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .background(Color(hex: "#FDECEF"))
+                        .cornerRadius(22)
                     }
-                    .padding(.vertical, 12)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .background(Color(hex: "#1068FD"))
-                    .cornerRadius(22)
+                    
+                    Button {
+                        onCancel()
+                    } label: {
+                        HStack(alignment: .center) {
+                            Text("취소")
+                                .font(.system(size: 14, weight: .medium))
+                                .foregroundColor(Color.white)
+                        }
+                        .padding(.vertical, 12)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .background(Color(hex: "#1068FD"))
+                        .cornerRadius(22)
+                    }
                 }
             }
+            
         }
         .padding(24)
         .background(Color.white)

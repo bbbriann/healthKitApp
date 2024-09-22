@@ -10,25 +10,54 @@ import SwiftUI
 struct FindIdView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
-    @State private var phone: String = ""
     
     @State private var showBottomSheet: Bool = false
     @State private var bottomSheetHeight: CGFloat = 0
     
+    @StateObject private var viewModel = FindIdViewModel()
+    
     var body: some View {
-        VStack {
-            Spacer(minLength: 61)
-            ZStack {
-                Rectangle()
-                    .fill(.white.opacity(0.2))
-                    .cornerRadius(24)
-                    .rotationEffect(Angle(degrees: -4))
-                contentView
-                    .cornerRadius(24)
+        ZStack {
+            if viewModel.isLoading {
+                Spinner()
+            } else {
+                VStack {
+                    Spacer(minLength: 61)
+                    ZStack {
+                        Rectangle()
+                            .fill(.white.opacity(0.2))
+                            .cornerRadius(24)
+                            .rotationEffect(Angle(degrees: -4))
+                        contentView
+                            .cornerRadius(24)
+                    }
+                }
+                .background(Color(hex: "#1068FD"))
+                .frame(maxHeight: .infinity)
+                
+                
+                
+                if viewModel.emptyResult {
+                    ZStack {
+                        Color.black.opacity(0.4) // 반투명한 배경
+                            .ignoresSafeArea()
+                        
+                        CustomAlertView(
+                            title: "오류",
+                            message: "일치하는 전화번호가 없습니다.\n다시 시도해주세요.",
+                            onlyConfirm: true,
+                            onCancel: { },
+                            onConfirm: {
+                                viewModel.emptyResult.toggle()
+                            }
+                        )
+                        .padding(.horizontal, 24)
+                        .transition(.scale)
+                        .zIndex(1)
+                    }
+                }
             }
         }
-        .background(Color(hex: "#1068FD"))
-        .frame(maxHeight: .infinity)
         .ignoresSafeArea(edges: .bottom)
         .navigationBarTitle("아이디 찾기")
         .navigationBarBackButtonHidden(true)
@@ -39,10 +68,14 @@ struct FindIdView: View {
         }
         .sheet(isPresented: $showBottomSheet, content: {
             // 작성 방법 시트
-            FindIdResultView(height: $bottomSheetHeight)
+            FindIdResultView(email: viewModel.foundEmail, height: $bottomSheetHeight)
                 .presentationDetents([.height(240)])
                 .presentationDragIndicator(.visible)
         })
+        .onChange(of: viewModel.foundEmail) { oldValue, newValue in
+            guard !newValue.isEmpty else { return }
+            showBottomSheet.toggle()
+        }
     }
     
     var backButton: some View {
@@ -61,17 +94,17 @@ struct FindIdView: View {
                     .foregroundColor(Color(hex: "#020C1C"))
                     .frame(width: 345, alignment: .topLeading)
                 VStack(spacing: 12) {
-                    CommonInputView(text: $phone, image: "IcPhone", placeholder: "휴대폰 번호 입력")
+                    CommonInputView(text: $viewModel.phone, image: "IcPhone", placeholder: "휴대폰 번호 입력")
                 }
                 
                 Spacer()
                 Button {
-                    showBottomSheet.toggle()
+                    viewModel.searchId()
                 } label: {
                     CommonSelectButton(title: "확인",
                                        titleColor: .white,
                                        bgColor: nextButtonBGColor)
-                    .disabled(phone.isEmpty)
+                    .disabled(viewModel.phone.isEmpty)
                     .padding(.bottom, safeAreaInsets.bottom)
                 }
             }
@@ -85,13 +118,14 @@ struct FindIdView: View {
     }
     
     var nextButtonBGColor: Color {
-        return Color(hex: "#1068FD").opacity(phone.isEmpty ? 0.2 : 1.0)
+        return Color(hex: "#1068FD").opacity(viewModel.phone.isEmpty ? 0.2 : 1.0)
     }
 }
 
 
 struct FindIdResultView: View {
     @Environment(\.presentationMode) var presentationMode
+    var email: String
     @Binding var height: CGFloat
     
     var body: some View {
@@ -106,7 +140,7 @@ struct FindIdResultView: View {
                 Text("등록된 아이디는 ")
                     .font(.system(size: 16))
                     .foregroundColor(Color(hex: "#020C1C"))
-                Text("jennysbg1108@gmail.com")
+                Text(email)
                     .font(.system(size: 16))
                     .foregroundColor(Color(hex: "#020C1C"))
                 Spacer()

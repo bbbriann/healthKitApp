@@ -16,23 +16,27 @@ struct SignUpView: View {
     @State private var hasCompleted: Bool = false
     var body: some View {
         VStack {
-            Spacer(minLength: 61)
-            ZStack {
-                Rectangle()
-                    .fill(.white.opacity(0.2))
-                    .cornerRadius(24)
-                    .rotationEffect(Angle(degrees: -4))
-                contentView
-                    .cornerRadius(24)
-            }
-            .background {
-                NavigationLink(
-                    destination: AuthCompleteView(path: $path),
-                    isActive: $hasCompleted,
-                    label: {
-                        EmptyView() // 빈 뷰로 레이아웃에 표시되지 않도록 함
-                    }
-                )
+            if viewModel.isLoading {
+                Spinner()
+            } else {
+                Spacer(minLength: 61)
+                ZStack {
+                    Rectangle()
+                        .fill(.white.opacity(0.2))
+                        .cornerRadius(24)
+                        .rotationEffect(Angle(degrees: -4))
+                    contentView
+                        .cornerRadius(24)
+                }
+                .background {
+                    NavigationLink(
+                        destination: AuthCompleteView(path: $path),
+                        isActive: $hasCompleted,
+                        label: {
+                            EmptyView() // 빈 뷰로 레이아웃에 표시되지 않도록 함
+                        }
+                    )
+                }
             }
         }
         .background(Color(hex: "#1068FD"))
@@ -45,8 +49,8 @@ struct SignUpView: View {
                 backButton
             }
         }
-        .onChange(of: viewModel.step) { value in
-            guard value == .done else { return }
+        .onChange(of: viewModel.signUpFinished) { value in
+            guard value else { return }
             hasCompleted = true
         }
     }

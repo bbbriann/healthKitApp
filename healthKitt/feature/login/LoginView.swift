@@ -16,15 +16,53 @@ struct LoginView: View {
     @StateObject private var viewModel = AuthViewModel()
     
     var body: some View {
-        VStack {
-            Spacer(minLength: 61)
-            ZStack {
-                Rectangle()
-                    .fill(.white.opacity(0.2))
-                    .cornerRadius(24)
-                    .rotationEffect(Angle(degrees: -4))
-                contentView
-                    .cornerRadius(24)
+        ZStack {
+            if viewModel.isLoading {
+                Spinner()
+                    .background(Color(hex: "#1068FD"))
+                    .frame(maxHeight: .infinity)
+                    .ignoresSafeArea(edges: .bottom)
+                    .navigationBarTitle("")
+                    .navigationBarBackButtonHidden(true)
+            } else {
+                if viewModel.showError {
+                    ZStack {
+                        Color.black.opacity(0.4) // 반투명한 배경
+                            .ignoresSafeArea()
+                        
+                        CustomAlertView(
+                            title: "로그인 오류",
+                            message: "정보를 찾을 수 없습니다.\n이메일과 비밀번호를 확인하세요.",
+                            onlyConfirm: true,
+                            onCancel: { },
+                            onConfirm: {
+                                viewModel.showError.toggle()
+                            }
+                        )
+                        .padding(.horizontal, 24)
+                        .transition(.scale)
+                        .zIndex(1)
+                    }
+                    .navigationBarTitle("로그인")
+                    .navigationBarBackButtonHidden(true)
+//                    .toolbar {
+//                        ToolbarItemGroup(placement: .topBarLeading) {
+//                            backButton
+//                        }
+//                    }
+                } else {
+                    VStack {
+                        Spacer(minLength: 61)
+                        ZStack {
+                            Rectangle()
+                                .fill(.white.opacity(0.2))
+                                .cornerRadius(24)
+                                .rotationEffect(Angle(degrees: -4))
+                            contentView
+                                .cornerRadius(24)
+                        }
+                    }
+                }
             }
         }
         .background(Color(hex: "#1068FD"))

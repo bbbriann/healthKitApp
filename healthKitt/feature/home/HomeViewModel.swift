@@ -5,6 +5,7 @@
 //  Created by brian on 8/30/24.
 //
 
+import Combine
 import SwiftUI
 
 enum HomeState: String, CaseIterable, Identifiable {
@@ -18,7 +19,14 @@ enum HomeState: String, CaseIterable, Identifiable {
 
 final class HomeViewModel: ObservableObject {
     @Published var homeState: HomeState = .survey
-    init() { }
+    @Published var isLoading: Bool = false
+    @Published var study: Study?
+    private var cancellables = Set<AnyCancellable>()
+    private let interactor: HomeInteractor
+    
+    init(interactor: HomeInteractor = HomeInteractor()) {
+        self.interactor = interactor
+    }
     
     var bottomPadding: CGFloat {
         switch homeState {
@@ -63,5 +71,46 @@ final class HomeViewModel: ObservableObject {
         case .surveyFinish:
             return "이용 종료"
         }
+    }
+    
+    func fetchHomeData() {
+        isLoading = true
+        interactor.fetchStudies()
+            .sink(receiveCompletion: { [weak self] completion in
+                switch completion {
+                case .failure(let error):
+                    print("Error fetching initial data: \(error.localizedDescription)")
+                    self?.isLoading = false
+                case .finished:
+                    break
+                }
+            }, receiveValue: { res in
+                // API 호출 결과 처리
+                print("[TEST] res \(res)")
+                self.study = res.results.first?.study
+                if let result = res.results.first {
+                    UserDefaults.standard.studyId = result.study.ulid
+                    if result.status == "INVITED" {
+                        self.homeState = .notApproved
+                    } else {
+                        let surveyAgreed = UserDefaults.standard.surveyAgreed ?? false
+                        if surveyAgreed {
+                            self.homeState = .noSurvey
+                        } else {
+                            self.homeState = .readyToStart
+                        }
+                    }
+                }
+                self.isLoading = false
+            })
+            .store(in: &cancellables)
+    }
+    
+    var studyPeriod: String {
+        guard let start = study?.startDate, let endDate = study?.endDate else {
+            return ""
+        }
+        
+        return start + " - " + endDate
     }
 }

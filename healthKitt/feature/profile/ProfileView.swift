@@ -15,6 +15,10 @@ struct ProfileView: View {
     
     @State private var showResearchInfoView: Bool = false
     
+    private var user: UserInfo? {
+        return UserDefaults.standard.userInfo
+    }
+    
     var body: some View {
         VStack {
             ZStack {
@@ -115,7 +119,7 @@ struct ProfileView: View {
                         .foregroundColor(Color(hex: "#020C1C"))
                     Spacer()
                     // Alternative Views and Spacers
-                    Text("신보경")
+                    Text(userName)
                         .font(.system(size: 14))
                         .foregroundColor(Color(hex: "#020C1C"))
                 }
@@ -131,7 +135,7 @@ struct ProfileView: View {
                         .foregroundColor(Color(hex: "#020C1C"))
                     Spacer()
                     // Alternative Views and Spacers
-                    Text("010-1234-1234")
+                    Text(phoneNumber)
                         .font(.system(size: 14))
                         .foregroundColor(Color(hex: "#020C1C"))
                 }
@@ -147,7 +151,7 @@ struct ProfileView: View {
                         .foregroundColor(Color(hex: "#020C1C"))
                     Spacer()
                     // Alternative Views and Spacers
-                    Text("jennysbg1108@gmail.com")
+                    Text(user?.email ?? "")
                         .font(.system(size: 14))
                         .foregroundColor(Color(hex: "#020C1C"))
                 }
@@ -232,5 +236,15 @@ struct ProfileView: View {
             .cornerRadius(12)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
+    }
+    
+    private var userName: String {
+        let name = (user?.first_name ?? "")
+        return name
+    }
+    
+    private var phoneNumber: String {
+        let value = (user?.profile?.mobile_number ?? "")
+        return value
     }
 }
