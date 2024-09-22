@@ -34,11 +34,16 @@ enum SignUpStep: CaseIterable {
 }
 
 final class SignupViewModel: ObservableObject {
-    @Published var email: String = "ios@ios.com"
-    @Published var pw: String = "qwer1234"
-    @Published var pwConfirm: String = "qwer1234"
-    @Published var phoneNumber: String = "01027121828"
-    @Published var name: String = "최연구"
+    @Published var email: String = ""
+    @Published var pw: String = ""
+    @Published var pwConfirm: String = ""
+    @Published var phoneNumber: String = ""
+    @Published var name: String = ""
+//    @Published var email: String = "ios@ios.com"
+//    @Published var pw: String = "qwer1234"
+//    @Published var pwConfirm: String = "qwer1234"
+//    @Published var phoneNumber: String = "01027121828"
+//    @Published var name: String = "최연구"
     @Published var birth: Date = Date(timeIntervalSince1970: 953596800)
     @Published var gender: Gender? = .male
     @Published var step: SignUpStep = .email
