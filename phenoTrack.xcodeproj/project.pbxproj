@@ -122,12 +122,12 @@
 		D3A388EE2C933FD00059C3BB /* HomeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeInteractor.swift; sourceTree = "<group>"; };
 		D3A388F02C93505B0059C3BB /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		D3A388F22C9350B10059C3BB /* AppStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStateViewModel.swift; sourceTree = "<group>"; };
-		D3B19E242C14569E00049383 /* healthKitt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = healthKitt.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3B19E242C14569E00049383 /* phenoTrack.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = phenoTrack.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3B19E272C14569E00049383 /* healthKittApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthKittApp.swift; sourceTree = "<group>"; };
 		D3B19E292C14569E00049383 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D3B19E2B2C14569E00049383 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3B19E2E2C14569E00049383 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D3B19E352C146A5500049383 /* healthKitt.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = healthKitt.entitlements; sourceTree = "<group>"; };
+		D3B19E352C146A5500049383 /* phenoTrack.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = phenoTrack.entitlements; sourceTree = "<group>"; };
 		D3B19E362C148E0500049383 /* HealthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		D3B19E382C14BAB400049383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D3B19E392C14CC4900049383 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -378,7 +378,7 @@
 		D3B19E1B2C14569D00049383 = {
 			isa = PBXGroup;
 			children = (
-				D3B19E262C14569E00049383 /* healthKitt */,
+				D3B19E262C14569E00049383 /* phenoTrack */,
 				D3B19E252C14569E00049383 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -386,12 +386,12 @@
 		D3B19E252C14569E00049383 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D3B19E242C14569E00049383 /* healthKitt.app */,
+				D3B19E242C14569E00049383 /* phenoTrack.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D3B19E262C14569E00049383 /* healthKitt */ = {
+		D3B19E262C14569E00049383 /* phenoTrack */ = {
 			isa = PBXGroup;
 			children = (
 				D3A388542C726D53001CE3EA /* extension */,
@@ -400,7 +400,7 @@
 				D3A388E42C8F638C0059C3BB /* API */,
 				D3A3884C2C726A18001CE3EA /* service */,
 				D3B19E382C14BAB400049383 /* Info.plist */,
-				D3B19E352C146A5500049383 /* healthKitt.entitlements */,
+				D3B19E352C146A5500049383 /* phenoTrack.entitlements */,
 				D3B19E272C14569E00049383 /* healthKittApp.swift */,
 				D3A388AC2C7B7AD70059C3BB /* AppTabBarView.swift */,
 				D3A388A92C7B56230059C3BB /* complete.gif */,
@@ -410,7 +410,7 @@
 				D3B19E392C14CC4900049383 /* AppDelegate.swift */,
 				D3B19E3B2C15C70E00049383 /* SceneDelegate.swift */,
 			);
-			path = healthKitt;
+			path = phenoTrack;
 			sourceTree = "<group>";
 		};
 		D3B19E2D2C14569E00049383 /* Preview Content */ = {
@@ -424,9 +424,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D3B19E232C14569E00049383 /* healthKitt */ = {
+		D3B19E232C14569E00049383 /* phenoTrack */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D3B19E322C14569E00049383 /* Build configuration list for PBXNativeTarget "healthKitt" */;
+			buildConfigurationList = D3B19E322C14569E00049383 /* Build configuration list for PBXNativeTarget "phenoTrack" */;
 			buildPhases = (
 				D3B19E202C14569E00049383 /* Sources */,
 				D3B19E212C14569E00049383 /* Frameworks */,
@@ -436,9 +436,9 @@
 			);
 			dependencies = (
 			);
-			name = healthKitt;
+			name = phenoTrack;
 			productName = healthKitt;
-			productReference = D3B19E242C14569E00049383 /* healthKitt.app */;
+			productReference = D3B19E242C14569E00049383 /* phenoTrack.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -456,7 +456,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D3B19E1F2C14569D00049383 /* Build configuration list for PBXProject "healthKitt" */;
+			buildConfigurationList = D3B19E1F2C14569D00049383 /* Build configuration list for PBXProject "phenoTrack" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -469,7 +469,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D3B19E232C14569E00049383 /* healthKitt */,
+				D3B19E232C14569E00049383 /* phenoTrack */,
 			);
 		};
 /* End PBXProject section */
@@ -609,7 +609,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -666,7 +666,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -681,14 +681,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = healthKitt/healthKitt.entitlements;
+				CODE_SIGN_ENTITLEMENTS = phenoTrack/phenoTrack.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"healthKitt/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 0.0.1;
+				DEVELOPMENT_ASSET_PATHS = "\"phenoTrack/Preview Content\"";
 				DEVELOPMENT_TEAM = FJQNU6W6N4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = healthKitt/Info.plist;
+				INFOPLIST_FILE = phenoTrack/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "피노트랙";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
@@ -702,8 +703,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.healthKitt;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pheno.health;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -716,14 +717,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = healthKitt/healthKitt.entitlements;
+				CODE_SIGN_ENTITLEMENTS = phenoTrack/phenoTrack.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"healthKitt/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 0.0.1;
+				DEVELOPMENT_ASSET_PATHS = "\"phenoTrack/Preview Content\"";
 				DEVELOPMENT_TEAM = FJQNU6W6N4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = healthKitt/Info.plist;
+				INFOPLIST_FILE = phenoTrack/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "피노트랙";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
 				INFOPLIST_KEY_NSHealthShareUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "연구 목적을 위해 건강 데이터 수집합니다.";
@@ -737,8 +739,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.test.healthKitt;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pheno.health;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -749,7 +751,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D3B19E1F2C14569D00049383 /* Build configuration list for PBXProject "healthKitt" */ = {
+		D3B19E1F2C14569D00049383 /* Build configuration list for PBXProject "phenoTrack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3B19E302C14569E00049383 /* Debug */,
@@ -758,7 +760,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D3B19E322C14569E00049383 /* Build configuration list for PBXNativeTarget "healthKitt" */ = {
+		D3B19E322C14569E00049383 /* Build configuration list for PBXNativeTarget "phenoTrack" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D3B19E332C14569E00049383 /* Debug */,
