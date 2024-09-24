@@ -11,20 +11,20 @@ import UIKit
 // MARK: - RandomSurveyReqModel
 struct RandomSurveyReqModel: Codable {
     var questionAAnswer, questionBAnswer, questionCAnswer: Int
-    var memo: String
+//    var memo: String
 
     enum CodingKeys: String, CodingKey {
         case questionAAnswer = "question_a_answer"
         case questionBAnswer = "question_b_answer"
         case questionCAnswer = "question_c_answer"
-        case memo
+//        case memo
     }
     
     init() {
         questionAAnswer = -1
         questionBAnswer = -1
         questionCAnswer = -1
-        memo = ""
+//        memo = ""
     }
 }
 
@@ -32,7 +32,7 @@ struct RandomSurveyReqModel: Codable {
 struct RandomSurveyResModel: Codable {
     let study, ulid: String
     let questionAAnswer, questionBAnswer, questionCAnswer: Int
-    let memo: String
+//    let memo: String
     let created, modified: Date
 
     enum CodingKeys: String, CodingKey {
@@ -40,7 +40,7 @@ struct RandomSurveyResModel: Codable {
         case questionAAnswer = "question_a_answer"
         case questionBAnswer = "question_b_answer"
         case questionCAnswer = "question_c_answer"
-        case memo, created, modified
+        case created, modified
     }
 }
 

@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct TimePickerView: View {
-    @State private var selectedHour = 7
-    @State private var selectedMinute = 0
-    @State private var isAM = true
+    @Binding var selectedHour: Int
+    @Binding var selectedMinute: Int
+    @Binding var isAM: Bool
     @State private var showHourPicker = false
     @State private var showMinutePicker = false
 

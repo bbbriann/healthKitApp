@@ -28,9 +28,7 @@ struct AppTabBarView: View {
                     }
                     .tag(Tab.home)
                     
-                    NavigationStack {
-                        DiaryView()
-                    }
+                    DiaryView()
                     .tag(Tab.diary)
                     
                     NavigationStack {
@@ -213,4 +211,11 @@ enum HomeViewStack {
     case home
     case survey
     case surveyComplete
+}
+
+enum DiaryViewStack {
+    case diary
+    case diarySurvey
+    case diarySurveyComplete
+    case result
 }

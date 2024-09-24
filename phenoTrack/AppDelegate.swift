@@ -9,6 +9,8 @@ import BackgroundTasks
 import UIKit
 import UserNotifications
 
+import FirebaseCore
+
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(
         _ application: UIApplication,
@@ -19,7 +21,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         }
         print("calleD??")
         requestNotificationAuthorization()
-        
+        FirebaseApp.configure()
         return true
     }
     

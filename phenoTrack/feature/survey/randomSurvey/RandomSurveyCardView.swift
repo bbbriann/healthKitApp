@@ -16,16 +16,45 @@ enum RandomSurveyType {
     case memo
 }
 
+enum RandomDataResult {
+    case `default`(value: Int)
+    case time(hour: Int, min: Int)
+    /// 폭식
+    case voracity(value: Int)
+    /// 메모
+    case memo(value: String)
+}
+
 struct RandomSurveyCardView: View {
     let cardIndex: Int
     let title: String
     var type: RandomSurveyType = .default
-    let doneAction: (Int) -> Void
+    let doneAction: (RandomDataResult) -> Void
     
     @State private var selectedIndex: Int? = nil
     @State private var memoText: String = ""
     @State private var showBottomSheet: Bool = false
     @State private var bottomSheetHeight: CGFloat = 0
+    
+    @Binding var time: String
+    @Binding var memo: String
+    
+    /// Time
+    @State private var selectedHour = 7
+    @State private var selectedMinute = 0
+    @State private var isAM = true
+    
+    init(cardIndex: Int, title: String, type: RandomSurveyType = .default,
+         time: Binding<String> = .constant(""),
+         memo: Binding<String> = .constant(""),
+         doneAction: @escaping (RandomDataResult) -> Void) {
+        self.cardIndex = cardIndex
+        self.title = title
+        self.type = type
+        self._time = time
+        self._memo = memo
+        self.doneAction = doneAction
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -77,7 +106,7 @@ struct RandomSurveyCardView: View {
                     HStack(alignment: .top, spacing: 8) {
                         ForEach(0..<5) { index in
                             Button {
-                                doneAction(index)
+                                doneAction(.default(value: index))
                                 selectedIndex = index
                             } label: {
                                 VStack(alignment: .center, spacing: 8) {
@@ -118,7 +147,7 @@ struct RandomSurveyCardView: View {
                             .multilineTextAlignment(.center)
                             .foregroundColor(Color(hex: "#020C1C"))
                             .frame(maxWidth: .infinity, alignment: .center)
-                        TimePickerView()
+                        TimePickerView(selectedHour: $selectedHour, selectedMinute: $selectedMinute, isAM: $isAM)
                     }
                     .padding(20)
                     .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -126,7 +155,7 @@ struct RandomSurveyCardView: View {
                     HStack(alignment: .top, spacing: 8) {
                         ForEach(0..<3) { index in
                             Button {
-                                doneAction(index)
+                                doneAction(.voracity(value: index))
                                 selectedIndex = index
                             } label: {
                                 VStack(alignment: .center, spacing: 8) {
@@ -169,6 +198,21 @@ struct RandomSurveyCardView: View {
             .padding(20)
             .frame(maxWidth: .infinity, alignment: .topLeading)
         }
+        .onChange(of: memoText, { old, new in
+            doneAction(.memo(value: new))
+        })
+        .onChange(of: selectedHour, { old, new in
+            let (hour, min) = convertTo24Hour(hour: selectedHour, minute: selectedMinute, isAM: isAM)
+            doneAction(.time(hour: hour, min: min))
+        })
+        .onChange(of: selectedMinute, { old, new in
+            let (hour, min) = convertTo24Hour(hour: selectedHour, minute: selectedMinute, isAM: isAM)
+            doneAction(.time(hour: hour, min: min))
+        })
+        .onChange(of: isAM, { old, new in
+            let (hour, min) = convertTo24Hour(hour: selectedHour, minute: selectedMinute, isAM: isAM)
+            doneAction(.time(hour: hour, min: min))
+        })
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .background(.white)
         .cornerRadius(12)
@@ -210,6 +254,24 @@ struct RandomSurveyCardView: View {
         default:
             return ""
         }
+    }
+    
+    private func convertTo24Hour(hour: Int, minute: Int, isAM: Bool) -> (hour: Int, minute: Int) {
+        var hour24 = hour
+        
+        if isAM {
+            // AM일 경우 12시는 0시로 변환
+            if hour == 12 {
+                hour24 = 0
+            }
+        } else {
+            // PM일 경우 12시는 그대로 유지하고, 나머지는 12시간 더함
+            if hour != 12 {
+                hour24 = hour + 12
+            }
+        }
+        
+        return (hour: hour24, minute: minute)
     }
 }
 

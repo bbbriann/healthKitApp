@@ -8,59 +8,67 @@
 import SwiftUI
 
 struct DiaryRandomSurveyView: View {
+    @Binding var path: [DiaryViewStack]
+    var selectedDate: Date
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
+    @StateObject private var viewModel = DiaryRandomSurveyViewModel()
+    
     @State var showBackAlert: Bool = false
     var body: some View {
         ZStack {
-            VStack {
-                ZStack {
-                    HStack {
-                        HStack(alignment: .center, spacing: 16) {
-                            Button {
-                                showBackAlert.toggle()
-                            } label: {
-                                Image("IcBackBtnBlue")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
+            if viewModel.isLoading {
+                Spinner()
+            } else {
+                VStack {
+                    ZStack {
+                        HStack {
+                            HStack(alignment: .center, spacing: 16) {
+                                Button {
+                                    showBackAlert.toggle()
+                                } label: {
+                                    Image("IcBackBtnBlue")
+                                        .resizable()
+                                        .frame(width: 24, height: 24)
+                                }
+                                Text("랜덤 설문")
+                                    .font(.system(size: 20, weight: .bold))
+                                    .foregroundColor(Color(hex: "#020C1C"))
                             }
-                            Text("랜덤 설문")
-                                .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(Color(hex: "#020C1C"))
+                            Spacer()
                         }
-                        Spacer()
+                        .padding(.top, 10)
+                        .padding(.bottom, 16)
                     }
-                    .padding(.top, 10)
-                    .padding(.bottom, 16)
+                    .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
+                    contentView
+                        .cornerRadius(24)
+                    Spacer()
                 }
-                .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
-                contentView
-                    .cornerRadius(24)
-                Spacer()
-            }
-            .padding(.horizontal, 24)
-            .frame(maxHeight: .infinity)
-            
-            if showBackAlert {
-                ZStack {
-                    Color.black.opacity(0.4) // 반투명한 배경
-                        .ignoresSafeArea()
-                    
-                    CustomAlertView(
-                        title: "확인 통지",
-                        message: "설문이 완료 되지 않았습니다.\n종료하시겠습니까?",
-                        onCancel: {
-                            showBackAlert = false
-                        },
-                        onConfirm: {
-                            showBackAlert = false
-                            NotificationCenter.default.post(Notification(name: .showTabBar))
-                            presentationMode.wrappedValue.dismiss()
-                        }
-                    )
-                    .padding(.horizontal, 24)
-                    .transition(.scale)
-                    .zIndex(1)
+                .padding(.horizontal, 24)
+                .frame(maxHeight: .infinity)
+                
+                if showBackAlert {
+                    ZStack {
+                        Color.black.opacity(0.4) // 반투명한 배경
+                            .ignoresSafeArea()
+                        
+                        CustomAlertView(
+                            title: "확인 통지",
+                            message: "설문이 완료 되지 않았습니다.\n종료하시겠습니까?",
+                            onCancel: {
+                                showBackAlert = false
+                            },
+                            onConfirm: {
+                                showBackAlert = false
+                                NotificationCenter.default.post(Notification(name: .showTabBar))
+                                presentationMode.wrappedValue.dismiss()
+                            }
+                        )
+                        .padding(.horizontal, 24)
+                        .transition(.scale)
+                        .zIndex(1)
+                    }
                 }
             }
         }
@@ -69,6 +77,12 @@ struct DiaryRandomSurveyView: View {
         .navigationBarBackButtonHidden(true)
         .onAppear {
             NotificationCenter.default.post(Notification(name: .hideTabBar))
+            let isoDate = self.formatToISO8601(date: selectedDate)
+            viewModel.req.whenToEat = isoDate
+        }
+        .onChange(of: viewModel.surveyComplete) { oldValue, newValue in
+            guard newValue else { return }
+            path.append(.diarySurveyComplete)
         }
     }
     
@@ -77,28 +91,54 @@ struct DiaryRandomSurveyView: View {
             VStack(alignment: .leading, spacing: 12) {
                 ForEach(0..<7) { index in
                     let title = getCardTitle(from: index)
+                    // 시간
                     if index == 0 {
-                        RandomSurveyCardView(cardIndex: index, title: title, type: .time) { score in
-                            print("[TEST] \(title) 점수 : \(score)")
+                        RandomSurveyCardView(cardIndex: index, title: title, type: .time) { result in
+                            guard case .time(let hour, let min) = result else { return }
+                            guard let date = self.updateDateWith(hour: hour, minute: min, from: selectedDate) else { return }
+                            let isoDate = self.formatToISO8601(date: date)
+                            print("[TEST] \(title) 시: \(hour), 분: \(min) 날 \(date) isoDate \(isoDate)")
+                            
+                            viewModel.req.whenToEat = isoDate
                         }
+                    // 폭식
                     } else if index == 5 {
-                        RandomSurveyCardView(cardIndex: index, title: title, type: .voracity) { score in
+                        RandomSurveyCardView(cardIndex: index, title: title, type: .voracity) { result in
+                            guard case .voracity(let score) = result else { return }
                             print("[TEST] \(title) 점수 : \(score)")
+                            viewModel.req.questionEAnswer = score
                         }
+                    // 메모
                     } else if index == 6 {
-                        RandomSurveyCardView(cardIndex: index, title: title, type: .memo) { score in
-                            print("[TEST] \(title) 점수 : \(score)")
+                        RandomSurveyCardView(cardIndex: index, title: title, type: .memo) { result in
+                            guard case .memo(let memoStr) = result else { return }
+                            print("[TEST] \(title) 메모 : \(memoStr)")
+                            viewModel.req.memo = memoStr
                         }
                     } else {
-                        RandomSurveyCardView(cardIndex: index, title: title) { score in
+                        RandomSurveyCardView(cardIndex: index, title: title) { result in
+                            guard case .default(let score) = result else { return }
+                            if index == 1 {
+                                viewModel.req.questionAAnswer = score
+                            } else if index == 2 {
+                                viewModel.req.questionBAnswer = score
+                            } else if index == 3 {
+                                viewModel.req.questionCAnswer = score
+                            } else if index == 4 {
+                                viewModel.req.questionDAnswer = score
+                            }
                             print("[TEST] \(title) 점수 : \(score)")
                         }
                     }
                 }
                 Spacer()
-                CommonSelectButton(title: "완료", titleColor: .white,
-                                   bgColor: Color(hex: "#1068FD"),
-                                   cornerRadius: 16)
+                Button {
+                    viewModel.postData()
+                } label: {
+                    CommonSelectButton(title: "완료", titleColor: .white,
+                                       bgColor: Color(hex: "#1068FD"),
+                                       cornerRadius: 16)
+                }
             }
         }
     }
@@ -122,5 +162,26 @@ struct DiaryRandomSurveyView: View {
         default:
             return ""
         }
+    }
+    
+    private func updateDateWith(hour: Int, minute: Int, from originalDate: Date) -> Date? {
+        let calendar = Calendar.current
+        
+        // DateComponents로 기존 날짜의 년/월/일 정보 가져오기
+        var components = calendar.dateComponents([.year, .month, .day], from: originalDate)
+        
+        // 선택한 hour와 minute을 설정
+        components.hour = hour
+        components.minute = minute
+        
+        // Calendar를 사용하여 새로운 날짜 생성
+        return calendar.date(from: components)
+    }
+    
+    private func formatToISO8601(date: Date) -> String {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC 시간대로 설정
+        isoFormatter.formatOptions = [.withInternetDateTime] // ISO 8601 포맷 옵션
+        return isoFormatter.string(from: date)
     }
 }

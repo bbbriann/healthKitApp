@@ -96,7 +96,8 @@ struct RandomSurveyView: View {
         VStack(alignment: .leading, spacing: 12) {
             ForEach(0..<3) { index in
                 let title = getCardTitle(from: index)
-                RandomSurveyCardView(cardIndex: index, title: title) { score in
+                RandomSurveyCardView(cardIndex: index, title: title) { result in
+                    guard case .default(let score) = result else { return }
                     if index == 0 {
                         viewModel.req.questionAAnswer = score
                     } else if index == 1 {

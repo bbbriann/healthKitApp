@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DiaryView: View {
+    @State private var path: [DiaryViewStack] = []
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     
@@ -22,64 +23,70 @@ struct DiaryView: View {
     
     
     var body: some View {
-        VStack {
-            ZStack {
-                HStack {
-                    Text("식사 일기")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.white)
-                    Spacer()
-//                    Button {
-//                        hasCalendarButtonPressed.toggle()
-//                    } label: {
-                    HStack(alignment: .center, spacing: 2) {
-                        Text(selectedDate.toYYYYMMDDKRString())
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(Color(hex: "#020C1C"))
-                        Image("IcBlueArrowDown")
-                            .resizable()
-                            .frame(width: 16, height: 16)
+        NavigationStack(path: $path) {
+            VStack {
+                ZStack {
+                    HStack {
+                        Text("식사 일기")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.white)
+                        Spacer()
+                        //                    Button {
+                        //                        hasCalendarButtonPressed.toggle()
+                        //                    } label: {
+                        HStack(alignment: .center, spacing: 2) {
+                            Text(selectedDate.toYYYYMMDDKRString())
+                                .font(.system(size: 12, weight: .medium))
+                                .foregroundColor(Color(hex: "#020C1C"))
+                            Image("IcBlueArrowDown")
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                        }
+                        .padding(.leading, 12)
+                        .padding(.trailing, 8)
+                        .padding(.vertical, 4)
+                        .frame(height: 24, alignment: .leading)
+                        .background(.white)
+                        .cornerRadius(12)
+                        //                    }
                     }
-                    .padding(.leading, 12)
-                    .padding(.trailing, 8)
-                    .padding(.vertical, 4)
-                    .frame(height: 24, alignment: .leading)
-                    .background(.white)
-                    .cornerRadius(12)
-//                    }
+                }
+                .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
+                .padding(.horizontal, 24)
+                
+                //            if hasCalendarButtonPressed {
+                //                CalenderView(clickedCurrentMonthDates: $selectedDate,
+                //                             hasCalendarButtonPressed: $hasCalendarButtonPressed)
+                //                    .padding(.top, 30)
+                //            }
+                
+                CalendarScrollView(currentDate: $selectedDate)
+                    .padding(.horizontal, 24)
+                    .frame(height: 72)
+                Spacer(minLength: 61)
+                ZStack {
+                    contentView
+                        .cornerRadius(24)
                 }
             }
-            .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
-            .padding(.horizontal, 24)
-            
-//            if hasCalendarButtonPressed {
-//                CalenderView(clickedCurrentMonthDates: $selectedDate,
-//                             hasCalendarButtonPressed: $hasCalendarButtonPressed)
-//                    .padding(.top, 30)
-//            }
-            
-            CalendarScrollView(currentDate: $selectedDate)
-                .padding(.horizontal, 24)
-                .frame(height: 72)
-            Spacer(minLength: 61)
-            ZStack {
-                contentView
-                    .cornerRadius(24)
-            }
-            
-            NavigationLink(destination: DiaryResultView(), isActive: $showDiaryResultView) {
-                EmptyView()
-            }
-            
-            NavigationLink(destination: DiaryRandomSurveyView(), isActive: $showRandomSurveyView) {
-                EmptyView()
+            .background(Color(hex: "#1068FD"))
+            .frame(maxHeight: .infinity)
+            .ignoresSafeArea(edges: .bottom)
+            .navigationBarTitle("")
+            .navigationBarBackButtonHidden(true)
+            .navigationDestination(for: DiaryViewStack.self) { viewType in
+                switch viewType {
+                case .diarySurvey:
+                    DiaryRandomSurveyView(path: $path, selectedDate: selectedDate)
+                case .diarySurveyComplete:
+                    DiaryRandomSurveyCompleteView(path: $path)
+                case .diary:
+                    EmptyView()
+                case .result:
+                    DiaryResultView()
+                }
             }
         }
-        .background(Color(hex: "#1068FD"))
-        .frame(maxHeight: .infinity)
-        .ignoresSafeArea(edges: .bottom)
-        .navigationBarTitle("")
-        .navigationBarBackButtonHidden(true)
     }
     
     var backButton: some View {
@@ -122,7 +129,7 @@ struct DiaryView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     ForEach(0..<dataList.count) { index in
                         Button {
-                            showDiaryResultView.toggle()
+                            path.append(.result)
                         } label: {
                             HStack(alignment: .center, spacing: 10) {
                                 Color
@@ -144,7 +151,7 @@ struct DiaryView: View {
                         }
                     }
                     Button {
-                        showRandomSurveyView.toggle()
+                        path.append(.diarySurvey)
                     } label: {
                         HistoryAddButtonView()
                     }

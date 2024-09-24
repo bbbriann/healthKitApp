@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/brian/Documents/Workspace/Work/healthKitt/phenoTrack.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>
