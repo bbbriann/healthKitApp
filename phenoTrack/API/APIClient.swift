@@ -15,8 +15,19 @@ class APIClient {
     
     private let baseURLStr = "https://phenotrack-api-dev.fly.dev/api"
     
-    func performRequest<T: Decodable>(_ endpoint: String, method: String, postData: Data? = nil) -> AnyPublisher<T, Error> {
-        guard let url = URL(string: baseURLStr + endpoint) else {
+    func performRequest<T: Decodable>(_ endpoint: String, method: String, 
+                                      postData: Data? = nil,
+                                      queryParams: [String: String]? = nil) -> AnyPublisher<T, Error> {
+        // URLComponents로 URL을 생성하고 쿼리 파라미터를 추가
+        var urlComponents = URLComponents(string: baseURLStr + endpoint)
+        
+        // GET 요청의 경우 쿼리 파라미터를 URL에 추가
+        if method == "GET", let queryParams = queryParams {
+            urlComponents?.queryItems = queryParams.map { URLQueryItem(name: $0.key, value: $0.value) }
+        }
+        
+        // URLComponents에서 최종 URL 생성
+        guard let url = urlComponents?.url else {
             return Fail(error: URLError(.badURL))
                 .eraseToAnyPublisher()
         }
@@ -29,7 +40,8 @@ class APIClient {
             request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
         }
         
-        if let postData {
+        // POST나 PUT 요청의 경우 데이터 추가
+        if let postData = postData, method != "GET" {
             request.httpBody = postData
         }
         

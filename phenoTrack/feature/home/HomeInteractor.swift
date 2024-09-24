@@ -48,6 +48,7 @@ struct StudyListResModel: Decodable {
 
 enum CommonError: Error {
     case noUlid
+    case startEndTimeError
 }
 
 // MARK: - HomeInteractor

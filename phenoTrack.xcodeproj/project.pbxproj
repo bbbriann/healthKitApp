@@ -90,6 +90,8 @@
 		D3B19E372C148E0500049383 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E362C148E0500049383 /* HealthKitService.swift */; };
 		D3B19E3A2C14CC4900049383 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E392C14CC4900049383 /* AppDelegate.swift */; };
 		D3B19E3C2C15C70E00049383 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E3B2C15C70E00049383 /* SceneDelegate.swift */; };
+		D3B79F4E2CA3152900701922 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B79F4D2CA3152900701922 /* DiaryViewModel.swift */; };
+		D3B79F502CA3155200701922 /* DiaryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B79F4F2CA3155200701922 /* DiaryInteractor.swift */; };
 		D3F420242CA00BD200C2BB24 /* FindIdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F420232CA00BD200C2BB24 /* FindIdViewModel.swift */; };
 		D3F420262CA00C1700C2BB24 /* FindIdInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F420252CA00C1700C2BB24 /* FindIdInteractor.swift */; };
 		D3F420282CA084D900C2BB24 /* RandomSurveyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F420272CA084D900C2BB24 /* RandomSurveyViewModel.swift */; };
@@ -162,6 +164,8 @@
 		D3B19E382C14BAB400049383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D3B19E392C14CC4900049383 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D3B19E3B2C15C70E00049383 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		D3B79F4D2CA3152900701922 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
+		D3B79F4F2CA3155200701922 /* DiaryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInteractor.swift; sourceTree = "<group>"; };
 		D3F420232CA00BD200C2BB24 /* FindIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdViewModel.swift; sourceTree = "<group>"; };
 		D3F420252CA00C1700C2BB24 /* FindIdInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdInteractor.swift; sourceTree = "<group>"; };
 		D3F420272CA084D900C2BB24 /* RandomSurveyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyViewModel.swift; sourceTree = "<group>"; };
@@ -341,13 +345,12 @@
 		D3A388AF2C7B7DDD0059C3BB /* diary */ = {
 			isa = PBXGroup;
 			children = (
+				D3B79F4C2CA3149E00701922 /* survey */,
 				D3A388D52C8B6E330059C3BB /* result */,
 				D3A388B62C7B7E8A0059C3BB /* DiaryView.swift */,
-				D3A388C92C89F8F90059C3BB /* DiaryRandomSurveyView.swift */,
 				D3A388CD2C89FAE10059C3BB /* HistoryAddButtonView.swift */,
-				D34F529F2CA1CD9C00875FCE /* DiaryRandomSurveyViewModel.swift */,
-				D34F52A12CA1CDA600875FCE /* DiaryRandomSurveyInteractor.swift */,
-				D34F52A52CA2FF2B00875FCE /* DiaryRandomSurveyCompleteView.swift */,
+				D3B79F4D2CA3152900701922 /* DiaryViewModel.swift */,
+				D3B79F4F2CA3155200701922 /* DiaryInteractor.swift */,
 			);
 			path = diary;
 			sourceTree = "<group>";
@@ -479,6 +482,17 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		D3B79F4C2CA3149E00701922 /* survey */ = {
+			isa = PBXGroup;
+			children = (
+				D3A388C92C89F8F90059C3BB /* DiaryRandomSurveyView.swift */,
+				D34F529F2CA1CD9C00875FCE /* DiaryRandomSurveyViewModel.swift */,
+				D34F52A12CA1CDA600875FCE /* DiaryRandomSurveyInteractor.swift */,
+				D34F52A52CA2FF2B00875FCE /* DiaryRandomSurveyCompleteView.swift */,
+			);
+			path = survey;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -583,6 +597,7 @@
 				D3A388D02C8A02750059C3BB /* RandomSurveyCardView.swift in Sources */,
 				D3A388BB2C7CBFDB0059C3BB /* CustomAlertView.swift in Sources */,
 				D3A388C22C81B83F0059C3BB /* HomeViewModel.swift in Sources */,
+				D3B79F502CA3155200701922 /* DiaryInteractor.swift in Sources */,
 				D3F420282CA084D900C2BB24 /* RandomSurveyViewModel.swift in Sources */,
 				D3A3884E2C726A30001CE3EA /* healthKitService.swift in Sources */,
 				D3A388972C74EFDD0059C3BB /* ResetPWView.swift in Sources */,
@@ -612,6 +627,7 @@
 				D3F4202A2CA084E000C2BB24 /* RandomSurveyInteractor.swift in Sources */,
 				D3A3889F2C78F4C10059C3BB /* RadioButton.swift in Sources */,
 				D3B19E3A2C14CC4900049383 /* AppDelegate.swift in Sources */,
+				D3B79F4E2CA3152900701922 /* DiaryViewModel.swift in Sources */,
 				D3A388AD2C7B7AD70059C3BB /* AppTabBarView.swift in Sources */,
 				D3A388D22C8A04230059C3BB /* TimePickerView.swift in Sources */,
 				D3A388E02C8CBB3F0059C3BB /* HistoryResultCardView.swift in Sources */,

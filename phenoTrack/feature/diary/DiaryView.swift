@@ -12,61 +12,64 @@ struct DiaryView: View {
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     
-    @State private var selectedDate = Date()
+//    @State private var selectedDate = Date()
     @State private var hasCalendarButtonPressed = false
     @State private var showRandomSurveyView: Bool = false
     @State private var showDiaryResultView: Bool = false
+    @StateObject private var viewModel = DiaryViewModel()
     private var calendar = Calendar.current
     private let daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"]
-    
-    private var dataList = ["09:35","12:30","14:25","17:12","20:32"]
     
     
     var body: some View {
         NavigationStack(path: $path) {
             VStack {
-                ZStack {
-                    HStack {
-                        Text("식사 일기")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(.white)
-                        Spacer()
-                        //                    Button {
-                        //                        hasCalendarButtonPressed.toggle()
-                        //                    } label: {
-                        HStack(alignment: .center, spacing: 2) {
-                            Text(selectedDate.toYYYYMMDDKRString())
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(Color(hex: "#020C1C"))
-                            Image("IcBlueArrowDown")
-                                .resizable()
-                                .frame(width: 16, height: 16)
+                if viewModel.isLoading {
+                    Spinner()
+                } else {
+                    ZStack {
+                        HStack {
+                            Text("식사 일기")
+                                .font(.system(size: 20, weight: .bold))
+                                .foregroundColor(.white)
+                            Spacer()
+                            //                    Button {
+                            //                        hasCalendarButtonPressed.toggle()
+                            //                    } label: {
+                            HStack(alignment: .center, spacing: 2) {
+                                Text(viewModel.selectedDate.toYYYYMMDDKRString())
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(Color(hex: "#020C1C"))
+                                Image("IcBlueArrowDown")
+                                    .resizable()
+                                    .frame(width: 16, height: 16)
+                            }
+                            .padding(.leading, 12)
+                            .padding(.trailing, 8)
+                            .padding(.vertical, 4)
+                            .frame(height: 24, alignment: .leading)
+                            .background(.white)
+                            .cornerRadius(12)
+                            //                    }
                         }
-                        .padding(.leading, 12)
-                        .padding(.trailing, 8)
-                        .padding(.vertical, 4)
-                        .frame(height: 24, alignment: .leading)
-                        .background(.white)
-                        .cornerRadius(12)
-                        //                    }
                     }
-                }
-                .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
-                .padding(.horizontal, 24)
-                
-                //            if hasCalendarButtonPressed {
-                //                CalenderView(clickedCurrentMonthDates: $selectedDate,
-                //                             hasCalendarButtonPressed: $hasCalendarButtonPressed)
-                //                    .padding(.top, 30)
-                //            }
-                
-                CalendarScrollView(currentDate: $selectedDate)
+                    .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
                     .padding(.horizontal, 24)
-                    .frame(height: 72)
-                Spacer(minLength: 61)
-                ZStack {
-                    contentView
-                        .cornerRadius(24)
+                    
+                    //            if hasCalendarButtonPressed {
+                    //                CalenderView(clickedCurrentMonthDates: $selectedDate,
+                    //                             hasCalendarButtonPressed: $hasCalendarButtonPressed)
+                    //                    .padding(.top, 30)
+                    //            }
+                    
+                    CalendarScrollView(currentDate: $viewModel.selectedDate)
+                        .padding(.horizontal, 24)
+                        .frame(height: 72)
+                    Spacer(minLength: 61)
+                    ZStack {
+                        contentView
+                            .cornerRadius(24)
+                    }
                 }
             }
             .background(Color(hex: "#1068FD"))
@@ -77,7 +80,7 @@ struct DiaryView: View {
             .navigationDestination(for: DiaryViewStack.self) { viewType in
                 switch viewType {
                 case .diarySurvey:
-                    DiaryRandomSurveyView(path: $path, selectedDate: selectedDate)
+                    DiaryRandomSurveyView(path: $path, selectedDate: viewModel.selectedDate)
                 case .diarySurveyComplete:
                     DiaryRandomSurveyCompleteView(path: $path)
                 case .diary:
@@ -85,6 +88,17 @@ struct DiaryView: View {
                 case .result:
                     DiaryResultView()
                 }
+            }
+            .onChange(of: viewModel.selectedDate) { oldValue, newValue in
+//                let calendar = Calendar.current
+//                guard !calendar.isDate(oldValue, inSameDayAs: newValue) else { return }
+                print("[TEST] \(newValue)")
+                viewModel.fetchData()
+            }
+        }
+        .onAppear {
+            Task {
+                viewModel.fetchData()
             }
         }
     }
@@ -127,7 +141,7 @@ struct DiaryView: View {
             .frame(maxWidth: .infinity, alignment: .center)
             ScrollView {
                 VStack(alignment: .leading, spacing: 8) {
-                    ForEach(0..<dataList.count) { index in
+                    ForEach(0..<viewModel.dietList.count) { index in
                         Button {
                             path.append(.result)
                         } label: {
@@ -135,7 +149,7 @@ struct DiaryView: View {
                                 Color
                                     .clear
                                     .frame(width: 20, height: 10)
-                                Text(dataList[index])
+                                Text(viewModel.dietList[index].created.getTimeString())
                                     .font(.system(size: 16, weight: .medium))
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(Color(hex: "#020C1C"))

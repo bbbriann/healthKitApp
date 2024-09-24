@@ -61,6 +61,8 @@ struct CalendarScrollView: View {
         let isCenterDate = abs(xOffset) < positionWidth / 2
         if isCenterDate {
             DispatchQueue.main.async {
+                let calendar = Calendar.current
+                guard !calendar.isDate(dateToDisplay, inSameDayAs: currentDate) else { return }
                 self.currentDate = dateToDisplay
             }
         }
