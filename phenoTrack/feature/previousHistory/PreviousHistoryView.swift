@@ -57,11 +57,11 @@ struct PreviousHistoryView: View {
                 .padding(.horizontal, 24)
             }
             
-            NavigationLink(destination: RandomSurveyResultView(), isActive: $showRandomSurveyResultView) {
+            NavigationLink(destination: RandomSurveyResultView(randomSurvey: .constant(nil)), isActive: $showRandomSurveyResultView) {
                 EmptyView()
             }
             
-            NavigationLink(destination: DiaryResultView(), isActive: $showDiaryResultView) {
+            NavigationLink(destination: DiaryResultView(diet: .constant(nil)), isActive: $showDiaryResultView) {
                 EmptyView()
             }
         }

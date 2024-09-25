@@ -7,12 +7,57 @@
 
 import SwiftUI
 
+// MARK: - RandomSurvey
+struct RandomSurvey: Codable, Hashable {
+    let ulid: String
+    let questionAAnswer, questionBAnswer, questionCAnswer: Int
+//    let memo: String
+    let created, modified: String
+
+    enum CodingKeys: String, CodingKey {
+        case ulid
+        case questionAAnswer = "question_a_answer"
+        case questionBAnswer = "question_b_answer"
+        case questionCAnswer = "question_c_answer"
+        case created, modified
+    }
+    
+    func getAnswerText(index: Int) -> String {
+        switch index {
+        case 0, 1, 2:
+            var answer = 0
+            if index == 0 {
+                answer = self.questionAAnswer
+            } else if index == 1 {
+                answer = self.questionBAnswer
+            } else if index == 2 {
+                answer = self.questionCAnswer
+            }
+            
+            if answer == 0 {
+                return "전혀 아니다"
+            } else if answer == 1 {
+                return "아니다"
+            } else if answer == 2 {
+                return "보통이다"
+            } else if answer == 3 {
+                return "그렇다"
+            } else {
+                return "매우 그렇다"
+            }
+        default:
+            return ""
+        }
+    }
+}
+
+
 struct RandomSurveyResultView: View {
+    @Binding var randomSurvey: RandomSurvey?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     @State var showBackAlert: Bool = false
     
-    @State var selectedDate: Date = Date()
     var body: some View {
         ZStack {
             VStack {
@@ -34,7 +79,7 @@ struct RandomSurveyResultView: View {
                         Spacer()
                         
                         HStack(alignment: .center, spacing: 2) {
-                            Text(selectedDate.toYYYYMMDDKRString())
+                            Text(DateHelper.formatTimeFromISO8601(randomSurvey?.created ?? "") ?? "")
                                 .font(.system(size: 12, weight: .medium))
                                 .foregroundColor(Color(hex: "#020C1C"))
                         }
@@ -69,7 +114,8 @@ struct RandomSurveyResultView: View {
             VStack(alignment: .leading, spacing: 12) {
                 ForEach(0..<3) { index in
                     let title = getCardTitle(from: index)
-                    DiaryResultCardView(cardIndex: index, title: title, content: "hihihihi")
+                    let content = randomSurvey?.getAnswerText(index: index) ?? ""
+                    DiaryResultCardView(cardIndex: index, title: title, content: content)
                 }
                 Spacer()
                 HStack(alignment: .top, spacing: 12) {

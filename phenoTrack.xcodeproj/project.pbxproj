@@ -92,6 +92,7 @@
 		D3B19E3C2C15C70E00049383 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B19E3B2C15C70E00049383 /* SceneDelegate.swift */; };
 		D3B79F4E2CA3152900701922 /* DiaryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B79F4D2CA3152900701922 /* DiaryViewModel.swift */; };
 		D3B79F502CA3155200701922 /* DiaryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B79F4F2CA3155200701922 /* DiaryInteractor.swift */; };
+		D3B79F522CA45D6200701922 /* HistoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B79F512CA45D6200701922 /* HistoryInteractor.swift */; };
 		D3F420242CA00BD200C2BB24 /* FindIdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F420232CA00BD200C2BB24 /* FindIdViewModel.swift */; };
 		D3F420262CA00C1700C2BB24 /* FindIdInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F420252CA00C1700C2BB24 /* FindIdInteractor.swift */; };
 		D3F420282CA084D900C2BB24 /* RandomSurveyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3F420272CA084D900C2BB24 /* RandomSurveyViewModel.swift */; };
@@ -166,6 +167,7 @@
 		D3B19E3B2C15C70E00049383 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D3B79F4D2CA3152900701922 /* DiaryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryViewModel.swift; sourceTree = "<group>"; };
 		D3B79F4F2CA3155200701922 /* DiaryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryInteractor.swift; sourceTree = "<group>"; };
+		D3B79F512CA45D6200701922 /* HistoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryInteractor.swift; sourceTree = "<group>"; };
 		D3F420232CA00BD200C2BB24 /* FindIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdViewModel.swift; sourceTree = "<group>"; };
 		D3F420252CA00C1700C2BB24 /* FindIdInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindIdInteractor.swift; sourceTree = "<group>"; };
 		D3F420272CA084D900C2BB24 /* RandomSurveyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyViewModel.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				D3A388DC2C8CB8400059C3BB /* result */,
 				D3A388B42C7B7E7C0059C3BB /* HistoryView.swift */,
 				D3A388DA2C8CB0FC0059C3BB /* HistoryViewModel.swift */,
+				D3B79F512CA45D6200701922 /* HistoryInteractor.swift */,
 			);
 			path = history;
 			sourceTree = "<group>";
@@ -655,6 +658,7 @@
 				D3B19E372C148E0500049383 /* HealthKitService.swift in Sources */,
 				D3A3885A2C727691001CE3EA /* SignUpView.swift in Sources */,
 				D3A3885C2C727704001CE3EA /* LoginView.swift in Sources */,
+				D3B79F522CA45D6200701922 /* HistoryInteractor.swift in Sources */,
 				D34F52A02CA1CD9C00875FCE /* DiaryRandomSurveyViewModel.swift in Sources */,
 				D3A388562C726D5C001CE3EA /* ColorExtensions.swift in Sources */,
 			);

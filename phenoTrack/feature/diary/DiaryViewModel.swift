@@ -13,6 +13,7 @@ final class DiaryViewModel: ObservableObject {
     @Published var error: Bool = false
     @Published var dietList: [Diet] = []
     @Published var selectedDate = Date()
+    @Published var selectedDiet: Diet?
     
     private var cancellables = Set<AnyCancellable>()
     

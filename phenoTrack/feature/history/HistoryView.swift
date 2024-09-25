@@ -10,7 +10,7 @@ import SwiftUI
 
 struct HistoryView: View {
     @StateObject private var viewModel = HistoryViewModel()
-    @State private var selectedDate = Date()
+//    @State private var selectedDate = Date()
     @State private var selectedIndex: Int = 0
     @State private var showRandomSurveyResultView: Bool = false
     @State private var showDiaryResultView: Bool = false
@@ -48,11 +48,11 @@ struct HistoryView: View {
                 .padding(.horizontal, 24)
             }
             
-            NavigationLink(destination: RandomSurveyResultView(), isActive: $showRandomSurveyResultView) {
+            NavigationLink(destination: RandomSurveyResultView(randomSurvey: $viewModel.selectedRandomSurvey), isActive: $showRandomSurveyResultView) {
                 EmptyView()
             }
             
-            NavigationLink(destination: DiaryResultView(), isActive: $showDiaryResultView) {
+            NavigationLink(destination: DiaryResultView(diet: $viewModel.selectedDiet), isActive: $showDiaryResultView) {
                 EmptyView()
             }
         }
@@ -61,18 +61,32 @@ struct HistoryView: View {
         .ignoresSafeArea(edges: .bottom)
         .navigationBarTitle("")
         .navigationBarBackButtonHidden(true)
+        .onChange(of: selectedIndex) { oldValue, newValue in
+            if newValue == 0 {
+                viewModel.fetchRandomSurveyListData()
+            } else {
+                viewModel.fetchDietsData()
+            }
+        }
+        .onAppear {
+            if selectedIndex == 0 {
+                viewModel.fetchRandomSurveyListData()
+            } else {
+                viewModel.fetchDietsData()
+            }
+        }
     }
     
     var randomChartView: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(alignment: .center) {
-                Text("신고 - 5건")
+                Text("신고 - \(viewModel.reportedCount(index: selectedIndex))건")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(Color(hex: "#020C1C"))
                 Spacer()
                 
                 HStack(alignment: .center, spacing: 2) {
-                    Text(selectedDate.toYYYYMMDDKRString())
+                    Text(viewModel.selectedDate.toYYYYMMDDKRString())
                         .font(.system(size: 12, weight: .medium))
                         .foregroundColor(Color(hex: "#020C1C"))
                     Image("IcBlueArrowDown")
@@ -120,31 +134,55 @@ struct HistoryView: View {
             }
             .frame(maxWidth: .infinity, alignment: .center)
             VStack(alignment: .leading, spacing: 8) {
-                ForEach(0..<dataList.count) { index in
-                    Button {
-                        if selectedIndex == 0 {
+                if selectedIndex == 0 {
+                    ForEach(viewModel.randomSurveyList, id: \.self) { item in
+                        Button {
+                            viewModel.selectedRandomSurvey = item
                             showRandomSurveyResultView.toggle()
-                        } else {
+                        } label: {
+                            HStack(alignment: .center, spacing: 10) {
+                                Color
+                                    .clear
+                                    .frame(width: 20, height: 10)
+                                Text(DateHelper.formatTimeFromISO8601(item.created) ?? "")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Color(hex: "#020C1C"))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                Image("IcRightArrowBlue")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                            }
+                            .padding(16)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .background(.white)
+                            .cornerRadius(12)
+                        }
+                    }
+                } else {
+                    ForEach(viewModel.dietList, id: \.self) { item in
+                        Button {
+                            viewModel.selectedDiet = item
                             showDiaryResultView.toggle()
+                        } label: {
+                            HStack(alignment: .center, spacing: 10) {
+                                Color
+                                    .clear
+                                    .frame(width: 20, height: 10)
+                                Text(DateHelper.formatTimeFromISO8601(item.created) ?? "")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Color(hex: "#020C1C"))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                Image("IcRightArrowBlue")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                            }
+                            .padding(16)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .background(.white)
+                            .cornerRadius(12)
                         }
-                    } label: {
-                        HStack(alignment: .center, spacing: 10) {
-                            Color
-                                .clear
-                                .frame(width: 20, height: 10)
-                            Text(dataList[index])
-                                .font(.system(size: 16, weight: .medium))
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(Color(hex: "#020C1C"))
-                                .frame(maxWidth: .infinity, alignment: .center)
-                            Image("IcRightArrowBlue")
-                                .resizable()
-                                .frame(width: 20, height: 20)
-                        }
-                        .padding(16)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(.white)
-                        .cornerRadius(12)
                     }
                 }
             }

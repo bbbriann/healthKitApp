@@ -9,13 +9,14 @@ import Combine
 import UIKit
 
 // MARK: - Diet
-struct Diet: Codable {
+struct Diet: Codable, Identifiable, Hashable {
+    var id = UUID().uuidString
     let ulid: String
-    let whenToEat: Date
+    let whenToEat: String
     let questionAAnswer, questionBAnswer, questionCAnswer, questionDAnswer: Int
     let questionEAnswer: Int
     let memo: String
-    let created, modified: Date
+    let created, modified: String
 
     enum CodingKeys: String, CodingKey {
         case ulid
@@ -26,6 +27,47 @@ struct Diet: Codable {
         case questionDAnswer = "question_d_answer"
         case questionEAnswer = "question_e_answer"
         case memo, created, modified
+    }
+    
+    func getAnswerText(index: Int) -> String {
+        switch index {
+        case 0, 1, 2, 3:
+            var answer = 0
+            if index == 0 {
+                answer = self.questionAAnswer
+            } else if index == 1 {
+                answer = self.questionBAnswer
+            } else if index == 2 {
+                answer = self.questionCAnswer
+            } else if index == 3 {
+                answer = self.questionDAnswer
+            }
+            
+            if answer == 0 {
+                return "전혀 아니다"
+            } else if answer == 1 {
+                return "아니다"
+            } else if answer == 2 {
+                return "보통이다"
+            } else if answer == 3 {
+                return "그렇다"
+            } else {
+                return "매우 그렇다"
+            }
+        case 4:
+            let answer = questionEAnswer
+            if answer == 0 {
+                return "아니다"
+            } else if answer == 1 {
+                return "모르겠다"
+            } else {
+                return "그렇다"
+            }
+        case 5:
+            return memo
+        default:
+            return ""
+        }
     }
 }
 

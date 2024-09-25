@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DiaryResultView: View {
+    @Binding var diet: Diet?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     @State var showBackAlert: Bool = false
@@ -34,7 +35,7 @@ struct DiaryResultView: View {
                         Spacer()
                         
                         HStack(alignment: .center, spacing: 2) {
-                            Text(selectedDate.toYYYYMMDDKRString())
+                            Text(getDateTitle(diet?.whenToEat ?? "") ?? "")
                                 .font(.system(size: 12, weight: .medium))
                                 .foregroundColor(Color(hex: "#020C1C"))
                         }
@@ -69,7 +70,8 @@ struct DiaryResultView: View {
             VStack(alignment: .leading, spacing: 12) {
                 ForEach(0..<6) { index in
                     let title = getCardTitle(from: index)
-                    DiaryResultCardView(cardIndex: index, title: title, content: "hihihihi")
+                    var content = diet?.getAnswerText(index: index) ?? ""
+                    DiaryResultCardView(cardIndex: index, title: title, content: content)
                 }
                 Spacer()
                 HStack(alignment: .top, spacing: 12) {
@@ -101,6 +103,18 @@ struct DiaryResultView: View {
         default:
             return ""
         }
+    }
+    
+    private func getDateTitle(_ isoDateString: String) -> String? {
+        // 1. ISO 8601 형식의 문자열을 Date로 변환
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        isoFormatter.formatOptions = [.withInternetDateTime]
+        
+        guard let date = isoFormatter.date(from: isoDateString) else {
+            return nil
+        }
+        return date.toYYYYMMDDKRString()
     }
 }
 
@@ -135,7 +149,7 @@ struct DiaryResultCardView: View {
             .background(.white)
             .border(width: 1, edges: [.bottom], color: .black.opacity(0.1))
             VStack(alignment: .center) {
-                Text("매우 그렇다")
+                Text(content)
                     .font(.system(size: 14, weight: .medium))
                     .foregroundColor(Color(hex: "#020C1C"))
             }

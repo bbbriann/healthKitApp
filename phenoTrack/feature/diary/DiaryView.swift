@@ -86,13 +86,10 @@ struct DiaryView: View {
                 case .diary:
                     EmptyView()
                 case .result:
-                    DiaryResultView()
+                    DiaryResultView(diet: $viewModel.selectedDiet)
                 }
             }
             .onChange(of: viewModel.selectedDate) { oldValue, newValue in
-//                let calendar = Calendar.current
-//                guard !calendar.isDate(oldValue, inSameDayAs: newValue) else { return }
-                print("[TEST] \(newValue)")
                 viewModel.fetchData()
             }
         }
@@ -141,15 +138,16 @@ struct DiaryView: View {
             .frame(maxWidth: .infinity, alignment: .center)
             ScrollView {
                 VStack(alignment: .leading, spacing: 8) {
-                    ForEach(0..<viewModel.dietList.count) { index in
+                    ForEach(viewModel.dietList, id: \.self) { item in
                         Button {
+                            viewModel.selectedDiet = item
                             path.append(.result)
                         } label: {
                             HStack(alignment: .center, spacing: 10) {
                                 Color
                                     .clear
                                     .frame(width: 20, height: 10)
-                                Text(viewModel.dietList[index].created.getTimeString())
+                                Text(DateHelper.formatTimeFromISO8601(item.created) ?? "")
                                     .font(.system(size: 16, weight: .medium))
                                     .multilineTextAlignment(.center)
                                     .foregroundColor(Color(hex: "#020C1C"))
@@ -175,5 +173,28 @@ struct DiaryView: View {
             .frame(maxWidth: .infinity)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
+    }
+}
+
+enum DateHelper {
+    static func formatTimeFromISO8601(_ isoDateString: String, needFractionSecondes: Bool = true) -> String? {
+        // 1. ISO 8601 형식의 문자열을 Date로 변환
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        if needFractionSecondes {
+            isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        } else {
+            isoFormatter.formatOptions = [.withInternetDateTime]
+        }
+        
+        guard let date = isoFormatter.date(from: isoDateString) else {
+            return nil
+        }
+        
+        // 2. 원하는 형식으로 시간만 출력
+        let timeFormatter = DateFormatter()
+        timeFormatter.dateFormat = "HH:mm" // 24시간제로 시간과 분만 추출
+        
+        return timeFormatter.string(from: date)
     }
 }

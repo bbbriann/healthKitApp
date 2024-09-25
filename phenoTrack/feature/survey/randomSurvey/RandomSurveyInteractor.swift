@@ -33,7 +33,7 @@ struct RandomSurveyResModel: Codable {
     let study, ulid: String
     let questionAAnswer, questionBAnswer, questionCAnswer: Int
 //    let memo: String
-    let created, modified: Date
+    let created, modified: String
 
     enum CodingKeys: String, CodingKey {
         case study, ulid
