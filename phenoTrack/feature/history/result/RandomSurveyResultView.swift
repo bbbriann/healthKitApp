@@ -11,7 +11,6 @@ import SwiftUI
 struct RandomSurvey: Codable, Hashable {
     let ulid: String
     let questionAAnswer, questionBAnswer, questionCAnswer: Int
-//    let memo: String
     let created, modified: String
 
     enum CodingKeys: String, CodingKey {

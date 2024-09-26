@@ -10,10 +10,11 @@ import SwiftUI
 
 struct HistoryView: View {
     @StateObject private var viewModel = HistoryViewModel()
-//    @State private var selectedDate = Date()
+    //    @State private var selectedDate = Date()
     @State private var selectedIndex: Int = 0
     @State private var showRandomSurveyResultView: Bool = false
     @State private var showDiaryResultView: Bool = false
+    @State private var hasCalendarButtonPressed: Bool = false
     private var calendar = Calendar.current
     private let daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"]
     
@@ -68,6 +69,13 @@ struct HistoryView: View {
                 viewModel.fetchDietsData()
             }
         }
+        .onChange(of: viewModel.selectedDate) { oldValue, newValue in
+            if selectedIndex == 0 {
+                viewModel.fetchRandomSurveyListData()
+            } else {
+                viewModel.fetchDietsData()
+            }
+        }
         .onAppear {
             if selectedIndex == 0 {
                 viewModel.fetchRandomSurveyListData()
@@ -85,30 +93,48 @@ struct HistoryView: View {
                     .foregroundColor(Color(hex: "#020C1C"))
                 Spacer()
                 
-                HStack(alignment: .center, spacing: 2) {
-                    Text(viewModel.selectedDate.toYYYYMMDDKRString())
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(Color(hex: "#020C1C"))
-                    Image("IcBlueArrowDown")
-                        .resizable()
-                        .frame(width: 16, height: 16)
+                Button {
+                    hasCalendarButtonPressed.toggle()
+                } label: {
+                    HStack(alignment: .center, spacing: 2) {
+                        Text(viewModel.selectedDate.toYYYYMMDDKRString())
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(Color(hex: "#020C1C"))
+                        Image("IcBlueArrowDown")
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                    }
+                    .padding(.leading, 12)
+                    .padding(.trailing, 8)
+                    .padding(.vertical, 4)
+                    .frame(height: 24, alignment: .leading)
+                    .background(.white)
+                    .cornerRadius(12)
                 }
-                .padding(.leading, 12)
-                .padding(.trailing, 8)
-                .padding(.vertical, 4)
-                .frame(height: 24, alignment: .leading)
-                .background(.white)
-                .cornerRadius(12)
             }
             .frame(maxWidth: .infinity, alignment: .center)
+            
+            if hasCalendarButtonPressed {
+                CalenderView(clickedCurrentMonthDates: $viewModel.selectedDate,
+                             hasCalendarButtonPressed: $hasCalendarButtonPressed)
+                .padding(.top, 30)
+            }
             if selectedIndex == 0 {
-                Chart(viewModel.moodData) { dataPoint in
-                    LineMark(
-                        x: .value("Time", dataPoint.time),
-                        y: .value("Value", dataPoint.value)
-                    )
-                    .foregroundStyle(by: .value("Category", dataPoint.category))
-                    .symbol(by: .value("Category", dataPoint.category))
+                Chart {
+                    // ForEach를 각 질문의 카테고리로 처리
+                    ForEach(["음식 생각", "기분", "스트레스"], id: \.self) { category in
+                        ForEach(viewModel.randomSurveyList, id: \.ulid) { survey in
+                            if let date = convertToDate(survey.created) {
+                                LineMark(
+                                    x: .value("Time", date),
+                                    y: .value(category, value(for: category, from: survey))
+                                )
+                                .foregroundStyle(by: .value("Category", category))
+                                .symbol(by: .value("Category", category))
+                                .lineStyle(StrokeStyle(lineWidth: 2))
+                            }
+                        }
+                    }
                 }
                 .chartForegroundStyleScale([
                     "음식 생각": Color.blue,
@@ -116,10 +142,54 @@ struct HistoryView: View {
                     "스트레스": Color.purple
                 ])
                 .chartLegend(position: .top, alignment: .leading)
+                .chartXAxis {
+                    AxisMarks(values: .automatic(desiredCount: 2)) { value in
+                        if let dateValue = value.as(Date.self) {
+                            AxisValueLabel(formatDate(date: dateValue))
+                        }
+                    }
+                }
+                .chartYAxis {
+                    AxisMarks(position: .leading)
+                }
                 .frame(height: 300)
-                .padding()
             } else {
-                HistoryResultCardView()
+                if !viewModel.dietList.isEmpty {
+                    HistoryResultCardView(
+                        title: "음식을 먹기 전에 기분이 좋지 않았나요?",
+                        description: "(지루하거나 화나거나 스트레스 받는 등)",
+                        positiveCount: totalFor(question: \.questionAAnswer),
+                        totalResponses: totalResponses()
+                    )
+                    
+                    HistoryResultCardView(
+                        title: "음식을 먹고 싶다는 생각에 사로 잡혔었나요?",
+                        description: "(강하게 음식을 원했던 경험)",
+                        positiveCount: totalFor(question: \.questionBAnswer),
+                        totalResponses: totalResponses()
+                    )
+                    
+                    HistoryResultCardView(
+                        title: "절제하지 않고 생각했던 것 보다 더 많이 먹었나요?",
+                        description: "(계획한 것보다 더 많이 섭취)",
+                        positiveCount: totalFor(question: \.questionCAnswer),
+                        totalResponses: totalResponses()
+                    )
+                    
+                    HistoryResultCardView(
+                        title: "음식을 먹고 난 후에도 음식을 먹고 싶었나요?",
+                        description: "(포만감이 느껴지지 않음)",
+                        positiveCount: totalFor(question: \.questionDAnswer),
+                        totalResponses: totalResponses()
+                    )
+                    
+                    HistoryResultCardView(
+                        title: "폭식했다고 느끼셨나요?",
+                        description: "(많이 먹었을 때의 느낌)",
+                        positiveCount: totalFor(question: \.questionEAnswer),
+                        totalResponses: totalResponses()
+                    )
+                }
             }
         }
     }
@@ -189,5 +259,50 @@ struct HistoryView: View {
             .frame(maxWidth: .infinity, alignment: .topLeading)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
+    }
+    
+    private func convertToDate(_ dateString: String) -> Date? {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC 시간대로 설정
+        isoFormatter.formatOptions = [.withFractionalSeconds, .withInternetDateTime]
+        return isoFormatter.date(from: dateString)
+    }
+    
+    private func value(for category: String, from survey: RandomSurvey) -> Int {
+        switch category {
+        case "음식 생각":
+            return survey.questionAAnswer
+        case "기분":
+            return survey.questionBAnswer
+        case "스트레스":
+            return survey.questionCAnswer
+        default:
+            return 0
+        }
+    }
+    
+    private func formatDate(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm" // 시간과 분을 두 자리 숫자로 표시
+        return dateFormatter.string(from: date)
+    }
+    
+    // 전체 Diet 배열에서 특정 질문 답변의 긍정적인 응답 수 계산
+    private func totalFor(question keyPath: KeyPath<Diet, Int>, isQuestionE: Bool = false) -> Int {
+        return viewModel.dietList.reduce(0) { total, diet in
+            let answer = diet[keyPath: keyPath]
+            if isQuestionE {
+                // questionE는 2일 경우만 긍정적 응답으로 계산
+                return total + (answer == 2 ? 1 : 0)
+            } else {
+                // questionA, B, C, D는 3 또는 4일 경우만 긍정적 응답으로 계산
+                return total + (answer == 3 || answer == 4 ? 1 : 0)
+            }
+        }
+    }
+    
+    // 전체 응답의 개수를 계산 (모든 Diet에 동일한 총 응답 수를 가정)
+    private func totalResponses() -> Int {
+        return viewModel.dietList.count // 응답이 6개씩인 것으로 가정
     }
 }

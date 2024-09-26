@@ -9,46 +9,58 @@ import Charts
 import SwiftUI
 
 struct HistoryResultCardView: View {
-    // Example data points
-    @State private var surveyData: [MoodSurveyData] = [
-        MoodSurveyData(category: "보통이거나 아니라고 표현한 건", count: 3, percentage: 50, color: Color.blue),
-        MoodSurveyData(category: "그렇다 혹은 매우 그렇다고 표현한 건", count: 3, percentage: 50, color: Color.red)
-    ]
-
+    let title: String
+    let description: String
+    let positiveCount: Int
+    let totalResponses: Int
+    
     var body: some View {
         VStack(spacing: 20) {
-            Text("음식을 먹기 전에 기분이 좋지 않았나요?")
+            Text(title)
                 .font(.headline)
                 .padding(.top, 16)
-            Text("(지루하거나 화나거나 스트레스 받는 등)")
+            Text(description)
                 .font(.subheadline)
                 .foregroundColor(.gray)
                 .padding(.bottom, 8)
-
+            
             HStack {
+                // 차트
                 Chart {
-                    ForEach(surveyData) { data in
-                        SectorMark(
-                            angle: .value("Percentage", data.percentage),
-                            innerRadius: .ratio(0.5),
-                            outerRadius: .ratio(1.0)
-                        )
-                        .foregroundStyle(data.color)
-                    }
+                    // 부정적 응답 (예: "보통이거나 아니라고 표현한 건")
+                    SectorMark(
+                        angle: .value("Percentage", negativePercentage),
+                        innerRadius: .ratio(0.5),
+                        outerRadius: .ratio(1.0)
+                    )
+                    .foregroundStyle(Color.blue)
+                    
+                    // 긍정적 응답 (예: "그렇다 혹은 매우 그렇다고 표현한 건")
+                    SectorMark(
+                        angle: .value("Percentage", positivePercentage),
+                        innerRadius: .ratio(0.5),
+                        outerRadius: .ratio(1.0)
+                    )
+                    .foregroundStyle(Color.red)
                 }
                 .chartLegend(.hidden)
                 .frame(width: 120, height: 120)
                 
                 // Legend
                 VStack(alignment: .leading, spacing: 4) {
-                    ForEach(surveyData) { data in
-                        HStack {
-                            Circle()
-                                .fill(data.color)
-                                .frame(width: 12, height: 12)
-                            Text("\(data.category): \(data.count)건 (\(Int(data.percentage))%)")
-                                .font(.footnote)
-                        }
+                    HStack {
+                        Circle()
+                            .fill(Color.blue)
+                            .frame(width: 12, height: 12)
+                        Text("보통이거나 아니라고 표현한 건: \(negativeCount)건 (\(Int(negativePercentage))%)")
+                            .font(.footnote)
+                    }
+                    HStack {
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 12, height: 12)
+                        Text("그렇다 혹은 매우 그렇다고 표현한 건: \(positiveCount)건 (\(Int(positivePercentage))%)")
+                            .font(.footnote)
                     }
                 }
                 .padding()
@@ -58,5 +70,26 @@ struct HistoryResultCardView: View {
         }
         .background(Color.white)
         .cornerRadius(12)
+    }
+    
+    // 부정적 응답의 개수
+    private var negativeCount: Int {
+        totalResponses - positiveCount
+    }
+    
+    // 긍정적 응답의 비율
+    private var positivePercentage: Double {
+        guard totalResponses != 0 else {
+            return 0
+        }
+        return Double(positiveCount) / Double(totalResponses) * 100
+    }
+    
+    // 부정적 응답의 비율
+    private var negativePercentage: Double {
+        guard totalResponses != 0 else {
+            return 0
+        }
+        return Double(negativeCount) / Double(totalResponses) * 100
     }
 }

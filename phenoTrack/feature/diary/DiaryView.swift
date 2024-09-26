@@ -56,11 +56,11 @@ struct DiaryView: View {
                     .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
                     .padding(.horizontal, 24)
                     
-                    //            if hasCalendarButtonPressed {
-                    //                CalenderView(clickedCurrentMonthDates: $selectedDate,
-                    //                             hasCalendarButtonPressed: $hasCalendarButtonPressed)
-                    //                    .padding(.top, 30)
-                    //            }
+//                                if hasCalendarButtonPressed {
+//                                    CalenderView(clickedCurrentMonthDates: $selectedDate,
+//                                                 hasCalendarButtonPressed: $hasCalendarButtonPressed)
+//                                        .padding(.top, 30)
+//                                }
                     
                     CalendarScrollView(currentDate: $viewModel.selectedDate)
                         .padding(.horizontal, 24)
