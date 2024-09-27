@@ -33,34 +33,36 @@ struct DiaryView: View {
                                 .font(.system(size: 20, weight: .bold))
                                 .foregroundColor(.white)
                             Spacer()
-                            //                    Button {
-                            //                        hasCalendarButtonPressed.toggle()
-                            //                    } label: {
-                            HStack(alignment: .center, spacing: 2) {
-                                Text(viewModel.selectedDate.toYYYYMMDDKRString())
-                                    .font(.system(size: 12, weight: .medium))
-                                    .foregroundColor(Color(hex: "#020C1C"))
-                                Image("IcBlueArrowDown")
-                                    .resizable()
-                                    .frame(width: 16, height: 16)
+                            Button {
+                                hasCalendarButtonPressed.toggle()
+                            } label: {
+                                HStack(alignment: .center, spacing: 2) {
+                                    Text(viewModel.selectedDate.toYYYYMMDDKRString())
+                                        .font(.system(size: 12, weight: .medium))
+                                        .foregroundColor(Color(hex: "#020C1C"))
+//                                    Image("IcBlueArrowDown")
+//                                        .resizable()
+//                                        .frame(width: 16, height: 16)
+                                }
+                                .padding(.leading, 12)
+                                .padding(.trailing, 8)
+                                .padding(.vertical, 4)
+                                .frame(height: 24, alignment: .leading)
+                                .background(.white)
+                                .cornerRadius(12)
                             }
-                            .padding(.leading, 12)
-                            .padding(.trailing, 8)
-                            .padding(.vertical, 4)
-                            .frame(height: 24, alignment: .leading)
-                            .background(.white)
-                            .cornerRadius(12)
-                            //                    }
                         }
+                        
+//                        if hasCalendarButtonPressed {
+//                            CalenderView(clickedCurrentMonthDates: $viewModel.selectedDate,
+//                                         hasCalendarButtonPressed: $hasCalendarButtonPressed)
+//                            .padding(.top, 400)
+//                        }
                     }
                     .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
                     .padding(.horizontal, 24)
+                    .zIndex(999)
                     
-//                                if hasCalendarButtonPressed {
-//                                    CalenderView(clickedCurrentMonthDates: $selectedDate,
-//                                                 hasCalendarButtonPressed: $hasCalendarButtonPressed)
-//                                        .padding(.top, 30)
-//                                }
                     
                     CalendarScrollView(currentDate: $viewModel.selectedDate)
                         .padding(.horizontal, 24)
@@ -97,6 +99,9 @@ struct DiaryView: View {
             Task {
                 viewModel.fetchData()
             }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .dataRefresh)) { notification in
+            viewModel.fetchData()
         }
     }
     

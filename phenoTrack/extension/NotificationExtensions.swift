@@ -12,4 +12,5 @@ extension Notification.Name {
     static let loggedOut = Notification.Name("loggedOut")
     static let showTabBar = Notification.Name("showTabBar")
     static let hideTabBar = Notification.Name("hideTabBar")
+    static let dataRefresh = Notification.Name("dataRefresh")
 }

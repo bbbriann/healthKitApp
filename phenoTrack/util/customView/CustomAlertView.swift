@@ -4,6 +4,7 @@ struct CustomAlertView: View {
     var title: String
     var message: String
     var onlyConfirm: Bool = false
+    var confirmTitle: String = "종료"
     var onCancel: () -> Void
     var onConfirm: () -> Void
     
@@ -43,7 +44,7 @@ struct CustomAlertView: View {
                         onConfirm()
                     } label: {
                         HStack(alignment: .center) {
-                            Text("종료")
+                            Text(confirmTitle)
                                 .font(.system(size: 14, weight: .medium))
                                 .foregroundColor(Color(hex: "#DA072D"))
                         }

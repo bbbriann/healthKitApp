@@ -15,6 +15,10 @@ struct ProfileView: View {
     
     @State private var showResearchInfoView: Bool = false
     
+    @State private var showPrivacyPolicyView: Bool = false
+    
+    @State private var showSensitiveInfoView: Bool = false
+    
     private var user: UserInfo? {
         return UserDefaults.standard.userInfo
     }
@@ -50,6 +54,18 @@ struct ProfileView: View {
             }
             
             NavigationLink(destination: ResearchInfoView(), isActive: $showResearchInfoView) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: InfoTextView(fileName: "privacyPolicy", 
+                                                     title: "개인정보취급방침"), 
+                           isActive: $showPrivacyPolicyView) {
+                EmptyView()
+            }
+            
+            NavigationLink(destination: InfoTextView(fileName: "sensitiveInfo", 
+                                                     title: "민감정보수집이용 동의서"),
+                           isActive: $showSensitiveInfoView) {
                 EmptyView()
             }
         }
@@ -179,37 +195,44 @@ struct ProfileView: View {
             
             // 내 정보
             VStack(alignment: .center, spacing: 0) {
-                HStack(alignment: .center) {
-                    // Body/14px/Medium
-                    Text("개인정보취급방침")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(Color(hex: "#020C1C"))
-                    Spacer()
-                    // Alternative Views and Spacers
-                    Image("IcRightArrowBlue")
-                        .resizable()
-                        .frame(width: 16, height: 16)
+                Button {
+                    showPrivacyPolicyView.toggle()
+                } label: {
+                    HStack(alignment: .center) {
+                        // Body/14px/Medium
+                        Text("개인정보취급방침")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(Color(hex: "#020C1C"))
+                        Spacer()
+                        // Alternative Views and Spacers
+                        Image("IcRightArrowBlue")
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 18)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .border(width: 1, edges: [.bottom], color: .black.opacity(0.05), padding: 20)
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 18)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .border(width: 1, edges: [.bottom], color: .black.opacity(0.05), padding: 20)
-                
-                HStack(alignment: .center) {
-                    // Body/14px/Medium
-                    Text("민감정보수집이용 동의서")
-                        .font(.system(size: 14, weight: .medium))
-                        .foregroundColor(Color(hex: "#020C1C"))
-                    Spacer()
-                    // Alternative Views and Spacers
-                    Image("IcRightArrowBlue")
-                        .resizable()
-                        .frame(width: 16, height: 16)
+                Button {
+                    showSensitiveInfoView.toggle()
+                } label: {
+                    HStack(alignment: .center) {
+                        // Body/14px/Medium
+                        Text("민감정보수집이용 동의서")
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(Color(hex: "#020C1C"))
+                        Spacer()
+                        // Alternative Views and Spacers
+                        Image("IcRightArrowBlue")
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                    }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 18)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .border(width: 1, edges: [.bottom], color: .black.opacity(0.05), padding: 20)
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 18)
-                .frame(maxWidth: .infinity, alignment: .center)
-                .border(width: 1, edges: [.bottom], color: .black.opacity(0.05), padding: 20)
                 
                 Button {
                     showResearchInfoView.toggle()

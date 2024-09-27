@@ -15,10 +15,7 @@ struct HistoryView: View {
     @State private var showRandomSurveyResultView: Bool = false
     @State private var showDiaryResultView: Bool = false
     @State private var hasCalendarButtonPressed: Bool = false
-    private var calendar = Calendar.current
-    private let daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"]
     
-    private var dataList = ["09:35","12:30","14:25","17:12","20:32"]
     var body: some View {
         VStack {
             ZStack {
@@ -77,6 +74,13 @@ struct HistoryView: View {
             }
         }
         .onAppear {
+            if selectedIndex == 0 {
+                viewModel.fetchRandomSurveyListData()
+            } else {
+                viewModel.fetchDietsData()
+            }
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .dataRefresh)) { notification in
             if selectedIndex == 0 {
                 viewModel.fetchRandomSurveyListData()
             } else {

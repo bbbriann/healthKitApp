@@ -11,57 +11,94 @@ struct DiaryResultView: View {
     @Binding var diet: Diet?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
-    @State var showBackAlert: Bool = false
+    @State var showDeleteAlert: Bool = false
+    @StateObject private var viewModel = DiaryResultViewModel()
     
     @State var selectedDate: Date = Date()
     var body: some View {
         ZStack {
-            VStack {
-                ZStack {
-                    HStack {
-                        HStack(alignment: .center, spacing: 16) {
-                            Button {
-                                NotificationCenter.default.post(Notification(name: .showTabBar))
-                                presentationMode.wrappedValue.dismiss()
-                            } label: {
-                                Image("IcBackBtnBlue")
-                                    .resizable()
-                                    .frame(width: 24, height: 24)
+            if viewModel.isLoading {
+                Spinner()
+            } else {
+                VStack {
+                    
+                    ZStack {
+                        HStack {
+                            HStack(alignment: .center, spacing: 16) {
+                                Button {
+                                    NotificationCenter.default.post(Notification(name: .showTabBar))
+                                    presentationMode.wrappedValue.dismiss()
+                                } label: {
+                                    Image("IcBackBtnBlue")
+                                        .resizable()
+                                        .frame(width: 24, height: 24)
+                                }
+                                Text("식사 일기")
+                                    .font(.system(size: 20, weight: .bold))
+                                    .foregroundColor(Color(hex: "#020C1C"))
                             }
-                            Text("식사 일기")
-                                .font(.system(size: 20, weight: .bold))
-                                .foregroundColor(Color(hex: "#020C1C"))
+                            Spacer()
+                            
+                            HStack(alignment: .center, spacing: 2) {
+                                Text(getDateTitle(diet?.whenToEat ?? "") ?? "")
+                                    .font(.system(size: 12, weight: .medium))
+                                    .foregroundColor(Color(hex: "#020C1C"))
+                            }
+                            .padding(.leading, 12)
+                            .padding(.trailing, 8)
+                            .padding(.vertical, 4)
+                            .frame(height: 24, alignment: .leading)
+                            .background(.white)
+                            .cornerRadius(12)
                         }
-                        Spacer()
-                        
-                        HStack(alignment: .center, spacing: 2) {
-                            Text(getDateTitle(diet?.whenToEat ?? "") ?? "")
-                                .font(.system(size: 12, weight: .medium))
-                                .foregroundColor(Color(hex: "#020C1C"))
-                        }
-                        .padding(.leading, 12)
-                        .padding(.trailing, 8)
-                        .padding(.vertical, 4)
-                        .frame(height: 24, alignment: .leading)
-                        .background(.white)
-                        .cornerRadius(12)
+                        .padding(.top, 10)
+                        .padding(.bottom, 16)
                     }
-                    .padding(.top, 10)
-                    .padding(.bottom, 16)
+                    .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
+                    contentView
+                        .cornerRadius(24)
+                    Spacer()
                 }
-                .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
-                contentView
-                    .cornerRadius(24)
-                Spacer()
+                .padding(.horizontal, 24)
+                .frame(maxHeight: .infinity)
             }
-            .padding(.horizontal, 24)
-            .frame(maxHeight: .infinity)
+            
+            if showDeleteAlert {
+                ZStack {
+                    Color.black.opacity(0.4) // 반투명한 배경
+                        .ignoresSafeArea()
+                    
+                    CustomAlertView(
+                        title: "식사 이력 삭제",
+                        message: "식사 이력을 삭제하시겠습니까?",
+                        confirmTitle: "삭제",
+                        onCancel: {
+                            showDeleteAlert = false
+                        },
+                        onConfirm: {
+                            showDeleteAlert = false
+                            if let ulid = diet?.ulid {
+                                viewModel.deleteData(ulid: ulid)
+                            }
+                        }
+                    )
+                    .padding(.horizontal, 24)
+                    .transition(.scale)
+                    .zIndex(1)
+                }
+            }
         }
         .background(Color(red: 0.95, green: 0.96, blue: 0.98))
         .navigationBarTitle("")
         .navigationBarBackButtonHidden(true)
         .onAppear {
             NotificationCenter.default.post(Notification(name: .hideTabBar))
+        }
+        .onChange(of: viewModel.deleteComplete) { oldValue, newValue in
+            guard newValue else { return }
+            NotificationCenter.default.post(Notification(name: .showTabBar))
+            NotificationCenter.default.post(Notification(name: .dataRefresh))
+            presentationMode.wrappedValue.dismiss()
         }
     }
     
@@ -75,8 +112,13 @@ struct DiaryResultView: View {
                 }
                 Spacer()
                 HStack(alignment: .top, spacing: 12) {
-                    CommonSelectButton(title: "삭제", titleColor: .white,
-                                       bgColor: Color(hex: "#DA072D"))
+                    Button {
+                        showDeleteAlert.toggle()
+                    } label: {
+                        CommonSelectButton(title: "삭제", titleColor: .white,
+                                           bgColor: Color(hex: "#DA072D"))
+                    }
+
                     CommonSelectButton(title: "수정", titleColor: .white,
                                        bgColor: Color(hex: "#1068FD"))
                 }

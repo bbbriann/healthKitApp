@@ -52,6 +52,10 @@ class APIClient {
                     throw URLError(.badServerResponse)
                 }
                 
+                if response.statusCode == 204 {
+                    return Data() // 빈 데이터 반환
+                }
+                
                 if let json = try? JSONSerialization.jsonObject(with: result.data, options: []) as? [String : Any] {
                     print("[TEST] data \(json)")
                 }

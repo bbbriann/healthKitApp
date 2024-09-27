@@ -46,6 +46,18 @@ struct StudyListResModel: Decodable {
     let results: [StudyListResult]
 }
 
+// MARK: - LatestResModel
+struct LatestResModel: Codable {
+    let ulid: String
+    let endAt, created, modified: String
+
+    enum CodingKeys: String, CodingKey {
+        case ulid
+        case endAt = "end_at"
+        case created, modified
+    }
+}
+
 enum CommonError: Error {
     case noUlid
     case startEndTimeError
@@ -57,5 +69,10 @@ class HomeInteractor {
     
     func fetchStudies() -> AnyPublisher<StudyListResModel, Error> {
         return client.performRequest("/study_users", method: "GET")
+    }
+    
+    func fetchLatests() -> AnyPublisher<LatestResModel?, Error> {
+        let studyId = UserDefaults.standard.studyId ?? ""
+        return client.performRequest("/studies/" + studyId + "/survey_notifications/latest", method: "GET")
     }
 }

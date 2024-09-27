@@ -19,9 +19,11 @@ struct CalendarScrollView: View {
 
     @State private var snappedDayOffset = 0
     @State private var draggedDayOffset = Double.zero
+    @State private var isFromDragged: Bool = false
 
     init(currentDate: Binding<Date>) {
         self._currentDate = currentDate
+        self.baseDate = currentDate.wrappedValue
         dayOfMonthFormatter.dateFormat = "d"
         weekDayNameFormatter.dateFormat = "E"
         weekDayNameFormatter.locale = .init(identifier: "ko_KR")
@@ -63,7 +65,9 @@ struct CalendarScrollView: View {
             DispatchQueue.main.async {
                 let calendar = Calendar.current
                 guard !calendar.isDate(dateToDisplay, inSameDayAs: currentDate) else { return }
+                guard self.isFromDragged else { return }
                 self.currentDate = dateToDisplay
+                self.isFromDragged = false
             }
         }
         return ZStack {
@@ -96,6 +100,7 @@ struct CalendarScrollView: View {
     private var dragged: some Gesture {
         DragGesture()
             .onChanged() { val in
+                isFromDragged = true
                 draggedDayOffset = Double(snappedDayOffset) - (val.translation.width / positionWidth)
             }
             .onEnded { val in

@@ -76,6 +76,30 @@ final class HomeViewModel: ObservableObject {
     func fetchHomeData() {
         isLoading = true
         interactor.fetchStudies()
+            .flatMap { res -> AnyPublisher<LatestResModel?, Error> in
+                    // 첫 번째 API 호출 결과 처리
+                    print("[TEST] res \(res)")
+                    self.study = res.results.first?.study
+                    
+                    if let result = res.results.first {
+                        UserDefaults.standard.studyId = result.study.ulid
+                        if result.status == "INVITED" {
+                            self.homeState = .notApproved
+                        } else {
+                            let surveyAgreed = UserDefaults.standard.surveyAgreed ?? false
+                            if surveyAgreed {
+                                // surveyAgreed가 true이면 두 번째 API 호출
+                                return self.interactor.fetchLatests()
+                            } else {
+                                self.homeState = .readyToStart
+                            }
+                        }
+                    }
+                    // surveyAgreed가 false이면 빈 Publisher 반환
+                    return Just(nil)  // SecondAPIResponse에 맞는 기본값
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                }
             .sink(receiveCompletion: { [weak self] completion in
                 switch completion {
                 case .failure(let error):
@@ -86,21 +110,7 @@ final class HomeViewModel: ObservableObject {
                 }
             }, receiveValue: { res in
                 // API 호출 결과 처리
-                print("[TEST] res \(res)")
-                self.study = res.results.first?.study
-                if let result = res.results.first {
-                    UserDefaults.standard.studyId = result.study.ulid
-                    if result.status == "INVITED" {
-                        self.homeState = .notApproved
-                    } else {
-                        let surveyAgreed = UserDefaults.standard.surveyAgreed ?? false
-                        if surveyAgreed {
-                            self.homeState = .noSurvey
-                        } else {
-                            self.homeState = .readyToStart
-                        }
-                    }
-                }
+                print("[TEST] resreesers \(res)")
                 self.isLoading = false
             })
             .store(in: &cancellables)
