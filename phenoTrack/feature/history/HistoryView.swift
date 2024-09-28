@@ -128,7 +128,7 @@ struct HistoryView: View {
                     // ForEach를 각 질문의 카테고리로 처리
                     ForEach(["음식 생각", "기분", "스트레스"], id: \.self) { category in
                         ForEach(viewModel.randomSurveyList, id: \.ulid) { survey in
-                            if let date = convertToDate(survey.created) {
+                            if let date = DateHelper.convertToDate(survey.created) {
                                 LineMark(
                                     x: .value("Time", date),
                                     y: .value(category, value(for: category, from: survey))
@@ -263,13 +263,6 @@ struct HistoryView: View {
             .frame(maxWidth: .infinity, alignment: .topLeading)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-    }
-    
-    private func convertToDate(_ dateString: String) -> Date? {
-        let isoFormatter = ISO8601DateFormatter()
-        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC 시간대로 설정
-        isoFormatter.formatOptions = [.withFractionalSeconds, .withInternetDateTime]
-        return isoFormatter.date(from: dateString)
     }
     
     private func value(for category: String, from survey: RandomSurvey) -> Int {

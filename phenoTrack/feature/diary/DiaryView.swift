@@ -202,4 +202,15 @@ enum DateHelper {
         
         return timeFormatter.string(from: date)
     }
+    
+    static func convertToDate(_ dateString: String, needFractionSecondes: Bool = true) -> Date? {
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC 시간대로 설정
+        if needFractionSecondes {
+            isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        } else {
+            isoFormatter.formatOptions = [.withInternetDateTime]
+        }
+        return isoFormatter.date(from: dateString)
+    }
 }

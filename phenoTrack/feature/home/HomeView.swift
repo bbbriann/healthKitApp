@@ -5,6 +5,7 @@
 //  Created by brian on 8/26/24.
 //
 
+import Combine
 import SwiftUI
 
 struct HomeView: View {
@@ -219,17 +220,7 @@ struct HomeView: View {
                                             .font(.system(size: 16, weight: .medium))
                                             .foregroundColor(Color(hex: "#020C1C"))
                                             .frame(maxWidth: .infinity, alignment: .center)
-                                        HStack(alignment: .center, spacing: 10) {
-                                            // Body/14px/Medium
-                                            Text("00:59:12")
-                                                .font(.system(size: 14, weight: .medium))
-                                                .multilineTextAlignment(.center)
-                                                .foregroundColor(Color(hex: "#DA072D"))
-                                        }
-                                        .padding(.horizontal, 12)
-                                        .padding(.vertical, 4)
-                                        .background(Color(hex: "#DA072D").opacity(0.2))
-                                        .cornerRadius(14)
+                                        CountDownView(endDate: DateHelper.convertToDate(viewModel.latestNoti?.endAt ?? "", needFractionSecondes: false) ?? Date())
                                     }
                                     .frame(maxWidth: .infinity, alignment: .center)
                                     Button {
@@ -525,6 +516,58 @@ struct ReportGuideView: View {
         .padding(.horizontal, 24)
         .readSize { calculatedHeight in
             height = calculatedHeight.height
+        }
+    }
+}
+
+struct CountDownView: View {
+    @State private var timeRemaining: String = "00:00:00"
+    @State private var timerSubscription: AnyCancellable?
+    
+    let endDate: Date
+    var body: some View {
+        HStack(alignment: .center, spacing: 10) {
+            // Body/14px/Medium
+            Text(timeRemaining)
+                .font(.system(size: 14, weight: .medium))
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color(hex: "#DA072D"))
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 4)
+        .background(Color(hex: "#DA072D").opacity(0.2))
+        .cornerRadius(14)
+        .onAppear {
+            startTimer()
+        }
+        .onDisappear {
+            timerSubscription?.cancel()
+        }
+    }
+    
+    private func startTimer() {
+        // 타이머 설정, 1초마다 실행
+        timerSubscription = Timer.publish(every: 1, on: .main, in: .common)
+            .autoconnect()
+            .sink { _ in
+                updateCountdown()
+            }
+    }
+    
+    private func updateCountdown() {
+        let now = Date()
+        let remainingTime = endDate.timeIntervalSince(now)
+        
+        if remainingTime <= 0 {
+            // 남은 시간이 0이거나 지났으면 타이머 중지 및 00:00:00으로 설정
+            timeRemaining = "00:00:00"
+            timerSubscription?.cancel()
+        } else {
+            // 남은 시간을 시:분:초 형태로 계산
+            let hours = Int(remainingTime) / 3600
+            let minutes = Int(remainingTime) / 60 % 60
+            let seconds = Int(remainingTime) % 60
+            timeRemaining = String(format: "%02d:%02d:%02d", hours, minutes, seconds)
         }
     }
 }

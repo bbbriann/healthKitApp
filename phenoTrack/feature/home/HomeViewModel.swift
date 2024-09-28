@@ -18,9 +18,10 @@ enum HomeState: String, CaseIterable, Identifiable {
 }
 
 final class HomeViewModel: ObservableObject {
-    @Published var homeState: HomeState = .survey
+    @Published var homeState: HomeState = .noSurvey
     @Published var isLoading: Bool = false
     @Published var study: Study?
+    @Published var latestNoti: LatestResModel?
     private var cancellables = Set<AnyCancellable>()
     private let interactor: HomeInteractor
     
@@ -110,7 +111,15 @@ final class HomeViewModel: ObservableObject {
                 }
             }, receiveValue: { res in
                 // API 호출 결과 처리
-                print("[TEST] resreesers \(res)")
+                if let res, let endAtDate = DateHelper.convertToDate(res.endAt, needFractionSecondes: false) {
+                    self.latestNoti = res
+                    print(endAtDate)
+                    if endAtDate > Date() {
+                        self.homeState = .survey
+                    } else {
+                        self.homeState = .noSurvey
+                    }
+                }
                 self.isLoading = false
             })
             .store(in: &cancellables)
