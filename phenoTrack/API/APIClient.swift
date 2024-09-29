@@ -56,6 +56,11 @@ class APIClient {
                     return Data() // 빈 데이터 반환
                 }
                 
+                if result.data.isEmpty {
+                    // 빈 데이터를 처리
+                    return Data("{}".utf8) // 빈 객체로 처리
+                }
+                
                 if let json = try? JSONSerialization.jsonObject(with: result.data, options: []) as? [String : Any] {
                     print("[TEST] data \(json)")
                 }

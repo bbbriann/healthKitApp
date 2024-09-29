@@ -18,7 +18,7 @@ enum HomeState: String, CaseIterable, Identifiable {
 }
 
 final class HomeViewModel: ObservableObject {
-    @Published var homeState: HomeState = .noSurvey
+    @Published var homeState: HomeState = .notApproved
     @Published var isLoading: Bool = false
     @Published var study: Study?
     @Published var latestNoti: LatestResModel?

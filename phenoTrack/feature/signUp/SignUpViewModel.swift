@@ -75,9 +75,7 @@ final class SignupViewModel: ObservableObject {
         case .email:
             return email.isEmpty
         case .password:
-            return (pw.isEmpty || pwConfirm.isEmpty)
-            // 비밀번호가 서로 다름.
-            || pw != pwConfirm
+            return (pw.isEmpty || pwConfirm.isEmpty) && (pw != pwConfirm)
         case .phone:
             return phoneNumber.isEmpty
         case .info:

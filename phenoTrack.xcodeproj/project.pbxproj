@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D31592A12CA7240700D63B3F /* RandomSurveyResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592A02CA7240700D63B3F /* RandomSurveyResultViewModel.swift */; };
 		D31592A32CA7240D00D63B3F /* RandomSurveyResultInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592A22CA7240D00D63B3F /* RandomSurveyResultInteractor.swift */; };
+		D31592A52CA983D700D63B3F /* ResetPWViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592A42CA983D700D63B3F /* ResetPWViewModel.swift */; };
+		D31592A72CA9853200D63B3F /* ResetPWInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592A62CA9853200D63B3F /* ResetPWInteractor.swift */; };
 		D34F52722CA1C46000875FCE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D34F52712CA1C46000875FCE /* FirebaseAnalytics */; };
 		D34F52742CA1C46000875FCE /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = D34F52732CA1C46000875FCE /* FirebaseAnalyticsOnDeviceConversion */; };
 		D34F52762CA1C46000875FCE /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D34F52752CA1C46000875FCE /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -111,6 +113,8 @@
 /* Begin PBXFileReference section */
 		D31592A02CA7240700D63B3F /* RandomSurveyResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyResultViewModel.swift; sourceTree = "<group>"; };
 		D31592A22CA7240D00D63B3F /* RandomSurveyResultInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyResultInteractor.swift; sourceTree = "<group>"; };
+		D31592A42CA983D700D63B3F /* ResetPWViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPWViewModel.swift; sourceTree = "<group>"; };
+		D31592A62CA9853200D63B3F /* ResetPWInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPWInteractor.swift; sourceTree = "<group>"; };
 		D34F529F2CA1CD9C00875FCE /* DiaryRandomSurveyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyViewModel.swift; sourceTree = "<group>"; };
 		D34F52A12CA1CDA600875FCE /* DiaryRandomSurveyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyInteractor.swift; sourceTree = "<group>"; };
 		D34F52A52CA2FF2B00875FCE /* DiaryRandomSurveyCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyCompleteView.swift; sourceTree = "<group>"; };
@@ -336,6 +340,8 @@
 			isa = PBXGroup;
 			children = (
 				D3A388962C74EFDD0059C3BB /* ResetPWView.swift */,
+				D31592A42CA983D700D63B3F /* ResetPWViewModel.swift */,
+				D31592A62CA9853200D63B3F /* ResetPWInteractor.swift */,
 			);
 			path = resetPW;
 			sourceTree = "<group>";
@@ -642,6 +648,7 @@
 				D3A388F12C93505B0059C3BB /* Spinner.swift in Sources */,
 				D3A3889B2C7501D40059C3BB /* SignUpViewModel.swift in Sources */,
 				D34F52A22CA1CDA600875FCE /* DiaryRandomSurveyInteractor.swift in Sources */,
+				D31592A72CA9853200D63B3F /* ResetPWInteractor.swift in Sources */,
 				D3A388B52C7B7E7C0059C3BB /* HistoryView.swift in Sources */,
 				D3A388532C726D1C001CE3EA /* CommonSelectButton.swift in Sources */,
 				D3F420242CA00BD200C2BB24 /* FindIdViewModel.swift in Sources */,
@@ -653,6 +660,7 @@
 				D3A388EB2C8F64820059C3BB /* AuthViewModel.swift in Sources */,
 				D3A388D92C8C4DA60059C3BB /* CustomSegmentedControl.swift in Sources */,
 				D3A388A82C7B56090059C3BB /* GIFImageView.swift in Sources */,
+				D31592A52CA983D700D63B3F /* ResetPWViewModel.swift in Sources */,
 				D3A388B92C7B7E960059C3BB /* HomeView.swift in Sources */,
 				D3F4202A2CA084E000C2BB24 /* RandomSurveyInteractor.swift in Sources */,
 				D3A3889F2C78F4C10059C3BB /* RadioButton.swift in Sources */,

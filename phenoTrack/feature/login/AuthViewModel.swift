@@ -10,10 +10,10 @@ import SwiftUI
 
 // MARK: - AuthViewModel
 class AuthViewModel: ObservableObject {
-//    @Published var email: String = ""
-//    @Published var password: String = ""
-    @Published var email: String = "testtiostest@gmail.com"
-    @Published var password: String = "xb*jo9HG!tgQxB.BqidquUJc8r2VLGj3"
+    @Published var email: String = ""
+    @Published var password: String = ""
+//    @Published var email: String = "testtiostest@gmail.com"
+//    @Published var password: String = "xb*jo9HG!tgQxB.BqidquUJc8r2VLGj3"
 //    @Published var email: String = "ios@ios.com"
 //    @Published var password: String = "qwer1234"
     @Published var accessToken: String? {
