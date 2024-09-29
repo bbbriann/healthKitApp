@@ -219,3 +219,12 @@ enum DiaryViewStack {
     case diarySurveyComplete
     case result
 }
+
+enum ProfileViewStack {
+    case profile
+    case sensitiveInfo
+    case privacyPolicy
+    case researchInfo
+    case editProfile
+    case changePassword
+}

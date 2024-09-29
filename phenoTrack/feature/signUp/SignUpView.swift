@@ -133,7 +133,7 @@ struct SignUpView: View {
                 .foregroundColor(Color(hex: "#020C1C"))
                 .frame(width: 345, alignment: .topLeading)
             CommonInputView(text: $viewModel.phoneNumber, image: "IcPhone",
-                            placeholder: "전화번호를 다시 입력하세요")
+                            placeholder: "전화번호를 입력하세요")
             
             Spacer()
         }

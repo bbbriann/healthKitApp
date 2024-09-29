@@ -22,6 +22,7 @@ enum InputStatus {
 enum SpecificType {
     case none
     case birth
+    case pwEdit
 }
 
 enum Gender: String {
@@ -38,6 +39,8 @@ struct CommonInputView: View {
     
     var specificType: SpecificType = .none
     
+    var needNoFocus: Bool = false
+    
     @State private var state: InputState = .default
     @State private var status: InputStatus = .default
     
@@ -46,7 +49,8 @@ struct CommonInputView: View {
     
     init(text: Binding<String>, image: String, placeholder: String = "",
          keyboardType: UIKeyboardType = UIKeyboardType.default, isSecure: Bool = false,
-         specificType: SpecificType = .none, gender: Binding<Gender?> = .constant(.male)) {
+         specificType: SpecificType = .none, gender: Binding<Gender?> = .constant(.male),
+         needNoFocus: Bool = false) {
         self._text = text
         self.image = image
         self.placeholder = placeholder
@@ -54,6 +58,7 @@ struct CommonInputView: View {
         self.isSecure = isSecure
         self.specificType = specificType
         self._gender = gender
+        self.needNoFocus = needNoFocus
     }
     
     
@@ -75,6 +80,10 @@ struct CommonInputView: View {
                             .font(.system(size: 16))
                     }
                     .padding(.vertical, 18)
+                    .multilineTextAlignment(.leading)
+                if specificType == .pwEdit {
+                    Spacer()
+                }
             } else {
                 switch specificType {
                 case .none:
@@ -91,6 +100,8 @@ struct CommonInputView: View {
                     Text(text)
                         .font(.system(size: 16))
                         .padding(.vertical, 18)
+                default:
+                    EmptyView()
                 }
             }
             switch specificType {
@@ -102,6 +113,12 @@ struct CommonInputView: View {
                     RadioButton(tag: .male, selection: $gender, label: "남자")
                     RadioButton(tag: .female, selection: $gender, label: "여자")
                 }
+            case .pwEdit:
+                Spacer()
+                Image("IcEdit")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 24, height: 24)
             }
             
         }
@@ -114,6 +131,9 @@ struct CommonInputView: View {
         guard specificType == .none else {
             return Color(hex:"#1068FD").opacity(0.1)
         }
+        guard !needNoFocus else {
+            return Color(hex:"#1068FD").opacity(0.1)
+        }
         if !text.isEmpty {
             return Color(hex:"#1068FD")
         } else {
@@ -123,6 +143,9 @@ struct CommonInputView: View {
     
     private var imageColor: Color? {
         guard specificType == .none else {
+            return nil
+        }
+        guard !needNoFocus else {
             return nil
         }
         if !text.isEmpty {

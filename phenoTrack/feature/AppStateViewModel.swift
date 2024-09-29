@@ -33,6 +33,7 @@ class AppStateViewModel: ObservableObject {
                     self?.isLoading = false // API 호출이 끝나면 로딩 상태 해제
                 }, receiveValue: { userInfo in
                     // API 호출 결과 처리
+                    UserDefaults.standard.userInfo = userInfo
                     print("Fetched user info: \(userInfo)")
                 })
                 .store(in: &cancellables)

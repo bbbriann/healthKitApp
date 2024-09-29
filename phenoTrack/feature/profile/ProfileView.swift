@@ -8,72 +8,73 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var path: [ProfileViewStack] = []
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
     
     @Binding var showLogoutAlert: Bool
-    
-    @State private var showResearchInfoView: Bool = false
-    
-    @State private var showPrivacyPolicyView: Bool = false
-    
-    @State private var showSensitiveInfoView: Bool = false
-    
-    private var user: UserInfo? {
-        return UserDefaults.standard.userInfo
-    }
+    @State private var user: UserInfo = UserDefaults.standard.userInfo ?? .init()
     
     var body: some View {
-        VStack {
-            ZStack {
-                HStack {
-                    // Title/20px/Bold
-                    Text("계정")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.white)
-                    Spacer()
-                    Button {
-                        showLogoutAlert.toggle()
-                    } label: {
-                        Image("IcLogout")
-                            .resizable()
-                            .frame(width: 48, height: 48)
+        NavigationStack(path: $path) {
+            VStack {
+                ZStack {
+                    HStack {
+                        // Title/20px/Bold
+                        Text("계정")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.white)
+                        Spacer()
+                        Button {
+                            showLogoutAlert.toggle()
+                        } label: {
+                            Image("IcLogout")
+                                .resizable()
+                                .frame(width: 48, height: 48)
+                        }
                     }
                 }
+                .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
+                .padding(.horizontal, 24)
+                Spacer(minLength: 61)
+                ZStack {
+                    Rectangle()
+                        .fill(.white.opacity(0.2))
+                        .cornerRadius(24)
+                        .rotationEffect(Angle(degrees: -4))
+                    contentView
+                        .cornerRadius(24)
+                }
             }
-            .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
-            .padding(.horizontal, 24)
-            Spacer(minLength: 61)
-            ZStack {
-                Rectangle()
-                    .fill(.white.opacity(0.2))
-                    .cornerRadius(24)
-                    .rotationEffect(Angle(degrees: -4))
-                contentView
-                    .cornerRadius(24)
-            }
-            
-            NavigationLink(destination: ResearchInfoView(), isActive: $showResearchInfoView) {
-                EmptyView()
-            }
-            
-            NavigationLink(destination: InfoTextView(fileName: "privacyPolicy", 
-                                                     title: "개인정보취급방침"), 
-                           isActive: $showPrivacyPolicyView) {
-                EmptyView()
-            }
-            
-            NavigationLink(destination: InfoTextView(fileName: "sensitiveInfo", 
-                                                     title: "민감정보수집이용 동의서"),
-                           isActive: $showSensitiveInfoView) {
-                EmptyView()
+            .background(Color(hex: "#1068FD"))
+            .frame(maxHeight: .infinity)
+            .ignoresSafeArea(edges: .bottom)
+            .navigationBarTitle("")
+            .navigationBarBackButtonHidden(true)
+            .navigationDestination(for: ProfileViewStack.self) { viewType in
+                switch viewType {
+                case .profile:
+                    EmptyView()
+                case .researchInfo:
+                    ResearchInfoView()
+                case .sensitiveInfo:
+                    InfoTextView(fileName: "sensitiveInfo",
+                                 title: "민감정보수집이용 동의서")
+                case .privacyPolicy:
+                    InfoTextView(fileName: "privacyPolicy",
+                                 title: "개인정보취급방침")
+                case .editProfile:
+                    ProfileEditView(path: $path)
+                case .changePassword:
+                    ChangePWView(path: $path)
+                }
             }
         }
-        .background(Color(hex: "#1068FD"))
-        .frame(maxHeight: .infinity)
-        .ignoresSafeArea(edges: .bottom)
-        .navigationBarTitle("")
-        .navigationBarBackButtonHidden(true)
+        .onReceive(NotificationCenter.default.publisher(for: .profileViewRefresh)) { notification in
+            if let userInfo = UserDefaults.standard.userInfo {
+                user = userInfo
+            }
+        }
     }
     
     var backButton: some View {
@@ -111,18 +112,22 @@ struct ProfileView: View {
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(Color(hex: "#020C1C"))
                 Spacer()
-                HStack(alignment: .center, spacing: 4) {
-                    Image("IcEdit")
-                        .resizable()
-                        .frame(width: 16, height: 16)
-                    Text("편집하다")
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(Color(hex: "#020C1C"))
+                Button {
+                    path.append(.editProfile)
+                } label: {
+                    HStack(alignment: .center, spacing: 4) {
+                        Image("IcEdit")
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                        Text("편집하다")
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(Color(hex: "#020C1C"))
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 4)
+                    .background(.white)
+                    .cornerRadius(12)
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 4)
-                .background(.white)
-                .cornerRadius(12)
             }
             .frame(maxWidth: .infinity, alignment: .center)
             
@@ -167,7 +172,7 @@ struct ProfileView: View {
                         .foregroundColor(Color(hex: "#020C1C"))
                     Spacer()
                     // Alternative Views and Spacers
-                    Text(user?.email ?? "")
+                    Text(user.email ?? "")
                         .font(.system(size: 14))
                         .foregroundColor(Color(hex: "#020C1C"))
                 }
@@ -196,7 +201,7 @@ struct ProfileView: View {
             // 내 정보
             VStack(alignment: .center, spacing: 0) {
                 Button {
-                    showPrivacyPolicyView.toggle()
+                    path.append(.privacyPolicy)
                 } label: {
                     HStack(alignment: .center) {
                         // Body/14px/Medium
@@ -215,7 +220,7 @@ struct ProfileView: View {
                     .border(width: 1, edges: [.bottom], color: .black.opacity(0.05), padding: 20)
                 }
                 Button {
-                    showSensitiveInfoView.toggle()
+                    path.append(.sensitiveInfo)
                 } label: {
                     HStack(alignment: .center) {
                         // Body/14px/Medium
@@ -235,7 +240,7 @@ struct ProfileView: View {
                 }
                 
                 Button {
-                    showResearchInfoView.toggle()
+                    path.append(.researchInfo)
                 } label: {
                     HStack(alignment: .center) {
                         // Body/14px/Medium
@@ -262,12 +267,12 @@ struct ProfileView: View {
     }
     
     private var userName: String {
-        let name = (user?.first_name ?? "")
+        let name = (user.first_name ?? "")
         return name
     }
     
     private var phoneNumber: String {
-        let value = (user?.profile?.mobile_number ?? "")
+        let value = (user.profile?.mobile_number ?? "")
         return value
     }
 }

@@ -11,6 +11,12 @@
 		D31592A32CA7240D00D63B3F /* RandomSurveyResultInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592A22CA7240D00D63B3F /* RandomSurveyResultInteractor.swift */; };
 		D31592A52CA983D700D63B3F /* ResetPWViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592A42CA983D700D63B3F /* ResetPWViewModel.swift */; };
 		D31592A72CA9853200D63B3F /* ResetPWInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592A62CA9853200D63B3F /* ResetPWInteractor.swift */; };
+		D31592AA2CA9AB5500D63B3F /* ProfileEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592A92CA9AB5500D63B3F /* ProfileEditView.swift */; };
+		D31592AC2CA9ABA600D63B3F /* ProfileEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592AB2CA9ABA600D63B3F /* ProfileEditViewModel.swift */; };
+		D31592AE2CA9ABB100D63B3F /* ProfileEditInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592AD2CA9ABB100D63B3F /* ProfileEditInteractor.swift */; };
+		D31592B22CA9BB2D00D63B3F /* ChangePWView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592B12CA9BB2D00D63B3F /* ChangePWView.swift */; };
+		D31592B42CA9BB9E00D63B3F /* ChangePWViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592B32CA9BB9E00D63B3F /* ChangePWViewModel.swift */; };
+		D31592B62CA9BBC800D63B3F /* ChangePWInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31592B52CA9BBC800D63B3F /* ChangePWInteractor.swift */; };
 		D34F52722CA1C46000875FCE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = D34F52712CA1C46000875FCE /* FirebaseAnalytics */; };
 		D34F52742CA1C46000875FCE /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = D34F52732CA1C46000875FCE /* FirebaseAnalyticsOnDeviceConversion */; };
 		D34F52762CA1C46000875FCE /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D34F52752CA1C46000875FCE /* FirebaseAnalyticsWithoutAdIdSupport */; };
@@ -115,6 +121,12 @@
 		D31592A22CA7240D00D63B3F /* RandomSurveyResultInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyResultInteractor.swift; sourceTree = "<group>"; };
 		D31592A42CA983D700D63B3F /* ResetPWViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPWViewModel.swift; sourceTree = "<group>"; };
 		D31592A62CA9853200D63B3F /* ResetPWInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPWInteractor.swift; sourceTree = "<group>"; };
+		D31592A92CA9AB5500D63B3F /* ProfileEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditView.swift; sourceTree = "<group>"; };
+		D31592AB2CA9ABA600D63B3F /* ProfileEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditViewModel.swift; sourceTree = "<group>"; };
+		D31592AD2CA9ABB100D63B3F /* ProfileEditInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileEditInteractor.swift; sourceTree = "<group>"; };
+		D31592B12CA9BB2D00D63B3F /* ChangePWView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePWView.swift; sourceTree = "<group>"; };
+		D31592B32CA9BB9E00D63B3F /* ChangePWViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePWViewModel.swift; sourceTree = "<group>"; };
+		D31592B52CA9BBC800D63B3F /* ChangePWInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePWInteractor.swift; sourceTree = "<group>"; };
 		D34F529F2CA1CD9C00875FCE /* DiaryRandomSurveyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyViewModel.swift; sourceTree = "<group>"; };
 		D34F52A12CA1CDA600875FCE /* DiaryRandomSurveyInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyInteractor.swift; sourceTree = "<group>"; };
 		D34F52A52CA2FF2B00875FCE /* DiaryRandomSurveyCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyCompleteView.swift; sourceTree = "<group>"; };
@@ -228,6 +240,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D31592A82CA9AB2900D63B3F /* edit */ = {
+			isa = PBXGroup;
+			children = (
+				D31592A92CA9AB5500D63B3F /* ProfileEditView.swift */,
+				D31592AB2CA9ABA600D63B3F /* ProfileEditViewModel.swift */,
+				D31592AD2CA9ABB100D63B3F /* ProfileEditInteractor.swift */,
+			);
+			path = edit;
+			sourceTree = "<group>";
+		};
+		D31592B02CA9BAA500D63B3F /* changePW */ = {
+			isa = PBXGroup;
+			children = (
+				D31592B12CA9BB2D00D63B3F /* ChangePWView.swift */,
+				D31592B32CA9BB9E00D63B3F /* ChangePWViewModel.swift */,
+				D31592B52CA9BBC800D63B3F /* ChangePWInteractor.swift */,
+			);
+			path = changePW;
+			sourceTree = "<group>";
+		};
 		D3A3884C2C726A18001CE3EA /* service */ = {
 			isa = PBXGroup;
 			children = (
@@ -391,6 +423,8 @@
 		D3A388B12C7B7DE60059C3BB /* profile */ = {
 			isa = PBXGroup;
 			children = (
+				D31592B02CA9BAA500D63B3F /* changePW */,
+				D31592A82CA9AB2900D63B3F /* edit */,
 				D3A388BE2C7CD3B60059C3BB /* detail */,
 				D3A388B22C7B7E6B0059C3BB /* ProfileView.swift */,
 			);
@@ -658,11 +692,14 @@
 				D3A388CC2C89FABB0059C3BB /* CalendarScrollView.swift in Sources */,
 				D3B79F5A2CA71DA900701922 /* DiaryResultViewModel.swift in Sources */,
 				D3A388EB2C8F64820059C3BB /* AuthViewModel.swift in Sources */,
+				D31592B22CA9BB2D00D63B3F /* ChangePWView.swift in Sources */,
 				D3A388D92C8C4DA60059C3BB /* CustomSegmentedControl.swift in Sources */,
 				D3A388A82C7B56090059C3BB /* GIFImageView.swift in Sources */,
 				D31592A52CA983D700D63B3F /* ResetPWViewModel.swift in Sources */,
 				D3A388B92C7B7E960059C3BB /* HomeView.swift in Sources */,
 				D3F4202A2CA084E000C2BB24 /* RandomSurveyInteractor.swift in Sources */,
+				D31592AA2CA9AB5500D63B3F /* ProfileEditView.swift in Sources */,
+				D31592AE2CA9ABB100D63B3F /* ProfileEditInteractor.swift in Sources */,
 				D3A3889F2C78F4C10059C3BB /* RadioButton.swift in Sources */,
 				D3B19E3A2C14CC4900049383 /* AppDelegate.swift in Sources */,
 				D3B79F4E2CA3152900701922 /* DiaryViewModel.swift in Sources */,
@@ -672,10 +709,12 @@
 				D3A388F32C9350B10059C3BB /* AppStateViewModel.swift in Sources */,
 				D3A388A62C7B52B50059C3BB /* AuthCompleteView.swift in Sources */,
 				D3A388B32C7B7E6B0059C3BB /* ProfileView.swift in Sources */,
+				D31592AC2CA9ABA600D63B3F /* ProfileEditViewModel.swift in Sources */,
 				D3A388E92C8F64620059C3BB /* AuthInteractor.swift in Sources */,
 				D3B19E2A2C14569E00049383 /* OnboardingView.swift in Sources */,
 				D3A388D72C8B6E3D0059C3BB /* DiaryResultView.swift in Sources */,
 				D3A388952C74E7CB0059C3BB /* FindIdView.swift in Sources */,
+				D31592B42CA9BB9E00D63B3F /* ChangePWViewModel.swift in Sources */,
 				D3A388C62C8430E20059C3BB /* RandomSurveyView.swift in Sources */,
 				D31592A32CA7240D00D63B3F /* RandomSurveyResultInteractor.swift in Sources */,
 				D3B19E282C14569E00049383 /* healthKittApp.swift in Sources */,
@@ -691,6 +730,7 @@
 				D34F52A62CA2FF2B00875FCE /* DiaryRandomSurveyCompleteView.swift in Sources */,
 				D3F420262CA00C1700C2BB24 /* FindIdInteractor.swift in Sources */,
 				D3A3885E2C73970D001CE3EA /* CommonInputView.swift in Sources */,
+				D31592B62CA9BBC800D63B3F /* ChangePWInteractor.swift in Sources */,
 				D3B19E372C148E0500049383 /* HealthKitService.swift in Sources */,
 				D3A3885A2C727691001CE3EA /* SignUpView.swift in Sources */,
 				D3A3885C2C727704001CE3EA /* LoginView.swift in Sources */,
