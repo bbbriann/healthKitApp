@@ -44,6 +44,21 @@ struct RandomSurveyResModel: Codable {
     }
 }
 
+struct RandomSurveyModifyResModel: Codable {
+    let ulid: String
+    let questionAAnswer, questionBAnswer, questionCAnswer: Int
+//    let memo: String
+    let created, modified: String
+
+    enum CodingKeys: String, CodingKey {
+        case ulid
+        case questionAAnswer = "question_a_answer"
+        case questionBAnswer = "question_b_answer"
+        case questionCAnswer = "question_c_answer"
+        case created, modified
+    }
+}
+
 // MARK: - RandomSurveyInteractor
 class RandomSurveyInteractor {
     private let client = APIClient.shared
@@ -52,5 +67,11 @@ class RandomSurveyInteractor {
         let jsonData = try? JSONEncoder().encode(req)
         let studyId = UserDefaults.standard.studyId ?? ""
         return client.performRequest("/studies/" + studyId + "/surveys", method: "POST", postData: jsonData)
+    }
+    
+    func modifyData(req: RandomSurveyReqModel, ulid: String) -> AnyPublisher<RandomSurveyModifyResModel, Error> {
+        let jsonData = try? JSONEncoder().encode(req)
+        let studyId = UserDefaults.standard.studyId ?? ""
+        return client.performRequest("/studies/" + studyId + "/surveys/" + ulid, method: "PUT", postData: jsonData)
     }
 }

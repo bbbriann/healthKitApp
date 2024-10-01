@@ -90,6 +90,7 @@ final class HomeViewModel: ObservableObject {
                             let surveyAgreed = UserDefaults.standard.surveyAgreed ?? false
                             if surveyAgreed {
                                 // surveyAgreed가 true이면 두 번째 API 호출
+                                self.homeState = .noSurvey
                                 return self.interactor.fetchLatests()
                             } else {
                                 self.homeState = .readyToStart

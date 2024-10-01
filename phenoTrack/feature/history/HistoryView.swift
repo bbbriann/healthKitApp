@@ -9,56 +9,49 @@ import Charts
 import SwiftUI
 
 struct HistoryView: View {
+    @State private var path: [HistoryViewStack] = []
     @StateObject private var viewModel = HistoryViewModel()
     //    @State private var selectedDate = Date()
     @State private var selectedIndex: Int = 0
-    @State private var showRandomSurveyResultView: Bool = false
-    @State private var showDiaryResultView: Bool = false
     @State private var hasCalendarButtonPressed: Bool = false
     
     var body: some View {
-        VStack {
-            ZStack {
-                HStack {
-                    Spacer()
-                    Text("식사 일기")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(.black)
-                    Spacer()
+        NavigationStack(path: $path) {
+            VStack {
+                ZStack {
+                    HStack {
+                        Spacer()
+                        Text("식사 일기")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.black)
+                        Spacer()
+                    }
                 }
-            }
-            .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
-            .padding(.horizontal, 24)
-            
-            ZStack {
-                VStack(spacing: 20) {
-                    CustomSegmentedControl(preselectedIndex: $selectedIndex, options: ["랜덤 설문", "식사 일기"])
-                    ScrollView(showsIndicators: false) {
-                        VStack(alignment: .leading, spacing: 32) {
-                            randomChartView
-                            rnndomDetailView
+                .frame(maxWidth: .infinity, minHeight: 56, maxHeight: 56)
+                .padding(.horizontal, 24)
+                
+                ZStack {
+                    VStack(spacing: 20) {
+                        CustomSegmentedControl(preselectedIndex: $selectedIndex, options: ["랜덤 설문", "식사 일기"])
+                        ScrollView(showsIndicators: false) {
+                            VStack(alignment: .leading, spacing: 32) {
+                                randomChartView
+                                rnndomDetailView
+                            }
+                            .frame(maxWidth: .infinity)
                         }
+                        .padding(.bottom, 130)
                         .frame(maxWidth: .infinity)
                     }
-                    .padding(.bottom, 130)
-                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 24)
                 }
-                .padding(.horizontal, 24)
             }
-            
-            NavigationLink(destination: RandomSurveyResultView(randomSurvey: $viewModel.selectedRandomSurvey), isActive: $showRandomSurveyResultView) {
-                EmptyView()
-            }
-            
-            NavigationLink(destination: DiaryResultView(diet: $viewModel.selectedDiet), isActive: $showDiaryResultView) {
-                EmptyView()
-            }
+            .background(Color(red: 0.95, green: 0.96, blue: 0.98))
+            .frame(maxHeight: .infinity)
+            .ignoresSafeArea(edges: .bottom)
+            .navigationBarTitle("")
+            .navigationBarBackButtonHidden(true)
         }
-        .background(Color(red: 0.95, green: 0.96, blue: 0.98))
-        .frame(maxHeight: .infinity)
-        .ignoresSafeArea(edges: .bottom)
-        .navigationBarTitle("")
-        .navigationBarBackButtonHidden(true)
         .onChange(of: selectedIndex) { oldValue, newValue in
             if newValue == 0 {
                 viewModel.fetchRandomSurveyListData()
@@ -85,6 +78,24 @@ struct HistoryView: View {
                 viewModel.fetchRandomSurveyListData()
             } else {
                 viewModel.fetchDietsData()
+            }
+        }
+        .navigationDestination(for: HistoryViewStack.self) { viewType in
+            switch viewType {
+            case .history:
+                EmptyView()
+            case .randomSurveyResult:
+                RandomSurveyResultView(path: $path, randomSurvey: $viewModel.selectedRandomSurvey)
+            case .randomSurveyModify:
+                RandomSurveyModifyView(path: $path, survey: $viewModel.selectedRandomSurvey)
+            case .randomSurveyComplete:
+                RandomSurveyModifyCompleteView(path: $path)
+            case .diaryResult:
+                DiaryResultView(diet: $viewModel.selectedDiet)
+            case .diaryModify:
+                DiaryResultView(diet: $viewModel.selectedDiet)
+            default:
+                EmptyView()
             }
         }
     }
@@ -212,7 +223,7 @@ struct HistoryView: View {
                     ForEach(viewModel.randomSurveyList, id: \.self) { item in
                         Button {
                             viewModel.selectedRandomSurvey = item
-                            showRandomSurveyResultView.toggle()
+                            path.append(.randomSurveyResult)
                         } label: {
                             HStack(alignment: .center, spacing: 10) {
                                 Color
@@ -237,7 +248,7 @@ struct HistoryView: View {
                     ForEach(viewModel.dietList, id: \.self) { item in
                         Button {
                             viewModel.selectedDiet = item
-                            showDiaryResultView.toggle()
+                            path.append(.diaryResult)
                         } label: {
                             HStack(alignment: .center, spacing: 10) {
                                 Color

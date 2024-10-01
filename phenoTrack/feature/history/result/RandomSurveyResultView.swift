@@ -52,6 +52,7 @@ struct RandomSurvey: Codable, Hashable {
 
 
 struct RandomSurveyResultView: View {
+    @Binding var path: [HistoryViewStack]
     @Binding var randomSurvey: RandomSurvey?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
@@ -160,8 +161,12 @@ struct RandomSurveyResultView: View {
                         CommonSelectButton(title: "삭제", titleColor: .white,
                                            bgColor: Color(hex: "#DA072D"))
                     }
-                    CommonSelectButton(title: "수정", titleColor: .white,
-                                       bgColor: Color(hex: "#1068FD"))
+                    Button {
+                        path.append(.randomSurveyModify)
+                    } label: {
+                        CommonSelectButton(title: "수정", titleColor: .white,
+                                           bgColor: Color(hex: "#1068FD"))
+                    }
                 }
                 .padding(0)
                 .frame(maxWidth: .infinity, alignment: .topLeading)

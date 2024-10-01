@@ -228,3 +228,13 @@ enum ProfileViewStack {
     case editProfile
     case changePassword
 }
+
+enum HistoryViewStack {
+    case history
+    case randomSurveyResult
+    case randomSurveyModify
+    case randomSurveyComplete
+    case diaryResult
+    case diaryModify
+    case diaryModifyComplete
+}

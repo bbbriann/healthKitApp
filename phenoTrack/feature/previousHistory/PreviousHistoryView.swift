@@ -57,7 +57,7 @@ struct PreviousHistoryView: View {
                 .padding(.horizontal, 24)
             }
             
-            NavigationLink(destination: RandomSurveyResultView(randomSurvey: .constant(nil)), isActive: $showRandomSurveyResultView) {
+            NavigationLink(destination: RandomSurveyResultView(path: .constant([]), randomSurvey: .constant(nil)), isActive: $showRandomSurveyResultView) {
                 EmptyView()
             }
             

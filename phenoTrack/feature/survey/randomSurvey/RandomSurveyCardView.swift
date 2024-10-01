@@ -44,7 +44,11 @@ struct RandomSurveyCardView: View {
     @State private var selectedMinute = 0
     @State private var isAM = true
     
-    init(cardIndex: Int, title: String, type: RandomSurveyType = .default,
+    @Binding private var modifyData: RandomDataResult?
+    
+    init(cardIndex: Int, title: String,
+         modifyData: Binding<RandomDataResult?> = .constant(nil),
+         type: RandomSurveyType = .default,
          time: Binding<String> = .constant(""),
          memo: Binding<String> = .constant(""),
          doneAction: @escaping (RandomDataResult) -> Void) {
@@ -54,6 +58,7 @@ struct RandomSurveyCardView: View {
         self._time = time
         self._memo = memo
         self.doneAction = doneAction
+        self._modifyData = modifyData
     }
     
     var body: some View {
@@ -216,9 +221,24 @@ struct RandomSurveyCardView: View {
         .frame(maxWidth: .infinity, alignment: .topLeading)
         .background(.white)
         .cornerRadius(12)
+        .onAppear {
+            if let modifyData {
+                switch modifyData {
+                case .default(let value):
+                    selectedIndex = value
+                case .time(let hour, let min):
+                    selectedHour = hour
+                    selectedMinute = min
+                case .voracity(let value):
+                    selectedIndex = value
+                default: do {}
+                }
+            }
+        }
     }
     
     private func setSelectedColor(index: Int) -> Color {
+        print("[TEST] selectedIndex \(selectedIndex) index \(index)")
         if let selectedIndex, selectedIndex == index {
             return Color(hex: "#1068FD")
         } else {
