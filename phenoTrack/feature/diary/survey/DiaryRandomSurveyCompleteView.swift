@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct DiaryRandomSurveyCompleteView: View {
-    @Binding var path: [DiaryViewStack]
+    @Binding var diaryPath: [DiaryViewStack]
+    @Binding var historyPath: [HistoryViewStack]
+    
+    var title: String = "설문 완료"
     var body: some View {
         VStack {
             Spacer(minLength: 24)
@@ -26,7 +29,7 @@ struct DiaryRandomSurveyCompleteView: View {
                     GifImage("complete")
                         .frame(width: 180, height: 180)
                     // Title/20px/Medium
-                    Text("설문 완료")
+                    Text(title)
                         .font(.system(size: 20, weight: .medium))
                         .foregroundColor(Color(hex: "#020C1C"))
                       .frame(maxWidth: .infinity, alignment: .top)
@@ -35,7 +38,11 @@ struct DiaryRandomSurveyCompleteView: View {
                 
 //                NavigationLink(destination: LoginView()) {
                 Button {
-                    path.removeLast(path.count)
+                    if diaryPath.isEmpty {
+                        historyPath.removeLast(historyPath.count)
+                    } else {
+                        diaryPath.removeLast(diaryPath.count)
+                    }
                     NotificationCenter.default.post(Notification(name: .showTabBar))
                 } label: {
                     CommonSelectButton(title: "확인",

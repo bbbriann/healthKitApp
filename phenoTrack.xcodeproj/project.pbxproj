@@ -45,6 +45,7 @@
 		D34F52A62CA2FF2B00875FCE /* DiaryRandomSurveyCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D34F52A52CA2FF2B00875FCE /* DiaryRandomSurveyCompleteView.swift */; };
 		D35CB5C42CAC505600A0BFB6 /* RandomSurveyModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CB5C32CAC505600A0BFB6 /* RandomSurveyModifyView.swift */; };
 		D35CB5C62CAC51F900A0BFB6 /* RandomSurveyModifyCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CB5C52CAC51F900A0BFB6 /* RandomSurveyModifyCompleteView.swift */; };
+		D35CB5C82CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CB5C72CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift */; };
 		D3A3884E2C726A30001CE3EA /* healthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3884D2C726A30001CE3EA /* healthKitService.swift */; };
 		D3A388532C726D1C001CE3EA /* CommonSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388522C726D1C001CE3EA /* CommonSelectButton.swift */; };
 		D3A388562C726D5C001CE3EA /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388552C726D5C001CE3EA /* ColorExtensions.swift */; };
@@ -134,6 +135,7 @@
 		D34F52A52CA2FF2B00875FCE /* DiaryRandomSurveyCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyCompleteView.swift; sourceTree = "<group>"; };
 		D35CB5C32CAC505600A0BFB6 /* RandomSurveyModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyModifyView.swift; sourceTree = "<group>"; };
 		D35CB5C52CAC51F900A0BFB6 /* RandomSurveyModifyCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyModifyCompleteView.swift; sourceTree = "<group>"; };
+		D35CB5C72CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyModifyView.swift; sourceTree = "<group>"; };
 		D3A3884D2C726A30001CE3EA /* healthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthKitService.swift; sourceTree = "<group>"; };
 		D3A388522C726D1C001CE3EA /* CommonSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSelectButton.swift; sourceTree = "<group>"; };
 		D3A388552C726D5C001CE3EA /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
@@ -559,6 +561,7 @@
 				D34F529F2CA1CD9C00875FCE /* DiaryRandomSurveyViewModel.swift */,
 				D34F52A12CA1CDA600875FCE /* DiaryRandomSurveyInteractor.swift */,
 				D34F52A52CA2FF2B00875FCE /* DiaryRandomSurveyCompleteView.swift */,
+				D35CB5C72CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift */,
 			);
 			path = survey;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				D3A388F12C93505B0059C3BB /* Spinner.swift in Sources */,
 				D3A3889B2C7501D40059C3BB /* SignUpViewModel.swift in Sources */,
 				D34F52A22CA1CDA600875FCE /* DiaryRandomSurveyInteractor.swift in Sources */,
+				D35CB5C82CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift in Sources */,
 				D31592A72CA9853200D63B3F /* ResetPWInteractor.swift in Sources */,
 				D3A388B52C7B7E7C0059C3BB /* HistoryView.swift in Sources */,
 				D3A388532C726D1C001CE3EA /* CommonSelectButton.swift in Sources */,

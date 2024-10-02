@@ -217,6 +217,8 @@ enum DiaryViewStack {
     case diary
     case diarySurvey
     case diarySurveyComplete
+    case diaryModify
+    case diaryModifyComplete
     case result
 }
 

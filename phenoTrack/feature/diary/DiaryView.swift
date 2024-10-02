@@ -84,11 +84,23 @@ struct DiaryView: View {
                 case .diarySurvey:
                     DiaryRandomSurveyView(path: $path, selectedDate: viewModel.selectedDate)
                 case .diarySurveyComplete:
-                    DiaryRandomSurveyCompleteView(path: $path)
+                    DiaryRandomSurveyCompleteView(diaryPath: $path,
+                                                  historyPath: .constant([]))
                 case .diary:
                     EmptyView()
                 case .result:
-                    DiaryResultView(diet: $viewModel.selectedDiet)
+                    DiaryResultView(diaryPath: $path,
+                                    historyPath: .constant([]),
+                                    diet: $viewModel.selectedDiet)
+                case .diaryModify:
+                    DiaryRandomSurveyModifyView(diaryPath: $path,
+                                                historyPath: .constant([]),
+                                                selectedDate: viewModel.selectedDate,
+                                                diet: $viewModel.selectedDiet)
+                case .diaryModifyComplete:
+                    DiaryRandomSurveyCompleteView(diaryPath: $path,
+                                                  historyPath: .constant([]),
+                                                  title: "설문 수정 완료")
                 }
             }
             .onChange(of: viewModel.selectedDate) { oldValue, newValue in
@@ -175,6 +187,9 @@ struct DiaryView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .topLeading)
             }
+            .refreshable {
+                viewModel.fetchData()
+            }
             .frame(maxWidth: .infinity)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -201,6 +216,28 @@ enum DateHelper {
         timeFormatter.dateFormat = "HH:mm" // 24시간제로 시간과 분만 추출
         
         return timeFormatter.string(from: date)
+    }
+    
+    static func getHourMin(from isoDateString: String, needFractionSecondes: Bool = false) -> (hour: Int, min: Int)? {
+        // 1. ISO 8601 형식의 문자열을 Date로 변환
+        let isoFormatter = ISO8601DateFormatter()
+        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        if needFractionSecondes {
+            isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        } else {
+            isoFormatter.formatOptions = [.withInternetDateTime]
+        }
+        
+        guard let date = isoFormatter.date(from: isoDateString) else {
+            return nil // 변환 실패 시 nil 반환
+        }
+        
+        // Calendar를 사용하여 시(hour)와 분(minute) 추출
+        let calendar = Calendar.current
+        let hour = calendar.component(.hour, from: date)
+        let minute = calendar.component(.minute, from: date)
+        
+        return (hour, minute)
     }
     
     static func convertToDate(_ dateString: String, needFractionSecondes: Bool = true) -> Date? {

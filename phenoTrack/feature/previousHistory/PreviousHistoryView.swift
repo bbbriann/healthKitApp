@@ -61,7 +61,7 @@ struct PreviousHistoryView: View {
                 EmptyView()
             }
             
-            NavigationLink(destination: DiaryResultView(diet: .constant(nil)), isActive: $showDiaryResultView) {
+            NavigationLink(destination: DiaryResultView(diaryPath: .constant([]), historyPath: .constant([]), diet: .constant(nil)), isActive: $showDiaryResultView) {
                 EmptyView()
             }
         }

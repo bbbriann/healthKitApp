@@ -36,9 +36,6 @@ struct RandomSurveyCardView: View {
     @State private var showBottomSheet: Bool = false
     @State private var bottomSheetHeight: CGFloat = 0
     
-    @Binding var time: String
-    @Binding var memo: String
-    
     /// Time
     @State private var selectedHour = 7
     @State private var selectedMinute = 0
@@ -49,14 +46,10 @@ struct RandomSurveyCardView: View {
     init(cardIndex: Int, title: String,
          modifyData: Binding<RandomDataResult?> = .constant(nil),
          type: RandomSurveyType = .default,
-         time: Binding<String> = .constant(""),
-         memo: Binding<String> = .constant(""),
          doneAction: @escaping (RandomDataResult) -> Void) {
         self.cardIndex = cardIndex
         self.title = title
         self.type = type
-        self._time = time
-        self._memo = memo
         self.doneAction = doneAction
         self._modifyData = modifyData
     }
@@ -231,6 +224,8 @@ struct RandomSurveyCardView: View {
                     selectedMinute = min
                 case .voracity(let value):
                     selectedIndex = value
+                case .memo(let value):
+                    memoText = value
                 default: do {}
                 }
             }
@@ -238,7 +233,6 @@ struct RandomSurveyCardView: View {
     }
     
     private func setSelectedColor(index: Int) -> Color {
-        print("[TEST] selectedIndex \(selectedIndex) index \(index)")
         if let selectedIndex, selectedIndex == index {
             return Color(hex: "#1068FD")
         } else {

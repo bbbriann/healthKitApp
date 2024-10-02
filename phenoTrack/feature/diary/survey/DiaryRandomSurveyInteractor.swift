@@ -69,5 +69,11 @@ class DiaryRandomSurveyInteractor {
         let studyId = UserDefaults.standard.studyId ?? ""
         return client.performRequest("/studies/" + studyId + "/diets", method: "POST", postData: jsonData)
     }
+    
+    func modifyData(req: DietsRandomSurveyReqModel, ulid: String) -> AnyPublisher<DietsRandomSurveyResModel, Error> {
+        let jsonData = try? JSONEncoder().encode(req)
+        let studyId = UserDefaults.standard.studyId ?? ""
+        return client.performRequest("/studies/" + studyId + "/diets/" + ulid, method: "PUT", postData: jsonData)
+    }
 }
 

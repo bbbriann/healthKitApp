@@ -42,6 +42,13 @@ struct HistoryView: View {
                         }
                         .padding(.bottom, 130)
                         .frame(maxWidth: .infinity)
+                        .refreshable {
+                            if selectedIndex == 0 {
+                                viewModel.fetchRandomSurveyListData()
+                            } else {
+                                viewModel.fetchDietsData()
+                            }
+                        }
                     }
                     .padding(.horizontal, 24)
                 }
@@ -91,9 +98,18 @@ struct HistoryView: View {
             case .randomSurveyComplete:
                 RandomSurveyModifyCompleteView(path: $path)
             case .diaryResult:
-                DiaryResultView(diet: $viewModel.selectedDiet)
+                DiaryResultView(diaryPath: .constant([]), 
+                                historyPath: $path,
+                                diet: $viewModel.selectedDiet)
             case .diaryModify:
-                DiaryResultView(diet: $viewModel.selectedDiet)
+                DiaryRandomSurveyModifyView(diaryPath: .constant([]),
+                                            historyPath: $path,
+                                            selectedDate: viewModel.selectedDate,
+                                            diet: $viewModel.selectedDiet)
+            case .diaryModifyComplete:
+                DiaryRandomSurveyCompleteView(diaryPath: .constant([]),
+                                              historyPath: $path,
+                                              title: "설문 수정 완료")
             default:
                 EmptyView()
             }
@@ -201,7 +217,7 @@ struct HistoryView: View {
                     HistoryResultCardView(
                         title: "폭식했다고 느끼셨나요?",
                         description: "(많이 먹었을 때의 느낌)",
-                        positiveCount: totalFor(question: \.questionEAnswer),
+                        positiveCount: totalFor(question: \.questionEAnswer, isQuestionE: true),
                         totalResponses: totalResponses()
                     )
                 }

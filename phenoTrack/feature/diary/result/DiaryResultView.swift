@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct DiaryResultView: View {
+    @Binding var diaryPath: [DiaryViewStack]
+    @Binding var historyPath: [HistoryViewStack]
     @Binding var diet: Diet?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
@@ -119,8 +121,16 @@ struct DiaryResultView: View {
                                            bgColor: Color(hex: "#DA072D"))
                     }
 
-                    CommonSelectButton(title: "수정", titleColor: .white,
-                                       bgColor: Color(hex: "#1068FD"))
+                    Button {
+                        if diaryPath.isEmpty {
+                            historyPath.append(.diaryModify)
+                        } else {
+                            diaryPath.append(.diaryModify)
+                        }
+                    } label: {
+                        CommonSelectButton(title: "수정", titleColor: .white,
+                                           bgColor: Color(hex: "#1068FD"))
+                    }
                 }
                 .padding(0)
                 .frame(maxWidth: .infinity, alignment: .topLeading)
