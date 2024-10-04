@@ -126,6 +126,22 @@ final class HomeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    func setFCMToken() {
+        guard let fcmToken = UserDefaults.standard.fcmToken else { return }
+        interactor.updateFCMData(req: .init(registrationID: fcmToken))
+            .sink(receiveCompletion: { [weak self] (completion: Subscribers.Completion<Error>) in
+                switch completion {
+                case .failure(let error):
+                    print("[TEST] error \(error)")
+                case .finished:
+                    break
+                }
+            }, receiveValue: { [weak self] (res) in
+                print("[TEST] res \(res)")
+            })
+            .store(in: &cancellables)
+    }
+    
     var studyPeriod: String {
         guard let start = study?.startDate, let endDate = study?.endDate else {
             return ""

@@ -75,3 +75,36 @@ struct PostUserProfile: Codable {
     var gender: String?
     var mobile_number: String?
 }
+
+// MARK: - FCMReqModel
+struct FCMReqModel: Codable {
+    let registrationID: String
+
+    enum CodingKeys: String, CodingKey {
+        case registrationID = "registration_id"
+    }
+    
+    init(registrationID: String) {
+        self.registrationID = registrationID
+    }
+}
+
+// MARK: - FCMResModel
+struct FCMResModel: Codable {
+    let id: Int
+    let name, registrationID: String
+    let deviceID: Int
+    let active: Bool
+    let dateCreated: String
+    let cloudMessageType, applicationID: String
+
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        case registrationID = "registration_id"
+        case deviceID = "device_id"
+        case active
+        case cloudMessageType = "cloud_message_type"
+        case dateCreated = "date_created"
+        case applicationID = "application_id"
+    }
+}

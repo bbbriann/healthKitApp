@@ -73,6 +73,7 @@ struct CommonInputView: View {
             if isSecure {
                 SecureField("", text: $text)
                     .font(.system(size: 16))
+                    .foregroundColor(Color(hex: "#020C1C"))
                     .placeholder(when: text.isEmpty) {
                         Text(placeholder)
                             .foregroundColor(Color(hex: "#020C1C"))
@@ -89,6 +90,7 @@ struct CommonInputView: View {
                 case .none:
                     TextField("", text: $text)
                         .font(.system(size: 16))
+                        .foregroundColor(Color(hex: "#020C1C"))
                         .placeholder(when: text.isEmpty) {
                             Text(placeholder)
                                 .foregroundColor(Color(hex: "#020C1C"))
@@ -98,6 +100,7 @@ struct CommonInputView: View {
                         .padding(.vertical, 18)
                 case .birth:
                     Text(text)
+                        .foregroundColor(Color(hex: "#020C1C"))
                         .font(.system(size: 16))
                         .padding(.vertical, 18)
                 default:
@@ -143,15 +146,15 @@ struct CommonInputView: View {
     
     private var imageColor: Color? {
         guard specificType == .none else {
-            return nil
+            return Color(hex:"#1068FD")
         }
         guard !needNoFocus else {
-            return nil
+            return Color(hex: "#020C1C")
         }
         if !text.isEmpty {
             return Color(hex:"#1068FD")
         } else {
-            return nil
+            return Color(hex: "#020C1C")
         }
     }
 }

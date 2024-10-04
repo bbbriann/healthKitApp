@@ -14,6 +14,7 @@ extension UserDefaults {
         static let userInfo = "userInfo"
         static let surveyAgreed = "surveyAgreed"
         static let studyId = "studyId"
+        static let fcmToken = "fcmToken"
     }
     
     var surveyAgreed: Bool? {
@@ -22,6 +23,15 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.surveyAgreed)
+        }
+    }
+    
+    var fcmToken: String? {
+        get {
+            return string(forKey: Keys.fcmToken)
+        }
+        set {
+            set(newValue, forKey: Keys.fcmToken)
         }
     }
     

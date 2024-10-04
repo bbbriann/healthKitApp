@@ -22,11 +22,11 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             self.handleAppRefresh(task: task as! BGAppRefreshTask) // 실제로 수행할 코드가 구현된 매서드
         }
         print("calleD??")
-        requestNotificationAuthorization()
         FirebaseApp.configure()
         UNUserNotificationCenter.current().delegate = self
-        application.registerForRemoteNotifications()
+        requestNotificationAuthorization()
         
+        application.registerForRemoteNotifications()
         // FirebaseMessaging
         Messaging.messaging().delegate = self
         return true
@@ -63,6 +63,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             }
             if granted {
                 print("Notification permission granted.")
+                DispatchQueue.main.async {
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
             } else {
                 print("Notification permission denied.")
             }
@@ -73,15 +76,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 // MARK: - UNUserNotificationCenterDelegate
 
 extension AppDelegate: UNUserNotificationCenterDelegate {
-    /**
-     Apple 에서 제공하는 푸시 테스트 Token 가져올 때
-     */
-    // APNs - DeviceToken 가져오기
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        
-        // 앱을 삭제 했다가 다시 깔면 토큰 갱신
-        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("Apple token: " ,token)
+    
+    // 백그라운드에서 푸시 알림을 탭했을 때 실행
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        print("APNS token: \(deviceToken)")
+        Messaging.messaging().apnsToken = deviceToken
+    }
+    
+    // Foreground(앱 켜진 상태)에서도 알림 오는 설정
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.list, .banner])
     }
 }
 
@@ -89,10 +94,10 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 extension AppDelegate: MessagingDelegate {
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        
+        print("[tEST] fcmToken \(fcmToken)")
         let token = String(describing: fcmToken)
         print("Firebase registration token: \(token)")
-        
+        UserDefaults.standard.fcmToken = token
 //        let dataDict: [String: String] = ["token": fcmToken ?? ""]
 //        NotificationCenter.default.post(
 //            name: Notification.Name("FCMToken"),

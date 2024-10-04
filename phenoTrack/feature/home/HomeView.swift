@@ -332,6 +332,7 @@ struct HomeView: View {
         .task {
             if !isTaskExecuted {
                 viewModel.fetchHomeData()
+                viewModel.setFCMToken()
                 isTaskExecuted = true
             }
         }

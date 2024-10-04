@@ -52,7 +52,7 @@ struct ProfileEditView: View {
                         
                         CustomAlertView(
                             title: "이전 화면으로 돌아 갈 시 현재 상태로 저장이 됩니다.",
-                            message: "저장히시겠습니까?",
+                            message: "저장하시겠습니까?",
                             confirmTitle: "확인",
                             onCancel: { 
                                 NotificationCenter.default.post(Notification(name: .showTabBar))

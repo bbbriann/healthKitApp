@@ -75,4 +75,10 @@ class HomeInteractor {
         let studyId = UserDefaults.standard.studyId ?? ""
         return client.performRequest("/studies/" + studyId + "/survey_notifications/latest", method: "GET")
     }
+    
+    func updateFCMData(req: FCMReqModel) -> AnyPublisher<FCMResModel, Error> {
+        print("[TEST] \(req)")
+        let jsonData = try? JSONEncoder().encode(req)
+        return client.performRequest("/device/fcm", method: "POST", postData: jsonData)
+    }
 }

@@ -58,36 +58,6 @@ struct CofdasfntentView: View {
             print("모든 데이터가 로드되었습니다.")
         }
     }
-    
-    private func removeAllPendingNofication() {
-        let center = UNUserNotificationCenter.current()
-        center.removeAllPendingNotificationRequests()
-    }
-    
-    private func scheduleDailyLocalNotification(hour: Int, minute: Int) {
-        let center = UNUserNotificationCenter.current()
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Daily Reminder"
-        content.body = "This is your daily notification."
-        content.sound = .default
-        
-        var dateComponents = DateComponents()
-        dateComponents.hour = hour
-        dateComponents.minute = minute
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
-        
-        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        
-        center.add(request) { error in
-            if let error = error {
-                print("Error: \(error)")
-            } else {
-                print("Daily notification scheduled.")
-            }
-        }
-    }
 }
 
 enum HealthKitTypeHelper {
