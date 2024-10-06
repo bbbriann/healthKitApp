@@ -22,6 +22,11 @@ struct HomeView: View {
     
     @State private var isTaskExecuted = false
     
+    init(path: Binding<[HomeViewStack]>) {
+        self._path = path
+        HealthKitService.shared.configure()
+    }
+    
     
     var body: some View {
         ZStack {
@@ -314,18 +319,21 @@ struct HomeView: View {
         .sheet(isPresented: $showBottomSheet, content: {
             // 연구자 승인 대기 시트
             PendingApprovalView(height: $bottomSheetHeight)
+                .background(Color.white)
                 .presentationDetents([.height(370)])
                 .presentationDragIndicator(.visible)
         })
         .sheet(isPresented: $showReadyToStartSheet, content: {
             // 연구 안내 시트
             ResearchInfoSheetView(height: $bottomSheetHeight, state: $viewModel.homeState)
+                .background(Color.white)
                 .presentationDetents([.height(472)])
                 .presentationDragIndicator(.visible)
         })
         .sheet(isPresented: $showSurveyGuideSheet, content: {
             // 작성 방법 시트
             ReportGuideView(height: $bottomSheetHeight)
+                .background(Color.white)
                 .presentationDetents([.height(432)])
                 .presentationDragIndicator(.visible)
         })
@@ -384,6 +392,7 @@ struct PendingApprovalView: View {
                                    bgColor: Color(hex: "#1068FD"))
             }
         }
+        .frame(maxHeight: .infinity)
         .padding(.horizontal, 24)
         .readSize { calculatedHeight in
             height = calculatedHeight.height
@@ -519,6 +528,7 @@ struct ReportGuideView: View {
                                    bgColor: Color(hex: "#1068FD"))
             }
         }
+        .frame(maxHeight: .infinity)
         .padding(.horizontal, 24)
         .readSize { calculatedHeight in
             height = calculatedHeight.height

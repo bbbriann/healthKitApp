@@ -37,7 +37,6 @@ final class RandomSurveyResultViewModel: ObservableObject {
             }, receiveValue: { res in
                 // API 호출 결과 처리
                 self.deleteComplete = true
-                print("[TEST] res.results \(res.results)")
             })
             .store(in: &cancellables)
     }

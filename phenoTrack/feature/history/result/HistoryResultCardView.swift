@@ -18,6 +18,7 @@ struct HistoryResultCardView: View {
         VStack(spacing: 20) {
             Text(title)
                 .font(.headline)
+                .foregroundColor(Color(hex: "#020C1C"))
                 .padding(.top, 16)
             Text(description)
                 .font(.subheadline)
@@ -54,6 +55,7 @@ struct HistoryResultCardView: View {
                             .frame(width: 12, height: 12)
                         Text("보통이거나 아니라고 표현한 건: \(negativeCount)건 (\(Int(negativePercentage))%)")
                             .font(.footnote)
+                            .foregroundColor(Color(hex: "#020C1C"))
                     }
                     HStack {
                         Circle()
@@ -61,6 +63,7 @@ struct HistoryResultCardView: View {
                             .frame(width: 12, height: 12)
                         Text("그렇다 혹은 매우 그렇다고 표현한 건: \(positiveCount)건 (\(Int(positivePercentage))%)")
                             .font(.footnote)
+                            .foregroundColor(Color(hex: "#020C1C"))
                     }
                 }
                 .padding()

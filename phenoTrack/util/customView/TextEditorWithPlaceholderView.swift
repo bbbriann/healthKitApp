@@ -19,14 +19,18 @@ struct TextEditorWithPlaceholderView: View {
                         .padding(.top, 10)
                         .padding(.leading, 6)
                         .opacity(0.6)
+                        .foregroundColor(Color(hex: "#020C1C"))
                     Spacer()
                 }
             }
             
             VStack {
                 TextEditor(text: $text)
+                    .foregroundColor(Color(hex: "#020C1C"))
                     .frame(minHeight: 50, maxHeight: 100)
+                    .background(Color.white)
                     .opacity(text.isEmpty ? 0.85 : 1)
+                    .scrollContentBackground(.hidden)
                 Spacer()
             }
         }

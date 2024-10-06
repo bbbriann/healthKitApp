@@ -6,6 +6,7 @@
 //
 
 import Combine
+import HealthKit
 import SwiftUI
 
 enum HomeState: String, CaseIterable, Identifiable {

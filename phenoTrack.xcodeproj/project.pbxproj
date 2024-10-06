@@ -47,7 +47,7 @@
 		D35CB5C62CAC51F900A0BFB6 /* RandomSurveyModifyCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CB5C52CAC51F900A0BFB6 /* RandomSurveyModifyCompleteView.swift */; };
 		D35CB5C82CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CB5C72CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift */; };
 		D35CB5CA2CAFED0F00A0BFB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D35CB5C92CAFED0F00A0BFB6 /* GoogleService-Info.plist */; };
-		D3A3884E2C726A30001CE3EA /* healthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3884D2C726A30001CE3EA /* healthKitService.swift */; };
+		D3A3884E2C726A30001CE3EA /* HealthKitTypeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3884D2C726A30001CE3EA /* HealthKitTypeHelper.swift */; };
 		D3A388532C726D1C001CE3EA /* CommonSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388522C726D1C001CE3EA /* CommonSelectButton.swift */; };
 		D3A388562C726D5C001CE3EA /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388552C726D5C001CE3EA /* ColorExtensions.swift */; };
 		D3A3885A2C727691001CE3EA /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388592C727691001CE3EA /* SignUpView.swift */; };
@@ -137,7 +137,7 @@
 		D35CB5C52CAC51F900A0BFB6 /* RandomSurveyModifyCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyModifyCompleteView.swift; sourceTree = "<group>"; };
 		D35CB5C72CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyModifyView.swift; sourceTree = "<group>"; };
 		D35CB5C92CAFED0F00A0BFB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		D3A3884D2C726A30001CE3EA /* healthKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = healthKitService.swift; sourceTree = "<group>"; };
+		D3A3884D2C726A30001CE3EA /* HealthKitTypeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitTypeHelper.swift; sourceTree = "<group>"; };
 		D3A388522C726D1C001CE3EA /* CommonSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSelectButton.swift; sourceTree = "<group>"; };
 		D3A388552C726D5C001CE3EA /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		D3A388592C727691001CE3EA /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -269,7 +269,7 @@
 		D3A3884C2C726A18001CE3EA /* service */ = {
 			isa = PBXGroup;
 			children = (
-				D3A3884D2C726A30001CE3EA /* healthKitService.swift */,
+				D3A3884D2C726A30001CE3EA /* HealthKitTypeHelper.swift */,
 			);
 			path = service;
 			sourceTree = "<group>";
@@ -676,7 +676,7 @@
 				D3B79F5C2CA71DC900701922 /* DiaryResultInteractor.swift in Sources */,
 				D3F420282CA084D900C2BB24 /* RandomSurveyViewModel.swift in Sources */,
 				D31592A12CA7240700D63B3F /* RandomSurveyResultViewModel.swift in Sources */,
-				D3A3884E2C726A30001CE3EA /* healthKitService.swift in Sources */,
+				D3A3884E2C726A30001CE3EA /* HealthKitTypeHelper.swift in Sources */,
 				D35CB5C42CAC505600A0BFB6 /* RandomSurveyModifyView.swift in Sources */,
 				D35CB5C62CAC51F900A0BFB6 /* RandomSurveyModifyCompleteView.swift in Sources */,
 				D3A388972C74EFDD0059C3BB /* ResetPWView.swift in Sources */,

@@ -38,6 +38,12 @@ class AuthInteractor {
         let jsonData = try? JSONEncoder().encode(userInfo)
         return client.performRequest("/users", method: "POST", postData: jsonData)
     }
+    
+    func sendSensorData(req: HealthData) -> AnyPublisher<HealthResModel, Error> {
+        let studyId = UserDefaults.standard.studyId ?? ""
+        let jsonData = try? JSONEncoder().encode(req)
+        return client.performRequest("/studies/" + studyId + "/sensors", method: "POST", postData: jsonData)
+    }
 }
 
 

@@ -75,26 +75,39 @@ class HealthKitService {
      }
 
     
-    func getData(type: HKSampleType, completionHandler: (() -> Void)? = nil) {
+    func getData(type: HKSampleType, completionHandler: @escaping ([HKSample]?, Error?) -> Void) {
         // 데이터를 필터링할 조건(predicate)를 설정할 수 있음. 여기선 일주일 데이터를 받아오도록 설정
         let calendar = Calendar.current
         let endDate = Date() // 현재 시간
-        let startDate = calendar.date(byAdding: .minute, value: -5, to: endDate) // 7일 전 시간
+        // 이전에 저장한 endDate를 불러오기, 없으면 12시간 이전으로 설정
+        let lastEndDate = UserDefaults.standard.lastEndDate ?? calendar.date(byAdding: .hour, value: -12, to: endDate)!
+        
+        // startDate를 이전에 요청한 endDate로 설정, 없으면 기본적으로 1일 전으로 설정
+        let startDate = lastEndDate
+        
+        // 새로운 endDate 저장 (현재 요청한 시간)
+        UserDefaults.standard.lastEndDate = endDate
+        
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
         // 최신 데이터를 먼저 가져오도록 sort 기준 정의
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
+        
+        var hkSampleData: [HKSample] = []
+        
+        
         // 쿼리 수행 완료시 실행할 콜백 정의
         let query = HKSampleQuery(sampleType: type, predicate: predicate, limit: 20, sortDescriptors: [sortDescriptor]) { (query, tmpResult, error) -> Void in
             if error != nil {
                 // 에러 처리를 수행합니다.
                 print("[Error] \(type) : err \(error!.localizedDescription)")
-                completionHandler?()
+                completionHandler(nil, error)
                 return
             }
             if let result = tmpResult {
                 if result.isEmpty {
                     NSLog("Noooo data")
                 }
+                hkSampleData.append(contentsOf: result)
                 for item in result {
                     if let sample = item as? HKCategorySample {
                         // 가져온 데이터 출력
@@ -135,9 +148,9 @@ class HealthKitService {
                         print("No Datatatataat")
                     }
                 }
-                completionHandler?()
+                completionHandler(hkSampleData, nil)
             } else {
-                completionHandler?()
+                completionHandler(nil, nil)
             }
         }
         // HealthKit store에서 쿼리를 실행

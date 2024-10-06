@@ -97,7 +97,6 @@ struct RandomSurveyModifyView: View {
         .navigationBarBackButtonHidden(true)
         .onAppear {
             NotificationCenter.default.post(Notification(name: .hideTabBar))
-            print("[TEST] survey \(survey)")
         }
         .onChange(of: viewModel.surveyComplete) { oldValue, newValue in
             guard newValue else { return }
@@ -119,7 +118,6 @@ struct RandomSurveyModifyView: View {
                     } else if index == 2 {
                         viewModel.req.questionCAnswer = score
                     }
-                    print("[TEST] \(title) 점수 : \(score)")
                 }
             }
             Spacer()

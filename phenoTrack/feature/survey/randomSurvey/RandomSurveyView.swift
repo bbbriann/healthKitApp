@@ -105,7 +105,6 @@ struct RandomSurveyView: View {
                     } else if index == 2 {
                         viewModel.req.questionCAnswer = score
                     }
-                    print("[TEST] \(title) 점수 : \(score)")
                 }
             }
             Spacer()

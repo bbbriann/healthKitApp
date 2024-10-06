@@ -15,6 +15,17 @@ extension UserDefaults {
         static let surveyAgreed = "surveyAgreed"
         static let studyId = "studyId"
         static let fcmToken = "fcmToken"
+        static let lastEndDate = "lastEndDate"
+        static let launchSensorData = "launchSensorData"
+    }
+    
+    var launchSensorData: Bool? {
+        get {
+            return bool(forKey: Keys.launchSensorData)
+        }
+        set {
+            set(newValue, forKey: Keys.launchSensorData)
+        }
     }
     
     var surveyAgreed: Bool? {
@@ -62,6 +73,16 @@ extension UserDefaults {
         }
         set {
             set(newValue, forKey: Keys.studyId)
+        }
+    }
+    
+    // 저장된 이전 endDate를 불러오기
+    var lastEndDate: Date? {
+        get {
+            return object(forKey: Keys.lastEndDate) as? Date
+        }
+        set {
+            set(newValue, forKey: Keys.lastEndDate)
         }
     }
     

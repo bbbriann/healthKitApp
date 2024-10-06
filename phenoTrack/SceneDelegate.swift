@@ -13,6 +13,11 @@ class SceneDelegate: NSObject, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         print("\(#function)")
+        if let notificationResponse = connectionOptions.notificationResponse {
+            let userInfo = notificationResponse.notification.request.content.userInfo
+            // 알림 데이터 처리
+            UserDefaults.standard.launchSensorData = true
+        }
         guard let _ = (scene as? UIWindowScene) else { return }
     }
     

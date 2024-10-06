@@ -6,7 +6,9 @@
 //
 
 import SwiftUI
+
 import Combine
+import HealthKit
 
 class AppStateViewModel: ObservableObject {
     @Published var isLoading: Bool = true // API 호출 상태를 추적하는 변수
@@ -40,5 +42,99 @@ class AppStateViewModel: ObservableObject {
         } else {
             self.isLoading = false // API 호출이 끝나면 로딩 상태 해제
         }
+    }
+    
+    func fetchHealthDataAndProcess() {
+        let dispatchGroup = DispatchGroup()
+        
+        let types: [HKQuantityTypeIdentifier] = [
+            .heartRate,
+            .restingHeartRate,
+            .walkingHeartRateAverage,
+            .heartRateVariabilitySDNN,
+            .distanceWalkingRunning,
+            .activeEnergyBurned,
+            .flightsClimbed,
+            .stepCount,
+            .basalEnergyBurned,
+            .appleExerciseTime,
+            .appleStandTime,
+            .bodyMassIndex
+        ]
+        
+        for typeIdentifier in types {
+            if let quantityType = HKQuantityType.quantityType(forIdentifier: typeIdentifier) {
+                dispatchGroup.enter() // 작업 시작을 알림
+                HealthKitService.shared.getData(type: quantityType) { samples, error in
+                    
+                    if let samples = samples,
+                       let processedData = self.processHealthSamples(samples, typeIdentifier: typeIdentifier) {
+                        self.interactor.sendSensorData(req: processedData)
+                            .sink(receiveCompletion: { [weak self] (completion: Subscribers.Completion<Error>) in
+                                switch completion {
+                                case .failure(let error):
+                                    print("[TEST] error \(error)")
+                                case .finished:
+                                    break
+                                }
+                            }, receiveValue: { [weak self] (res) in
+                                print("[TEST] res \(res)")
+                            })
+                            .store(in: &self.cancellables)
+                        // JSON으로 변환 (예시)
+                        if let jsonData = try? JSONEncoder().encode(processedData),
+                           let jsonString = String(data: jsonData, encoding: .utf8) {
+                            
+                            print("정제된 데이터: \(jsonString)")
+                        }
+                    }
+                    
+                    dispatchGroup.leave() // 작업 완료를 알림
+                }
+            }
+        }
+        
+        // 모든 작업이 끝났을 때 실행될 코드
+        dispatchGroup.notify(queue: .main) {
+            // 여기서 모든 데이터를 처리하고 후속 작업을 수행
+            print("모든 데이터가 로드되었습니다.")
+        }
+    }
+    
+    // 데이터를 주어진 JSON 구조에 맞게 정제하는 함수
+    private func processHealthSamples(_ samples: [HKSample], typeIdentifier: HKQuantityTypeIdentifier) -> HealthData? {
+        guard let firstSample = samples.first else { return nil }
+        
+        let sensorType = HealthKitTypeHelper.identifierString(for: typeIdentifier)
+        let startAt = iso8601String(from: firstSample.startDate)
+        let endAt = iso8601String(from: firstSample.endDate)
+        
+        let values: [HealthDataValue] = samples.compactMap { sample in
+            if let quantitySample = sample as? HKQuantitySample {
+                let valueString = quantitySample.quantity.description
+                return HealthDataValue(
+                    start_at: iso8601String(from: sample.startDate),
+                    end_at: iso8601String(from: sample.endDate),
+                    value: valueString
+                )
+            }
+            return nil
+        }
+        
+        let healthData = HealthData(
+            sensor_type: sensorType,
+            start_at: startAt,
+            end_at: endAt,
+            values: values,
+            memo: "Health data from HealthKit" // memo는 임의로 설정
+        )
+        
+        return healthData
+    }
+    
+    private func iso8601String(from date: Date) -> String {
+        let formatter = ISO8601DateFormatter()
+        formatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC 표준 시간대로 설정
+        return formatter.string(from: date)
     }
 }

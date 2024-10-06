@@ -58,6 +58,34 @@ struct LatestResModel: Codable {
     }
 }
 
+struct HealthDataValue: Codable {
+    let start_at: String
+    let end_at: String
+    let value: String
+}
+
+struct HealthData: Codable {
+    let sensor_type: String
+    let start_at: String
+    let end_at: String
+    let values: [HealthDataValue]
+    let memo: String
+}
+
+struct HealthResModel: Codable {
+    let study: String
+    let ulid: String
+    let sensor_type: String
+    let start_at: String
+    let end_at: String
+    let values: [HealthDataValue]
+    let memo: String
+    let created: String
+    let modified: String
+}
+
+
+
 enum CommonError: Error {
     case noUlid
     case startEndTimeError

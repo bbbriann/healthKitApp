@@ -93,6 +93,7 @@ struct RandomSurveyCardView: View {
             .sheet(isPresented: $showBottomSheet, content: {
                 // 연구자 승인 대기 시트
                 VoracityInfoView(height: $bottomSheetHeight)
+                    .background(Color.white)
                     .presentationDetents([.height(370)])
                     .presentationDragIndicator(.visible)
             })
@@ -324,6 +325,7 @@ struct VoracityInfoView: View {
             }
         }
         .padding(.horizontal, 24)
+        .frame(maxHeight: .infinity)
         .readSize { calculatedHeight in
             height = calculatedHeight.height
         }

@@ -24,6 +24,7 @@ struct healthKittApp: App {
     
     init() {
         customozieNavigationBar()
+        HealthKitService.shared.configure()
     }
     
     private func customozieNavigationBar() {
@@ -58,6 +59,9 @@ struct healthKittApp: App {
             }
             .onReceive(NotificationCenter.default.publisher(for: .loggedOut)) { notification in
                 isLoogedIn = false
+            }
+            .onReceive(NotificationCenter.default.publisher(for: .updateSenorData)) { notification in
+                viewModel.fetchHealthDataAndProcess()
             }
         }
     }

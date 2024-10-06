@@ -75,6 +75,14 @@ struct AppTabBarView: View {
                 }
             }
         }
+        .onAppear(perform: {
+            if UserDefaults.standard.launchSensorData ?? false {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    NotificationCenter.default.post(Notification(name: .updateSenorData))
+                    UserDefaults.standard.launchSensorData = false
+                }
+            }
+        })
         .onReceive(NotificationCenter.default.publisher(for: .showTabBar)) { notification in
             showTabBar = true
         }

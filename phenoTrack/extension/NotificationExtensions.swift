@@ -14,4 +14,5 @@ extension Notification.Name {
     static let hideTabBar = Notification.Name("hideTabBar")
     static let dataRefresh = Notification.Name("dataRefresh")
     static let profileViewRefresh = Notification.Name("profileViewRefresh")
+    static let updateSenorData = Notification.Name("updateSenorData")
 }
