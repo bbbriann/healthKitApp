@@ -52,14 +52,6 @@ struct HomeView: View {
                                     .font(.system(size: 12))
                                     .foregroundColor(Color(hex: "##0056E6"))
                                 Spacer()
-                                
-                                Picker("Select State", selection: $viewModel.homeState) {
-                                    ForEach(HomeState.allCases) { state in
-                                        Text(state.rawValue.capitalized).tag(state)
-                                    }
-                                }
-                                .pickerStyle(.menu)
-                                .padding()
                             }
                         }
                         .padding(.top, 8)
