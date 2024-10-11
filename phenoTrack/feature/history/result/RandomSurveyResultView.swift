@@ -52,7 +52,8 @@ struct RandomSurvey: Codable, Hashable {
 
 
 struct RandomSurveyResultView: View {
-    @Binding var path: [HistoryViewStack]
+    @Binding var historyPath: [HistoryViewStack]
+    @Binding var homePath: [HomeViewStack]
     @Binding var randomSurvey: RandomSurvey?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
@@ -154,22 +155,24 @@ struct RandomSurveyResultView: View {
                     DiaryResultCardView(cardIndex: index, title: title, content: content)
                 }
                 Spacer()
-                HStack(alignment: .top, spacing: 12) {
-                    Button {
-                        showDeleteAlert.toggle()
-                    } label: {
-                        CommonSelectButton(title: "삭제", titleColor: .white,
-                                           bgColor: Color(hex: "#DA072D"))
+                if !historyPath.isEmpty {
+                    HStack(alignment: .top, spacing: 12) {
+                        Button {
+                            showDeleteAlert.toggle()
+                        } label: {
+                            CommonSelectButton(title: "삭제", titleColor: .white,
+                                               bgColor: Color(hex: "#DA072D"))
+                        }
+                        Button {
+                            historyPath.append(.randomSurveyModify)
+                        } label: {
+                            CommonSelectButton(title: "수정", titleColor: .white,
+                                               bgColor: Color(hex: "#1068FD"))
+                        }
                     }
-                    Button {
-                        path.append(.randomSurveyModify)
-                    } label: {
-                        CommonSelectButton(title: "수정", titleColor: .white,
-                                           bgColor: Color(hex: "#1068FD"))
-                    }
+                    .padding(0)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                 }
-                .padding(0)
-                .frame(maxWidth: .infinity, alignment: .topLeading)
             }
         }
     }

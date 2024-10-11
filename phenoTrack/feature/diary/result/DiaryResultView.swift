@@ -10,6 +10,7 @@ import SwiftUI
 struct DiaryResultView: View {
     @Binding var diaryPath: [DiaryViewStack]
     @Binding var historyPath: [HistoryViewStack]
+    @Binding var homePath: [HomeViewStack]
     @Binding var diet: Diet?
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
@@ -113,27 +114,29 @@ struct DiaryResultView: View {
                     DiaryResultCardView(cardIndex: index, title: title, content: content)
                 }
                 Spacer()
-                HStack(alignment: .top, spacing: 12) {
-                    Button {
-                        showDeleteAlert.toggle()
-                    } label: {
-                        CommonSelectButton(title: "삭제", titleColor: .white,
-                                           bgColor: Color(hex: "#DA072D"))
-                    }
-
-                    Button {
-                        if diaryPath.isEmpty {
-                            historyPath.append(.diaryModify)
-                        } else {
-                            diaryPath.append(.diaryModify)
+                if homePath.isEmpty {
+                    HStack(alignment: .top, spacing: 12) {
+                        Button {
+                            showDeleteAlert.toggle()
+                        } label: {
+                            CommonSelectButton(title: "삭제", titleColor: .white,
+                                               bgColor: Color(hex: "#DA072D"))
                         }
-                    } label: {
-                        CommonSelectButton(title: "수정", titleColor: .white,
-                                           bgColor: Color(hex: "#1068FD"))
+                        
+                        Button {
+                            if diaryPath.isEmpty {
+                                historyPath.append(.diaryModify)
+                            } else {
+                                diaryPath.append(.diaryModify)
+                            }
+                        } label: {
+                            CommonSelectButton(title: "수정", titleColor: .white,
+                                               bgColor: Color(hex: "#1068FD"))
+                        }
                     }
+                    .padding(0)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                 }
-                .padding(0)
-                .frame(maxWidth: .infinity, alignment: .topLeading)
             }
         }
     }

@@ -47,6 +47,7 @@
 		D35CB5C62CAC51F900A0BFB6 /* RandomSurveyModifyCompleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CB5C52CAC51F900A0BFB6 /* RandomSurveyModifyCompleteView.swift */; };
 		D35CB5C82CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CB5C72CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift */; };
 		D35CB5CA2CAFED0F00A0BFB6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D35CB5C92CAFED0F00A0BFB6 /* GoogleService-Info.plist */; };
+		D35CB5CC2CB81C0200A0BFB6 /* PreviousHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35CB5CB2CB81C0200A0BFB6 /* PreviousHistoryViewModel.swift */; };
 		D3A3884E2C726A30001CE3EA /* HealthKitTypeHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A3884D2C726A30001CE3EA /* HealthKitTypeHelper.swift */; };
 		D3A388532C726D1C001CE3EA /* CommonSelectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388522C726D1C001CE3EA /* CommonSelectButton.swift */; };
 		D3A388562C726D5C001CE3EA /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3A388552C726D5C001CE3EA /* ColorExtensions.swift */; };
@@ -137,6 +138,7 @@
 		D35CB5C52CAC51F900A0BFB6 /* RandomSurveyModifyCompleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomSurveyModifyCompleteView.swift; sourceTree = "<group>"; };
 		D35CB5C72CAD9EDD00A0BFB6 /* DiaryRandomSurveyModifyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryRandomSurveyModifyView.swift; sourceTree = "<group>"; };
 		D35CB5C92CAFED0F00A0BFB6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D35CB5CB2CB81C0200A0BFB6 /* PreviousHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousHistoryViewModel.swift; sourceTree = "<group>"; };
 		D3A3884D2C726A30001CE3EA /* HealthKitTypeHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitTypeHelper.swift; sourceTree = "<group>"; };
 		D3A388522C726D1C001CE3EA /* CommonSelectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonSelectButton.swift; sourceTree = "<group>"; };
 		D3A388552C726D5C001CE3EA /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
@@ -493,6 +495,7 @@
 			isa = PBXGroup;
 			children = (
 				D3A388E22C8DE7C30059C3BB /* PreviousHistoryView.swift */,
+				D35CB5CB2CB81C0200A0BFB6 /* PreviousHistoryViewModel.swift */,
 			);
 			path = previousHistory;
 			sourceTree = "<group>";
@@ -672,6 +675,7 @@
 				D3A388D02C8A02750059C3BB /* RandomSurveyCardView.swift in Sources */,
 				D3A388BB2C7CBFDB0059C3BB /* CustomAlertView.swift in Sources */,
 				D3A388C22C81B83F0059C3BB /* HomeViewModel.swift in Sources */,
+				D35CB5CC2CB81C0200A0BFB6 /* PreviousHistoryViewModel.swift in Sources */,
 				D3B79F502CA3155200701922 /* DiaryInteractor.swift in Sources */,
 				D3B79F5C2CA71DC900701922 /* DiaryResultInteractor.swift in Sources */,
 				D3F420282CA084D900C2BB24 /* RandomSurveyViewModel.swift in Sources */,
@@ -896,6 +900,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -932,6 +937,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

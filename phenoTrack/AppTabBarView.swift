@@ -219,6 +219,9 @@ enum HomeViewStack {
     case home
     case survey
     case surveyComplete
+    case prevHistory
+    case prevRandomSurveyResult
+    case prevDiaryResult
 }
 
 enum DiaryViewStack {

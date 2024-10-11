@@ -9,17 +9,13 @@ import Charts
 import SwiftUI
 
 struct PreviousHistoryView: View {
+    @Binding var path: [HomeViewStack]
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.safeAreaInsets) private var safeAreaInsets
-    @StateObject private var viewModel = HistoryViewModel()
-    @State private var selectedDate = Date()
+    @EnvironmentObject var viewModel: HistoryViewModel
     @State private var selectedIndex: Int = 0
-    @State private var showRandomSurveyResultView: Bool = false
-    @State private var showDiaryResultView: Bool = false
-    private var calendar = Calendar.current
-    private let daysOfWeek = ["월", "화", "수", "목", "금", "토", "일"]
+    @State private var hasCalendarButtonPressed: Bool = false
     
-    private var dataList = ["09:35","12:30","14:25","17:12","20:32"]
     var body: some View {
         VStack {
             ZStack {
@@ -56,14 +52,6 @@ struct PreviousHistoryView: View {
                 }
                 .padding(.horizontal, 24)
             }
-            
-            NavigationLink(destination: RandomSurveyResultView(path: .constant([]), randomSurvey: .constant(nil)), isActive: $showRandomSurveyResultView) {
-                EmptyView()
-            }
-            
-            NavigationLink(destination: DiaryResultView(diaryPath: .constant([]), historyPath: .constant([]), diet: .constant(nil)), isActive: $showDiaryResultView) {
-                EmptyView()
-            }
         }
         .background(Color(red: 0.95, green: 0.96, blue: 0.98))
         .frame(maxHeight: .infinity)
@@ -73,38 +61,69 @@ struct PreviousHistoryView: View {
         .onAppear {
             NotificationCenter.default.post(Notification(name: .hideTabBar))
         }
+        .onChange(of: selectedIndex) { oldValue, newValue in
+            if newValue == 0 {
+                viewModel.fetchRandomSurveyListData()
+            } else {
+                viewModel.fetchDietsData()
+            }
+        }
+        .onChange(of: viewModel.selectedDate) { oldValue, newValue in
+            if selectedIndex == 0 {
+                viewModel.fetchRandomSurveyListData()
+            } else {
+                viewModel.fetchDietsData()
+            }
+        }
+        .onAppear {
+            if selectedIndex == 0 {
+                viewModel.fetchRandomSurveyListData()
+            } else {
+                viewModel.fetchDietsData()
+            }
+        }
     }
     
     var randomChartView: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(alignment: .center) {
-                Text("신고 - 5건")
+                Text("신고 - \(viewModel.reportedCount(index: selectedIndex))건")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(Color(hex: "#020C1C"))
                 Spacer()
                 
-                HStack(alignment: .center, spacing: 2) {
-                    Text(selectedDate.toYYYYMMDDKRString())
-                        .font(.system(size: 12, weight: .medium))
-                        .foregroundColor(Color(hex: "#020C1C"))
-                    Image("IcBlueArrowDown")
-                        .resizable()
-                        .frame(width: 16, height: 16)
+                Button {
+                    hasCalendarButtonPressed.toggle()
+                } label: {
+                    HStack(alignment: .center, spacing: 2) {
+                        Text(viewModel.selectedDate.toYYYYMMDDKRString())
+                            .font(.system(size: 12, weight: .medium))
+                            .foregroundColor(Color(hex: "#020C1C"))
+                        Image("IcBlueArrowDown")
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                    }
+                    .padding(.leading, 12)
+                    .padding(.trailing, 8)
+                    .padding(.vertical, 4)
+                    .frame(height: 24, alignment: .leading)
+                    .background(.white)
+                    .cornerRadius(12)
                 }
-                .padding(.leading, 12)
-                .padding(.trailing, 8)
-                .padding(.vertical, 4)
-                .frame(height: 24, alignment: .leading)
-                .background(.white)
-                .cornerRadius(12)
             }
             .frame(maxWidth: .infinity, alignment: .center)
+            
+            if hasCalendarButtonPressed {
+                CalenderView(clickedCurrentMonthDates: $viewModel.selectedDate,
+                             hasCalendarButtonPressed: $hasCalendarButtonPressed)
+                .padding(.top, 30)
+            }
             if selectedIndex == 0 {
                 Chart {
                     // ForEach를 각 질문의 카테고리로 처리
                     ForEach(["음식 생각", "기분", "스트레스"], id: \.self) { category in
                         ForEach(viewModel.randomSurveyList, id: \.ulid) { survey in
-                            if let date = convertToDate(survey.created) {
+                            if let date = DateHelper.convertToDate(survey.created) {
                                 LineMark(
                                     x: .value("Time", date),
                                     y: .value(category, value(for: category, from: survey))
@@ -134,8 +153,7 @@ struct PreviousHistoryView: View {
                 }
                 .frame(height: 300)
             } else {
-                List {
-                    // 전체 Diet 리스트를 요약하여 차트 5개로 표현
+                if !viewModel.dietList.isEmpty {
                     HistoryResultCardView(
                         title: "음식을 먹기 전에 기분이 좋지 않았나요?",
                         description: "(지루하거나 화나거나 스트레스 받는 등)",
@@ -167,7 +185,7 @@ struct PreviousHistoryView: View {
                     HistoryResultCardView(
                         title: "폭식했다고 느끼셨나요?",
                         description: "(많이 먹었을 때의 느낌)",
-                        positiveCount: totalFor(question: \.questionEAnswer),
+                        positiveCount: totalFor(question: \.questionEAnswer, isQuestionE: true),
                         totalResponses: totalResponses()
                     )
                 }
@@ -185,44 +203,63 @@ struct PreviousHistoryView: View {
             }
             .frame(maxWidth: .infinity, alignment: .center)
             VStack(alignment: .leading, spacing: 8) {
-                ForEach(0..<dataList.count) { index in
-                    Button {
-                        if selectedIndex == 0 {
-                            showRandomSurveyResultView.toggle()
-                        } else {
-                            showDiaryResultView.toggle()
-                        }
-                    } label: {
-                        HStack(alignment: .center, spacing: 10) {
-                            Color
-                                .clear
-                                .frame(width: 20, height: 10)
-                            Text(dataList[index])
-                                .font(.system(size: 16, weight: .medium))
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(Color(hex: "#020C1C"))
+                if selectedIndex == 0 {
+                    if !viewModel.randomSurveyList.isEmpty {
+                        ForEach(viewModel.randomSurveyList, id: \.self) { item in
+                            Button {
+                                viewModel.selectedRandomSurvey = item
+                                path.append(.prevRandomSurveyResult)
+                            } label: {
+                                HStack(alignment: .center, spacing: 10) {
+                                    Color
+                                        .clear
+                                        .frame(width: 20, height: 10)
+                                    Text(DateHelper.formatTimeFromISO8601(item.created) ?? "")
+                                        .font(.system(size: 16, weight: .medium))
+                                        .multilineTextAlignment(.center)
+                                        .foregroundColor(Color(hex: "#020C1C"))
+                                        .frame(maxWidth: .infinity, alignment: .center)
+                                    Image("IcRightArrowBlue")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                }
+                                .padding(16)
                                 .frame(maxWidth: .infinity, alignment: .center)
-                            Image("IcRightArrowBlue")
-                                .resizable()
-                                .frame(width: 20, height: 20)
+                                .background(.white)
+                                .cornerRadius(12)
+                            }
                         }
-                        .padding(16)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(.white)
-                        .cornerRadius(12)
+                    }
+                } else {
+                    ForEach(viewModel.dietList, id: \.self) { item in
+                        Button {
+                            viewModel.selectedDiet = item
+                            path.append(.prevDiaryResult)
+                        } label: {
+                            HStack(alignment: .center, spacing: 10) {
+                                Color
+                                    .clear
+                                    .frame(width: 20, height: 10)
+                                Text(DateHelper.formatTimeFromISO8601(item.created) ?? "")
+                                    .font(.system(size: 16, weight: .medium))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(Color(hex: "#020C1C"))
+                                    .frame(maxWidth: .infinity, alignment: .center)
+                                Image("IcRightArrowBlue")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                            }
+                            .padding(16)
+                            .frame(maxWidth: .infinity, alignment: .center)
+                            .background(.white)
+                            .cornerRadius(12)
+                        }
                     }
                 }
             }
             .frame(maxWidth: .infinity, alignment: .topLeading)
         }
         .frame(maxWidth: .infinity, alignment: .topLeading)
-    }
-    
-    private func convertToDate(_ dateString: String) -> Date? {
-        let isoFormatter = ISO8601DateFormatter()
-        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC 시간대로 설정
-        isoFormatter.formatOptions = [.withFractionalSeconds, .withInternetDateTime]
-        return isoFormatter.date(from: dateString)
     }
     
     private func value(for category: String, from survey: RandomSurvey) -> Int {
@@ -244,13 +281,22 @@ struct PreviousHistoryView: View {
         return dateFormatter.string(from: date)
     }
     
-    // 전체 Diet 배열에서 특정 질문 답변의 합계 계산
-    private func totalFor(question keyPath: KeyPath<Diet, Int>) -> Int {
-        return viewModel.dietList.reduce(0) { $0 + $1[keyPath: keyPath] }
+    // 전체 Diet 배열에서 특정 질문 답변의 긍정적인 응답 수 계산
+    private func totalFor(question keyPath: KeyPath<Diet, Int>, isQuestionE: Bool = false) -> Int {
+        return viewModel.dietList.reduce(0) { total, diet in
+            let answer = diet[keyPath: keyPath]
+            if isQuestionE {
+                // questionE는 2일 경우만 긍정적 응답으로 계산
+                return total + (answer == 2 ? 1 : 0)
+            } else {
+                // questionA, B, C, D는 3 또는 4일 경우만 긍정적 응답으로 계산
+                return total + (answer == 3 || answer == 4 ? 1 : 0)
+            }
+        }
     }
     
     // 전체 응답의 개수를 계산 (모든 Diet에 동일한 총 응답 수를 가정)
     private func totalResponses() -> Int {
-        return viewModel.dietList.count * 6 // 응답이 6개씩인 것으로 가정
+        return viewModel.dietList.count // 응답이 6개씩인 것으로 가정
     }
 }

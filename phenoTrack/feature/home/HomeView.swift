@@ -11,6 +11,7 @@ import SwiftUI
 struct HomeView: View {
     @Binding var path: [HomeViewStack]
     @StateObject private var viewModel = HomeViewModel()
+    @StateObject private var historyViewModel = HistoryViewModel()
     @State private var showBottomSheet: Bool = false
     @State private var showReadyToStartSheet: Bool = false
     @State private var showSurveyGuideSheet: Bool = false
@@ -274,7 +275,7 @@ struct HomeView: View {
                                         }
                                         .frame(maxWidth: .infinity, alignment: .topLeading)
                                         Button {
-                                            showPreviousHistoryView.toggle()
+                                            path.append(.prevHistory)
                                         } label: {
                                             CommonSelectButton(title: "지난 기록 보기",
                                                                titleColor: .white,
@@ -286,10 +287,6 @@ struct HomeView: View {
                                     .padding(.horizontal, 20)
                                     .padding(.top, 20)
                                     .frame(maxWidth: .infinity, alignment: .topLeading)
-                                    
-                                    NavigationLink(destination: PreviousHistoryView(), isActive: $showPreviousHistoryView) {
-                                        EmptyView()
-                                    }
                                 }
                             }
                             .padding(.bottom, viewModel.bottomPadding)
@@ -344,6 +341,17 @@ struct HomeView: View {
                 RandomSurveyCompleteView(path: $path)
             case .home:
                 EmptyView()
+            case .prevHistory:
+                PreviousHistoryView(path: $path)
+                    .environmentObject(historyViewModel)
+            case .prevDiaryResult:
+                DiaryResultView(diaryPath: .constant([]),
+                                historyPath: .constant([]),
+                                homePath: $path,
+                                diet: $historyViewModel.selectedDiet)
+            case .prevRandomSurveyResult:
+                RandomSurveyResultView(historyPath: .constant([]), homePath: $path,
+                                       randomSurvey: $historyViewModel.selectedRandomSurvey)
             }
         }
     }

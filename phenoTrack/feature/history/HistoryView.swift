@@ -11,7 +11,6 @@ import SwiftUI
 struct HistoryView: View {
     @State private var path: [HistoryViewStack] = []
     @StateObject private var viewModel = HistoryViewModel()
-    //    @State private var selectedDate = Date()
     @State private var selectedIndex: Int = 0
     @State private var hasCalendarButtonPressed: Bool = false
     
@@ -92,7 +91,8 @@ struct HistoryView: View {
             case .history:
                 EmptyView()
             case .randomSurveyResult:
-                RandomSurveyResultView(path: $path, randomSurvey: $viewModel.selectedRandomSurvey)
+                RandomSurveyResultView(historyPath: $path, homePath: .constant([]),
+                                       randomSurvey: $viewModel.selectedRandomSurvey)
             case .randomSurveyModify:
                 RandomSurveyModifyView(path: $path, survey: $viewModel.selectedRandomSurvey)
             case .randomSurveyComplete:
@@ -100,6 +100,7 @@ struct HistoryView: View {
             case .diaryResult:
                 DiaryResultView(diaryPath: .constant([]), 
                                 historyPath: $path,
+                                homePath: .constant([]),
                                 diet: $viewModel.selectedDiet)
             case .diaryModify:
                 DiaryRandomSurveyModifyView(diaryPath: .constant([]),
@@ -151,39 +152,41 @@ struct HistoryView: View {
                 .padding(.top, 30)
             }
             if selectedIndex == 0 {
-                Chart {
-                    // ForEach를 각 질문의 카테고리로 처리
-                    ForEach(["음식 생각", "기분", "스트레스"], id: \.self) { category in
-                        ForEach(viewModel.randomSurveyList, id: \.ulid) { survey in
-                            if let date = DateHelper.convertToDate(survey.created) {
-                                LineMark(
-                                    x: .value("Time", date),
-                                    y: .value(category, value(for: category, from: survey))
-                                )
-                                .foregroundStyle(by: .value("Category", category))
-                                .symbol(by: .value("Category", category))
-                                .lineStyle(StrokeStyle(lineWidth: 2))
+                if !viewModel.randomSurveyList.isEmpty {
+                    Chart {
+                        // ForEach를 각 질문의 카테고리로 처리
+                        ForEach(["음식 생각", "기분", "스트레스"], id: \.self) { category in
+                            ForEach(viewModel.randomSurveyList, id: \.ulid) { survey in
+                                if let date = DateHelper.convertToDate(survey.created) {
+                                    LineMark(
+                                        x: .value("Time", date),
+                                        y: .value(category, value(for: category, from: survey))
+                                    )
+                                    .foregroundStyle(by: .value("Category", category))
+                                    .symbol(by: .value("Category", category))
+                                    .lineStyle(StrokeStyle(lineWidth: 2))
+                                }
                             }
                         }
                     }
-                }
-                .chartForegroundStyleScale([
-                    "음식 생각": Color.blue,
-                    "기분": Color.red,
-                    "스트레스": Color.purple
-                ])
-                .chartLegend(position: .top, alignment: .leading)
-                .chartXAxis {
-                    AxisMarks(values: .automatic(desiredCount: 2)) { value in
-                        if let dateValue = value.as(Date.self) {
-                            AxisValueLabel(formatDate(date: dateValue))
+                    .chartForegroundStyleScale([
+                        "음식 생각": Color.blue,
+                        "기분": Color.red,
+                        "스트레스": Color.purple
+                    ])
+                    .chartLegend(position: .top, alignment: .leading)
+                    .chartXAxis {
+                        AxisMarks(values: .automatic(desiredCount: 2)) { value in
+                            if let dateValue = value.as(Date.self) {
+                                AxisValueLabel(formatDate(date: dateValue))
+                            }
                         }
                     }
+                    .chartYAxis {
+                        AxisMarks(position: .leading)
+                    }
+                    .frame(height: 300)
                 }
-                .chartYAxis {
-                    AxisMarks(position: .leading)
-                }
-                .frame(height: 300)
             } else {
                 if !viewModel.dietList.isEmpty {
                     HistoryResultCardView(

@@ -91,6 +91,7 @@ struct DiaryView: View {
                 case .result:
                     DiaryResultView(diaryPath: $path,
                                     historyPath: .constant([]),
+                                    homePath: .constant([]),
                                     diet: $viewModel.selectedDiet)
                 case .diaryModify:
                     DiaryRandomSurveyModifyView(diaryPath: $path,
@@ -180,6 +181,8 @@ struct DiaryView: View {
                         }
                     }
                     Button {
+                        let surveyAgreed = UserDefaults.standard.surveyAgreed ?? false
+                        guard surveyAgreed else { return }
                         path.append(.diarySurvey)
                     } label: {
                         HistoryAddButtonView()

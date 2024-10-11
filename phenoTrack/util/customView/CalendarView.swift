@@ -80,6 +80,7 @@ struct CalenderView: View {
             
             Text(month, formatter: Self.calendarHeaderDateFormatter)
                 .font(.title2.bold())
+                .foregroundColor(.black)
             
             Button(
                 action: {
