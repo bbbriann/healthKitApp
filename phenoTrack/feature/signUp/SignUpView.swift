@@ -141,7 +141,7 @@ struct SignUpView: View {
                 .foregroundColor(Color(hex: "#020C1C"))
                 .frame(width: 345, alignment: .topLeading)
             CommonInputView(text: $viewModel.email,
-                            image: "IcEmail", placeholder: "이메일 입력",
+                            image: "IcEmail", placeholder: "이메일 입력", keyboardType: .emailAddress,
                             status: viewModel.signupError == .emailRegex ? .error : .default)
             
             if viewModel.signupError == .emailRegex {
@@ -219,7 +219,8 @@ struct SignUpView: View {
                 .foregroundColor(Color(hex: "#020C1C"))
                 .frame(width: 345, alignment: .topLeading)
             CommonInputView(text: $viewModel.phoneNumber, image: "IcPhone",
-                            placeholder: "전화번호를 입력하세요")
+                            placeholder: "전화번호를 입력하세요",
+                            keyboardType: .phonePad)
             
             if viewModel.signupError == .phoneValid {
                 HStack {

@@ -94,7 +94,8 @@ struct FindIdView: View {
                     .foregroundColor(Color(hex: "#020C1C"))
                     .frame(width: 345, alignment: .topLeading)
                 VStack(spacing: 12) {
-                    CommonInputView(text: $viewModel.phone, image: "IcPhone", placeholder: "휴대폰 번호 입력")
+                    CommonInputView(text: $viewModel.phone, image: "IcPhone",
+                                    placeholder: "휴대폰 번호 입력", keyboardType: .phonePad)
                 }
                 
                 Spacer()

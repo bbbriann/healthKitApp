@@ -135,12 +135,12 @@ struct ProfileEditView: View {
                 CommonInputView(text: $viewModel.name, image: "IcProfile",
                                 placeholder: "이름(실명)", needNoFocus: true)
                 CommonInputView(text: $viewModel.phoneNumber, image: "IcPhone",
-                                placeholder: "전화번호를 입력하세요", needNoFocus: true)
+                                placeholder: "전화번호를 입력하세요", keyboardType: .phonePad, needNoFocus: true)
                 CommonInputView(text: .constant("성별"), image: "IcGender",
                                 specificType: .birth, gender: $viewModel.gender, 
                                 needNoFocus: true)
                 CommonInputView(text: $viewModel.email, image: "IcEmail",
-                                placeholder: "이메일 입력", needNoFocus: true)
+                                placeholder: "이메일 입력", keyboardType: .emailAddress, needNoFocus: true)
                 Button {
                     path.append(.changePassword)
                 } label: {

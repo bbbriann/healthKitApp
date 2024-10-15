@@ -98,7 +98,18 @@ struct CommonInputView: View {
                                 .opacity(0.5)
                                 .font(.system(size: 16))
                         }
+                        .keyboardType(keyboardType)
                         .padding(.vertical, 18)
+                        .toolbar {
+                            if keyboardType == .phonePad {
+                                ToolbarItemGroup(placement: .keyboard) {
+                                    Spacer()
+                                    Button("완료") {
+                                        hideKeyboard()
+                                    }
+                                }
+                            }
+                        }
                 case .birth:
                     Text(text)
                         .foregroundColor(Color(hex: "#020C1C"))
@@ -129,6 +140,11 @@ struct CommonInputView: View {
         .frame(maxWidth: .infinity)
         .border(width: 1, edges: [.bottom],
                 color: borderColor)
+    }
+    
+    // 키보드 숨기는 함수
+    func hideKeyboard() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
     private var borderColor: Color {
