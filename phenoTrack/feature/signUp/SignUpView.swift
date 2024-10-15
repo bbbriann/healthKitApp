@@ -21,12 +21,33 @@ struct SignUpView: View {
             } else {
                 Spacer(minLength: 61)
                 ZStack {
-                    Rectangle()
-                        .fill(.white.opacity(0.2))
-                        .cornerRadius(24)
-                        .rotationEffect(Angle(degrees: -4))
-                    contentView
-                        .cornerRadius(24)
+                    if viewModel.showError {
+                        ZStack {
+                            Color.black.opacity(0.4) // 반투명한 배경
+                                .ignoresSafeArea()
+                            
+                            CustomAlertView(
+                                title: "회원가입 오류",
+                                message: "내용을 다시 확인해주세요.",
+                                onlyConfirm: true,
+                                confirmTitle: "확인",
+                                onCancel: { },
+                                onConfirm: {
+                                    viewModel.showError.toggle()
+                                }
+                            )
+                            .padding(.horizontal, 24)
+                            .transition(.scale)
+                            .zIndex(1)
+                        }
+                    } else {
+                        Rectangle()
+                            .fill(.white.opacity(0.2))
+                            .cornerRadius(24)
+                            .rotationEffect(Angle(degrees: -4))
+                        contentView
+                            .cornerRadius(24)
+                    }
                 }
                 .background {
                     NavigationLink(
@@ -96,6 +117,21 @@ struct SignUpView: View {
         .padding(.vertical, 32)
         .background(.white)
         .cornerRadius(24)
+        .onChange(of: viewModel.birth) { oldValue, newValue in
+            handleDateChange(oldDate: oldValue, newDate: newValue)
+        }
+    }
+    
+    private func handleDateChange(oldDate: Date, newDate: Date) {
+        let calendar = Calendar.current
+        let oldDay = calendar.component(.day, from: oldDate)
+        let newDay = calendar.component(.day, from: newDate)
+        
+        // 날짜(일)가 변경되었을 때만 동작
+        if oldDay != newDay {
+            hasCalendarButtonPressed.toggle()
+            print("Day changed to: \(newDay)")
+        }
     }
     
     private var emailView: some View {
@@ -154,9 +190,10 @@ struct SignUpView: View {
             }
             
             if hasCalendarButtonPressed {
-                CalenderView(clickedCurrentMonthDates: $viewModel.birth,
-                             hasCalendarButtonPressed: $hasCalendarButtonPressed)
-                    .padding(.top, 30)
+                DatePicker("", selection: $viewModel.birth,
+                           displayedComponents: [.date])
+                .datePickerStyle(.graphical)
+                .environment(\.locale, Locale(identifier: "ko_KR"))
             }
             if !hasCalendarButtonPressed {
                 CommonInputView(text: .constant("성별"), image: "IcGender",

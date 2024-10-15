@@ -70,6 +70,7 @@ struct UserInfo: Codable {
 
 struct PostUserInfo: Codable {
     var profile: PostUserProfile?
+    var password: String?
     var email: String?
     var first_name: String?
     var last_name: String?

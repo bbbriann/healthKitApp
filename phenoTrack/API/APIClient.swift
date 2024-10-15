@@ -48,6 +48,9 @@ class APIClient {
         return URLSession.shared.dataTaskPublisher(for: request)
             .tryMap { result -> Data in
                 print("[TEST] result.response \(result.response)")
+                if let json = try? JSONSerialization.jsonObject(with: result.data, options: []) as? [String : Any] {
+                    print("[TEST] data \(json)")
+                }
                 guard let response = result.response as? HTTPURLResponse, (200...299).contains(response.statusCode) else {
                     throw URLError(.badServerResponse)
                 }
@@ -59,10 +62,6 @@ class APIClient {
                 if result.data.isEmpty {
                     // 빈 데이터를 처리
                     return Data("{}".utf8) // 빈 객체로 처리
-                }
-                
-                if let json = try? JSONSerialization.jsonObject(with: result.data, options: []) as? [String : Any] {
-                    print("[TEST] data \(json)")
                 }
                 return result.data
             }
