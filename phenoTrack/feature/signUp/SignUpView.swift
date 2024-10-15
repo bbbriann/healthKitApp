@@ -141,9 +141,27 @@ struct SignUpView: View {
                 .foregroundColor(Color(hex: "#020C1C"))
                 .frame(width: 345, alignment: .topLeading)
             CommonInputView(text: $viewModel.email,
-                            image: "IcEmail", placeholder: "이메일 입력")
+                            image: "IcEmail", placeholder: "이메일 입력",
+                            status: viewModel.signupError == .emailRegex ? .error : .default)
+            
+            if viewModel.signupError == .emailRegex {
+                HStack {
+                    Image("IcInvalid")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                    Text(viewModel.signupError.desc)
+                        .font(.system(size: 14, weight: .light))
+                        .foregroundColor(Color(hex: "#DA072D"))
+                    Spacer()
+                }
+                .padding(.top, 8)
+            }
             
             Spacer()
+        }
+        .onChange(of: viewModel.email) { oldValue, newValue in
+            viewModel.checkEmailValid(newValue)
         }
     }
     
@@ -155,10 +173,42 @@ struct SignUpView: View {
                 .frame(width: 345, alignment: .topLeading)
             CommonInputView(text: $viewModel.pw, image: "IcPW",
                             placeholder: "비밀번호 입력", isSecure: true)
+            if viewModel.signupError == .pwLength8 {
+                HStack {
+                    Image("IcInvalid")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                    Text(viewModel.signupError.desc)
+                        .font(.system(size: 14, weight: .light))
+                        .foregroundColor(Color(hex: "#DA072D"))
+                    Spacer()
+                }
+                .padding(.top, 8)
+            }
             CommonInputView(text: $viewModel.pwConfirm, image: "IcPW",
                             placeholder: "비밀번호를 다시 확인하세요", isSecure: true)
+            if viewModel.signupError == .pwNotSame {
+                HStack {
+                    Image("IcInvalid")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                    Text(viewModel.signupError.desc)
+                        .font(.system(size: 14, weight: .light))
+                        .foregroundColor(Color(hex: "#DA072D"))
+                    Spacer()
+                }
+                .padding(.top, 8)
+            }
             
             Spacer()
+        }
+        .onChange(of: viewModel.pw) { oldValue, newValue in
+            viewModel.checkPWLength()
+        }
+        .onChange(of: viewModel.pwConfirm) { oldValue, newValue in
+            viewModel.checkPWNotSame()
         }
     }
     
@@ -171,7 +221,24 @@ struct SignUpView: View {
             CommonInputView(text: $viewModel.phoneNumber, image: "IcPhone",
                             placeholder: "전화번호를 입력하세요")
             
+            if viewModel.signupError == .phoneValid {
+                HStack {
+                    Image("IcInvalid")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                    Text(viewModel.signupError.desc)
+                        .font(.system(size: 14, weight: .light))
+                        .foregroundColor(Color(hex: "#DA072D"))
+                    Spacer()
+                }
+                .padding(.top, 8)
+            }
+            
             Spacer()
+        }
+        .onChange(of: viewModel.phoneNumber) { oldValue, newValue in
+            viewModel.checkPhoneNumValid()
         }
     }
     
@@ -183,6 +250,20 @@ struct SignUpView: View {
                 .frame(width: 345, alignment: .topLeading)
             CommonInputView(text: $viewModel.name, image: "IcProfile",
                             placeholder: "이름(실명)")
+            
+            if viewModel.signupError == .nameLength {
+                HStack {
+                    Image("IcInvalid")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                    Text(viewModel.signupError.desc)
+                        .font(.system(size: 14, weight: .light))
+                        .foregroundColor(Color(hex: "#DA072D"))
+                    Spacer()
+                }
+                .padding(.top, 8)
+            }
             Button {
                 hasCalendarButtonPressed.toggle()
             } label: {
@@ -200,6 +281,9 @@ struct SignUpView: View {
                                 specificType: .birth, gender: $viewModel.gender)
             }
             Spacer()
+        }
+        .onChange(of: viewModel.name) { oldValue, newValue in
+            viewModel.checkNameLength()
         }
     }
     

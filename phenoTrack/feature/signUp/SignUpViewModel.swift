@@ -8,6 +8,37 @@
 import Combine
 import SwiftUI
 
+enum SignUpError: Error {
+    // 유효하지 않은 이메일 입니다. 형식을 확인해주세요.
+    case emailRegex
+    // 비밀번호는 최소 8자 이상이 필요합니다.
+    case pwLength8
+    // 비밀번호가 일치하지 않습니다.
+    case pwNotSame
+    // 010xxxxxxxx 형태에 맞게 번호를 입력해주세요.
+    case phoneValid
+    // 이름은 최소 2글자 이상 입력해주세요.
+    case nameLength
+    case none
+    
+    var desc: String {
+        switch self {
+        case .emailRegex:
+            return "유효하지 않은 이메일 입니다. 형식을 확인해주세요."
+        case .pwLength8:
+            return "비밀번호는 최소 8자 이상이 필요합니다."
+        case .pwNotSame:
+            return "비밀번호가 일치하지 않습니다."
+        case .phoneValid:
+            return "010xxxxxxxx 형태에 맞게 번호를 입력해주세요."
+        case .nameLength:
+            return "이름은 최소 2글자 이상 입력해주세요."
+        case .none:
+            return ""
+        }
+    }
+}
+
 enum SignUpStep: CaseIterable {
     case email
     case password
@@ -46,6 +77,7 @@ final class SignupViewModel: ObservableObject {
     
     @Published var isLoading: Bool = false
     @Published var signUpFinished: Bool = false
+    @Published var signupError: SignUpError = .none
     private let interactor: AuthInteractor
     private var cancellables = Set<AnyCancellable>()
     
@@ -70,13 +102,13 @@ final class SignupViewModel: ObservableObject {
     func getDisabledState() -> Bool {
         switch step {
         case .email:
-            return email.isEmpty
+            return email.isEmpty || signupError == .emailRegex
         case .password:
-            return (pw.isEmpty || pwConfirm.isEmpty) && (pw != pwConfirm)
+            return (pw.isEmpty || pwConfirm.isEmpty) || (signupError == .pwNotSame || signupError == .pwLength8)
         case .phone:
-            return phoneNumber.isEmpty
+            return phoneNumber.isEmpty || signupError == .phoneValid
         case .info:
-            return name.isEmpty
+            return name.isEmpty || signupError == .nameLength
         case .done:
             return false
         }
@@ -84,6 +116,55 @@ final class SignupViewModel: ObservableObject {
     
     func getNextButtonColor() -> Color {
         return Color(hex: "#1068FD").opacity(getDisabledState() ? 0.2 : 1.0)
+    }
+    
+    func checkEmailValid(_ email: String) {
+        let emailRegex = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        let isValid = emailTest.evaluate(with: email)
+        if !isValid {
+            signupError = .emailRegex
+        } else {
+            signupError = .none
+        }
+    }
+    
+    func checkPWLength() {
+        let isValid = pw.count >= 8
+        if !isValid {
+            signupError = .pwLength8
+        } else {
+            signupError = .none
+        }
+    }
+    
+    func checkPWNotSame() {
+        let isValid = (pw == pwConfirm)
+        if !isValid {
+            signupError = .pwNotSame
+        } else {
+            signupError = .none
+        }
+    }
+    
+    func checkPhoneNumValid() {
+        let phoneRegex = "^010\\d{8}$"  // 010으로 시작하고 뒤에 숫자 8자리
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)  // 정규식 사용
+        let isValid = phoneTest.evaluate(with: phoneNumber)
+        if !isValid {
+            signupError = .phoneValid
+        } else {
+            signupError = .none
+        }
+    }
+    
+    func checkNameLength() {
+        let isValid = name.count >= 2
+        if !isValid {
+            signupError = .nameLength
+        } else {
+            signupError = .none
+        }
     }
     
     func submitUserInfo() {

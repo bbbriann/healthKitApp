@@ -42,7 +42,7 @@ struct CommonInputView: View {
     var needNoFocus: Bool = false
     
     @State private var state: InputState = .default
-    @State private var status: InputStatus = .default
+    private var status: InputStatus = .default
     
     // birth only
     @Binding var gender: Gender?
@@ -50,7 +50,7 @@ struct CommonInputView: View {
     init(text: Binding<String>, image: String, placeholder: String = "",
          keyboardType: UIKeyboardType = UIKeyboardType.default, isSecure: Bool = false,
          specificType: SpecificType = .none, gender: Binding<Gender?> = .constant(.male),
-         needNoFocus: Bool = false) {
+         needNoFocus: Bool = false, status: InputStatus = .default) {
         self._text = text
         self.image = image
         self.placeholder = placeholder
@@ -58,6 +58,7 @@ struct CommonInputView: View {
         self.isSecure = isSecure
         self.specificType = specificType
         self._gender = gender
+        self.status = status
         self.needNoFocus = needNoFocus
     }
     
@@ -131,6 +132,9 @@ struct CommonInputView: View {
     }
     
     private var borderColor: Color {
+        if status == .error {
+            return Color(hex: "#DA072D")
+        }
         guard specificType == .none else {
             return Color(hex:"#1068FD").opacity(0.1)
         }
