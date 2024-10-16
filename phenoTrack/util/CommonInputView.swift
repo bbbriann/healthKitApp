@@ -98,6 +98,8 @@ struct CommonInputView: View {
                                 .opacity(0.5)
                                 .font(.system(size: 16))
                         }
+                        .autocorrectionDisabled()
+                        .textInputAutocapitalization(.never)
                         .keyboardType(keyboardType)
                         .padding(.vertical, 18)
                         .toolbar {
