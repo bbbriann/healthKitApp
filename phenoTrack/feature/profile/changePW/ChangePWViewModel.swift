@@ -21,6 +21,8 @@ final class ChangePWViewModel: ObservableObject {
     @Published var showError: Bool = false
     @Published var showEmptyError: Bool = false
     
+    @Published var regexError: SignUpError = .none
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let interactor: ChangePWInteractor
@@ -31,10 +33,31 @@ final class ChangePWViewModel: ObservableObject {
     
     func isValidState() -> Bool {
         if !pw.isEmpty && !newPw.isEmpty &&
-            !newPwConfirm.isEmpty && newPw == newPwConfirm {
+            !newPwConfirm.isEmpty {
+            if regexError == .pwLength8 || regexError == .pwNotSame {
+                return false
+            }
             return true
         } else {
             return false
+        }
+    }
+    
+    func checkPWLength() {
+        let isValid = newPw.count >= 8
+        if !isValid {
+            regexError = .pwLength8
+        } else {
+            regexError = .none
+        }
+    }
+    
+    func checkPWNotSame() {
+        let isValid = (newPw == newPwConfirm)
+        if !isValid {
+            regexError = .pwNotSame
+        } else {
+            regexError = .none
         }
     }
     

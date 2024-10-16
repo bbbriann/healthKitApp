@@ -16,6 +16,7 @@ final class ProfileEditViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var pw: String = ""
     
+    @Published var regexError: SignUpError = .none
     
     @Published var completeChangeProfile: Bool = false
     @Published var showAlert: Bool = false
@@ -41,9 +42,43 @@ final class ProfileEditViewModel: ObservableObject {
     
     func isValidState() -> Bool {
         if !name.isEmpty && !phoneNumber.isEmpty && !email.isEmpty {
+            if regexError == .emailRegex || regexError == .nameLength || regexError == .phoneValid {
+                return false
+            }
             return true
         } else {
             return false
+        }
+    }
+    
+    func checkPhoneNumValid() {
+        let phoneRegex = "^010\\d{8}$"  // 010으로 시작하고 뒤에 숫자 8자리
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)  // 정규식 사용
+        let isValid = phoneTest.evaluate(with: phoneNumber)
+        if !isValid {
+            regexError = .phoneValid
+        } else {
+            regexError = .none
+        }
+    }
+    
+    func checkNameLength() {
+        let isValid = name.count >= 2
+        if !isValid {
+            regexError = .nameLength
+        } else {
+            regexError = .none
+        }
+    }
+    
+    func checkEmailValid(_ email: String) {
+        let emailRegex = "^[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        let isValid = emailTest.evaluate(with: email)
+        if !isValid {
+            regexError = .emailRegex
+        } else {
+            regexError = .none
         }
     }
     

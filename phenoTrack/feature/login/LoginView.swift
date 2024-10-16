@@ -93,7 +93,8 @@ struct LoginView: View {
                     .foregroundColor(Color(hex: "#020C1C"))
                     .frame(width: 345, alignment: .topLeading)
                 VStack(spacing: 12) {
-                    CommonInputView(text: $viewModel.email, image: "IcEmail", placeholder: "이메일 입력")
+                    CommonInputView(text: $viewModel.email, image: "IcEmail", 
+                                    placeholder: "이메일 입력", keyboardType: .emailAddress)
                     CommonInputView(text: $viewModel.password, image: "IcPW",
                                     placeholder: "비밀번호 입력", isSecure: true)
                 }

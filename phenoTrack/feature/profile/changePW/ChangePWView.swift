@@ -79,6 +79,12 @@ struct ChangePWView: View {
             guard viewModel.completeChangePW else { return }
             presentationMode.wrappedValue.dismiss()
         }
+        .onChange(of: viewModel.newPw) { oldValue, newValue in
+            viewModel.checkPWLength()
+        }
+        .onChange(of: viewModel.newPwConfirm) { oldValue, newValue in
+            viewModel.checkPWNotSame()
+        }
         //        .padding(.horizontal, 24)
         /// content...
     }
@@ -91,8 +97,38 @@ struct ChangePWView: View {
                                 isSecure: true, needNoFocus: true)
                 CommonInputView(text: $viewModel.newPw, image: "IcPW",
                                 placeholder: "비밀번호 입력", isSecure: true)
+                
+                if viewModel.regexError == .pwLength8 {
+                    HStack {
+                        Image("IcInvalid")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                        Text(viewModel.regexError.desc)
+                            .font(.system(size: 14, weight: .light))
+                            .foregroundColor(Color(hex: "#DA072D"))
+                        Spacer()
+                    }
+                    .padding(.top, 8)
+                }
+                
                 CommonInputView(text: $viewModel.newPwConfirm, image: "IcPW",
                                 placeholder: "비밀번호를 다시 확인하세요", isSecure: true)
+                
+                if viewModel.regexError == .pwNotSame {
+                    HStack {
+                        Image("IcInvalid")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                        Text(viewModel.regexError.desc)
+                            .font(.system(size: 14, weight: .light))
+                            .foregroundColor(Color(hex: "#DA072D"))
+                        Spacer()
+                    }
+                    .padding(.top, 8)
+                }
+                
                 Spacer()
                 
                 Button {

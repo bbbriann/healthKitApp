@@ -134,13 +134,58 @@ struct ProfileEditView: View {
             VStack(alignment: .leading, spacing: 12) {
                 CommonInputView(text: $viewModel.name, image: "IcProfile",
                                 placeholder: "이름(실명)", needNoFocus: true)
+                if viewModel.regexError == .nameLength {
+                    HStack {
+                        Image("IcInvalid")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                        Text(viewModel.regexError.desc)
+                            .font(.system(size: 14, weight: .light))
+                            .foregroundColor(Color(hex: "#DA072D"))
+                        Spacer()
+                    }
+                    .padding(.top, 8)
+                }
+                
                 CommonInputView(text: $viewModel.phoneNumber, image: "IcPhone",
                                 placeholder: "전화번호를 입력하세요", keyboardType: .phonePad, needNoFocus: true)
+                
+                if viewModel.regexError == .phoneValid {
+                    HStack {
+                        Image("IcInvalid")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                        Text(viewModel.regexError.desc)
+                            .font(.system(size: 14, weight: .light))
+                            .foregroundColor(Color(hex: "#DA072D"))
+                        Spacer()
+                    }
+                    .padding(.top, 8)
+                }
+                
+                
                 CommonInputView(text: .constant("성별"), image: "IcGender",
                                 specificType: .birth, gender: $viewModel.gender, 
                                 needNoFocus: true)
                 CommonInputView(text: $viewModel.email, image: "IcEmail",
                                 placeholder: "이메일 입력", keyboardType: .emailAddress, needNoFocus: true)
+                
+                if viewModel.regexError == .emailRegex {
+                    HStack {
+                        Image("IcInvalid")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 16, height: 16)
+                        Text(viewModel.regexError.desc)
+                            .font(.system(size: 14, weight: .light))
+                            .foregroundColor(Color(hex: "#DA072D"))
+                        Spacer()
+                    }
+                    .padding(.top, 8)
+                }
+                
                 Button {
                     path.append(.changePassword)
                 } label: {
@@ -153,5 +198,14 @@ struct ProfileEditView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(.white)
+        .onChange(of: viewModel.email) { oldValue, newValue in
+            viewModel.checkEmailValid(newValue)
+        }
+        .onChange(of: viewModel.phoneNumber) { oldValue, newValue in
+            viewModel.checkPhoneNumValid()
+        }
+        .onChange(of: viewModel.name) { oldValue, newValue in
+            viewModel.checkNameLength()
+        }
     }
 }
