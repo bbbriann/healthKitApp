@@ -131,7 +131,7 @@ struct FindIdResultView: View {
     
     var body: some View {
         VStack {
-            Text("신분증 확인")
+            Text("아이디 확인")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(Color(hex: "#020C1C"))
                 .frame(maxWidth: .infinity)

@@ -105,7 +105,7 @@ struct ResetPWView: View {
                                         placeholder: "이메일 입력", keyboardType: .emailAddress)
                     }
                 } else {
-                    Text("새롭게 사용할 비밀번호를\n입력해주세요.")
+                    Text("새 비밀번호를 재설정 합니다.\n정보를 입력해주세요.")
                         .font(.system(size: 20, weight: .medium))
                         .foregroundColor(Color(hex: "#020C1C"))
                         .frame(width: 345, alignment: .topLeading)

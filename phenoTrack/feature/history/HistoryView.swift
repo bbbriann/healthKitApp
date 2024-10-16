@@ -20,7 +20,7 @@ struct HistoryView: View {
                 ZStack {
                     HStack {
                         Spacer()
-                        Text("식사 일기")
+                        Text("지난 기록")
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(.black)
                         Spacer()
@@ -120,7 +120,7 @@ struct HistoryView: View {
     var randomChartView: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(alignment: .center) {
-                Text("신고 - \(viewModel.reportedCount(index: selectedIndex))건")
+                Text("보고 - \(viewModel.reportedCount(index: selectedIndex))건")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(Color(hex: "#020C1C"))
                 Spacer()
@@ -231,7 +231,7 @@ struct HistoryView: View {
     var rnndomDetailView: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack(alignment: .center) {
-                Text("상세")
+                Text("상세 보기")
                     .font(.system(size: 20, weight: .bold))
                     .foregroundColor(Color(hex: "#020C1C"))
                 Spacer()

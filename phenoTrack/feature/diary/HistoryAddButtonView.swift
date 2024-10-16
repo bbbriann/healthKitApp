@@ -13,7 +13,7 @@ struct HistoryAddButtonView: View {
             Color.clear
                 .frame(width: 44, height: 56)
             Spacer()
-            Text("새로 추가")
+            Text("새로 추가 하기")
                 .font(.system(size: 16, weight: .medium))
                 .foregroundColor(.white)
             Spacer()

@@ -58,7 +58,7 @@ struct AppTabBarView: View {
                         .ignoresSafeArea()
                     
                     CustomAlertView(
-                        title: "확인 통지",
+                        title: "",
                         message: "정말로 로그아웃 하시겠습니까?",
                         onCancel: {
                             showLogoutAlert = false

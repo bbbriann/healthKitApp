@@ -74,7 +74,7 @@ struct DiaryRandomSurveyModifyView: View {
                             .ignoresSafeArea()
                         
                         CustomAlertView(
-                            title: "확인 통지",
+                            title: "",
                             message: "설문이 완료 되지 않았습니다.\n종료하시겠습니까?",
                             onCancel: {
                                 showBackAlert = false

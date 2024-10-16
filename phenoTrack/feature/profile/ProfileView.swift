@@ -119,7 +119,7 @@ struct ProfileView: View {
                         Image("IcEdit")
                             .resizable()
                             .frame(width: 16, height: 16)
-                        Text("개인정보 수정")
+                        Text("편집하기")
                             .font(.system(size: 12, weight: .medium))
                             .foregroundColor(Color(hex: "#020C1C"))
                     }
