@@ -37,6 +37,7 @@ struct RandomSurveyCompleteView: View {
                 Button {
                     path.removeLast(path.count)
                     NotificationCenter.default.post(Notification(name: .showTabBar))
+                    NotificationCenter.default.post(Notification(name: .homeViewRefresh))
                 } label: {
                     CommonSelectButton(title: "확인",
                                        titleColor: Color.white,

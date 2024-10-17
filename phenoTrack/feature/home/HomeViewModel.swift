@@ -118,6 +118,10 @@ final class HomeViewModel: ObservableObject {
                     print(endAtDate)
                     if endAtDate > Date() {
                         self.homeState = .survey
+                        if (UserDefaults.standard.showRandomSurveyFromPush ?? false) {
+                            NotificationCenter.default.post(Notification(name: .showRandomSurveyFromPush))
+                            UserDefaults.standard.showRandomSurveyFromPush = false
+                        }
                     } else {
                         self.homeState = .noSurvey
                     }

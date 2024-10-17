@@ -89,6 +89,11 @@ struct AppTabBarView: View {
         .onReceive(NotificationCenter.default.publisher(for: .hideTabBar)) { notification in
             showTabBar = false
         }
+        .onReceive(NotificationCenter.default.publisher(for: .updateSenorData)) { notification in
+            selected = .home
+            UserDefaults.standard.showRandomSurveyFromPush = true
+            NotificationCenter.default.post(Notification(name: .homeViewRefresh))
+        }
     }
     
     var tabBar: some View {

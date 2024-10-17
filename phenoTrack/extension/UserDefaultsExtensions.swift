@@ -17,6 +17,16 @@ extension UserDefaults {
         static let fcmToken = "fcmToken"
         static let lastEndDate = "lastEndDate"
         static let launchSensorData = "launchSensorData"
+        static let showRandomSurveyFromPush = "showRandomSurveyFromPush"
+    }
+    
+    var showRandomSurveyFromPush: Bool? {
+        get {
+            return bool(forKey: Keys.showRandomSurveyFromPush)
+        }
+        set {
+            set(newValue, forKey: Keys.showRandomSurveyFromPush)
+        }
     }
     
     var launchSensorData: Bool? {

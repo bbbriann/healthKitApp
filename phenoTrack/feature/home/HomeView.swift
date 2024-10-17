@@ -354,6 +354,13 @@ struct HomeView: View {
                                        randomSurvey: $historyViewModel.selectedRandomSurvey)
             }
         }
+        .onReceive(NotificationCenter.default.publisher(for: .homeViewRefresh)) { notification in
+            viewModel.fetchHomeData()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .showRandomSurveyFromPush)) { notification in
+            path.removeLast(path.count)
+            path.append(.survey)
+        }
     }
 }
 
