@@ -113,7 +113,7 @@ final class HomeViewModel: ObservableObject {
                 }
             }, receiveValue: { res in
                 // API 호출 결과 처리
-                if let res, let endAtDate = DateHelper.convertToDate(res.endAt, needFractionSecondes: false) {
+                if let res, let endAtDate = DateHelper.convertToDate(res.endAt) {
                     self.latestNoti = res
                     print(endAtDate)
                     if endAtDate > Date() {

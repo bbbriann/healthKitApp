@@ -219,7 +219,7 @@ struct HomeView: View {
                                                 .font(.system(size: 16, weight: .medium))
                                                 .foregroundColor(Color(hex: "#020C1C"))
                                                 .frame(maxWidth: .infinity, alignment: .center)
-                                            CountDownView(endDate: DateHelper.convertToDate(viewModel.latestNoti?.endAt ?? "", needFractionSecondes: false) ?? Date())
+                                            CountDownView(endDate: DateHelper.convertToDate(viewModel.latestNoti?.endAt ?? "") ?? Date())
                                         }
                                         .frame(maxWidth: .infinity, alignment: .center)
                                         Button {

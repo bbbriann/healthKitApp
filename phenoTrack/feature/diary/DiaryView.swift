@@ -200,57 +200,69 @@ struct DiaryView: View {
 }
 
 enum DateHelper {
-    static func formatTimeFromISO8601(_ isoDateString: String, needFractionSecondes: Bool = true) -> String? {
+    static func formatTimeFromISO8601(_ isoDateString: String) -> String? {
         // 1. ISO 8601 형식의 문자열을 Date로 변환
         let isoFormatter = ISO8601DateFormatter()
         isoFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        if needFractionSecondes {
-            isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = isoFormatter.date(from: isoDateString) {
+            // 2. 원하는 형식으로 시간만 출력
+            let timeFormatter = DateFormatter()
+            timeFormatter.dateFormat = "HH:mm" // 24시간제로 시간과 분만 추출
+            
+            return timeFormatter.string(from: date)
         } else {
             isoFormatter.formatOptions = [.withInternetDateTime]
+            if let date = isoFormatter.date(from: isoDateString) {
+                // 2. 원하는 형식으로 시간만 출력
+                let timeFormatter = DateFormatter()
+                timeFormatter.dateFormat = "HH:mm" // 24시간제로 시간과 분만 추출
+                
+                return timeFormatter.string(from: date)
+            }
         }
         
-        guard let date = isoFormatter.date(from: isoDateString) else {
-            return nil
-        }
-        
-        // 2. 원하는 형식으로 시간만 출력
-        let timeFormatter = DateFormatter()
-        timeFormatter.dateFormat = "HH:mm" // 24시간제로 시간과 분만 추출
-        
-        return timeFormatter.string(from: date)
+        return nil
     }
     
-    static func getHourMin(from isoDateString: String, needFractionSecondes: Bool = false) -> (hour: Int, min: Int)? {
+    static func getHourMin(from isoDateString: String) -> (hour: Int, min: Int)? {
         // 1. ISO 8601 형식의 문자열을 Date로 변환
         let isoFormatter = ISO8601DateFormatter()
         isoFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-        if needFractionSecondes {
-            isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = isoFormatter.date(from: isoDateString) {
+            let calendar = Calendar.current
+            let hour = calendar.component(.hour, from: date)
+            let minute = calendar.component(.minute, from: date)
+            
+            return (hour, minute)
         } else {
             isoFormatter.formatOptions = [.withInternetDateTime]
+            if let date = isoFormatter.date(from: isoDateString) {
+                let calendar = Calendar.current
+                let hour = calendar.component(.hour, from: date)
+                let minute = calendar.component(.minute, from: date)
+                
+                return (hour, minute)
+            }
         }
-        
-        guard let date = isoFormatter.date(from: isoDateString) else {
-            return nil // 변환 실패 시 nil 반환
-        }
-        
-        // Calendar를 사용하여 시(hour)와 분(minute) 추출
-        let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: date)
-        let minute = calendar.component(.minute, from: date)
-        
-        return (hour, minute)
+        return nil
     }
     
     static func convertToDate(_ dateString: String, needFractionSecondes: Bool = true) -> Date? {
         let isoFormatter = ISO8601DateFormatter()
-        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0) // UTC 시간대로 설정
-        if needFractionSecondes {
-            isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0)
+        isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
+        if let date = isoFormatter.date(from: dateString) {
+            // 2. 원하는 형식으로 시간만 출력
+            return date
         } else {
             isoFormatter.formatOptions = [.withInternetDateTime]
+            if let date = isoFormatter.date(from: dateString) {
+                return date
+            }
         }
-        return isoFormatter.date(from: dateString)
+        
+        return nil
     }
 }
