@@ -119,38 +119,55 @@ struct PreviousHistoryView: View {
                 .padding(.top, 30)
             }
             if selectedIndex == 0 {
-                Chart {
-                    // ForEach를 각 질문의 카테고리로 처리
-                    ForEach(["음식 생각", "기분", "스트레스"], id: \.self) { category in
-                        ForEach(viewModel.randomSurveyList, id: \.ulid) { survey in
-                            if let date = DateHelper.convertToDate(survey.created) {
-                                LineMark(
-                                    x: .value("Time", date),
-                                    y: .value(category, value(for: category, from: survey))
-                                )
-                                .foregroundStyle(by: .value("Category", category))
-                                .symbol(by: .value("Category", category))
-                                .lineStyle(StrokeStyle(lineWidth: 2))
+                ZStack {
+                    Chart {
+                        // ForEach를 각 질문의 카테고리로 처리
+                        ForEach(["음식 생각", "기분", "스트레스"], id: \.self) { category in
+                            ForEach(viewModel.randomSurveyList, id: \.ulid) { survey in
+                                if let date = DateHelper.convertToDate(survey.created) {
+                                    LineMark(
+                                        x: .value("Time", date),
+                                        y: .value(category, value(for: category, from: survey))
+                                    )
+                                    .foregroundStyle(by: .value("Category", category))
+                                    .symbol {
+                                        Circle()
+                                            .fill(color(for: category))
+                                            .frame(width: 5, height: 5)
+                                    }
+                                    .lineStyle(StrokeStyle(lineWidth: 2))
+                                }
                             }
                         }
                     }
-                }
-                .chartForegroundStyleScale([
-                    "음식 생각": Color.blue,
-                    "기분": Color.red,
-                    "스트레스": Color.purple
-                ])
-                .chartLegend(position: .top, alignment: .leading)
-                .chartXAxis {
-                    AxisMarks(values: .automatic(desiredCount: 2)) { value in
-                        if let dateValue = value.as(Date.self) {
-                            AxisValueLabel(formatDate(date: dateValue))
+                    .chartForegroundStyleScale([
+                        "음식 생각": Color.blue,
+                        "기분": Color.red,
+                        "스트레스": Color.purple
+                    ])
+                    .chartLegend(position: .top, alignment: .leading, spacing: 20)
+                    .chartXAxis {
+                        AxisMarks(values: .automatic(desiredCount: 2)) { value in
+                            if let dateValue = value.as(Date.self) {
+                                AxisValueLabel(formatDate(date: dateValue))
+                                    .offset(y: 8)
+                            }
+                            // X축 눈금선 추가
+                            AxisGridLine()
                         }
                     }
+                    .chartYAxis {
+                        AxisMarks(position: .leading)
+                    }
                 }
-                .chartYAxis {
-                    AxisMarks(position: .leading)
-                }
+                .chartPlotStyle { plotArea in
+                        plotArea
+                            .padding(.leading, 10) // Y축과 차트 간의 간격 추가
+                            .padding(.bottom, 10)  // X축과 차트 간의 간격 추가
+                    }
+                .padding(20)
+                .background(.white)
+                .cornerRadius(12)
                 .frame(height: 300)
             } else {
                 if !viewModel.dietList.isEmpty {
@@ -272,6 +289,19 @@ struct PreviousHistoryView: View {
             return survey.questionCAnswer
         default:
             return 0
+        }
+    }
+    
+    private func color(for category: String) -> Color {
+        switch category {
+        case "음식 생각":
+            return Color.blue
+        case "기분":
+            return Color.red
+        case "스트레스":
+            return Color.purple
+        default:
+            return .clear
         }
     }
     
