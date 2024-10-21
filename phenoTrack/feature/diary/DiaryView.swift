@@ -251,7 +251,6 @@ enum DateHelper {
     
     static func convertToDate(_ dateString: String, needFractionSecondes: Bool = true) -> Date? {
         let isoFormatter = ISO8601DateFormatter()
-        isoFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         isoFormatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
         if let date = isoFormatter.date(from: dateString) {
             // 2. 원하는 형식으로 시간만 출력

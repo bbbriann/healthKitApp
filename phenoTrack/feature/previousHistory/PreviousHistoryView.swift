@@ -146,8 +146,9 @@ struct PreviousHistoryView: View {
                         "스트레스": Color.purple
                     ])
                     .chartLegend(position: .top, alignment: .leading, spacing: 20)
+                    .chartXScale(domain: createDateRange())
                     .chartXAxis {
-                        AxisMarks(values: .automatic(desiredCount: 2)) { value in
+                        AxisMarks(values: .automatic(desiredCount: 5)) { value in
                             if let dateValue = value.as(Date.self) {
                                 AxisValueLabel(formatDate(date: dateValue))
                                     .offset(y: 8)
@@ -303,6 +304,31 @@ struct PreviousHistoryView: View {
         default:
             return .clear
         }
+    }
+    
+    private func createDateRange() -> ClosedRange<Date> {
+        let calendar = Calendar.current
+
+        // viewModel.randomSurveyList의 첫 번째 날짜를 사용하거나, 없으면 현재 날짜를 사용
+        let baseDate: Date
+        if let createdString = viewModel.randomSurveyList.first?.created,
+           let date = DateHelper.convertToDate(createdString) {
+            baseDate = date
+        } else {
+            baseDate = Date() // 첫 번째 날짜가 없으면 현재 날짜 사용
+        }
+        
+        // 9:00 AM 설정
+        var startComponents = calendar.dateComponents([.year, .month, .day], from: baseDate)
+        startComponents.hour = 8
+        let start = calendar.date(from: startComponents) ?? baseDate
+
+        // 9:00 PM 설정
+        var endComponents = calendar.dateComponents([.year, .month, .day], from: baseDate)
+        endComponents.hour = 22
+        let end = calendar.date(from: endComponents) ?? baseDate
+
+        return start...end
     }
     
     private func formatDate(date: Date) -> String {
