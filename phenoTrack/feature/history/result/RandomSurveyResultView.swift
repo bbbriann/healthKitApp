@@ -34,15 +34,15 @@ struct RandomSurvey: Codable, Hashable {
             }
             
             if answer == 0 {
-                return "전혀 아니다"
+                return index == 1 ? "매우 나쁘다" : "전혀 아니다"
             } else if answer == 1 {
-                return "아니다"
+                return index == 1 ? "나쁘다" : "아니다"
             } else if answer == 2 {
                 return "보통이다"
             } else if answer == 3 {
-                return "그렇다"
+                return index == 1 ? "좋다" : "그렇다"
             } else {
-                return "매우 그렇다"
+                return index == 1 ? "매우 좋다" : "매우 그렇다"
             }
         default:
             return ""

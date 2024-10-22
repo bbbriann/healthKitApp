@@ -180,6 +180,7 @@ struct HistoryView: View {
                             "스트레스": Color.purple
                         ])
                         .chartLegend(position: .top, alignment: .leading, spacing: 20)
+                        .chartYScale(domain: 1...5)
                         .chartXScale(domain: createDateRange())
                         .chartXAxis {
                             AxisMarks(values: .automatic(desiredCount: 5)) { value in
@@ -341,11 +342,11 @@ struct HistoryView: View {
     private func value(for category: String, from survey: RandomSurvey) -> Int {
         switch category {
         case "음식 생각":
-            return survey.questionAAnswer
+            return survey.questionAAnswer + 1
         case "기분":
-            return survey.questionBAnswer
+            return survey.questionBAnswer + 1
         case "스트레스":
-            return survey.questionCAnswer
+            return survey.questionCAnswer + 1
         default:
             return 0
         }

@@ -127,7 +127,7 @@ struct RandomSurveyCardView: View {
                                             .stroke(setSelectedColor(index: index), lineWidth: 1)
                                     )
                                     
-                                    Text(getText(from: index))
+                                    Text(cardIndex == 1 ? getEmotionText(from: index) : getText(from: index))
                                         .font(.system(size: 10, weight: .medium))
                                         .multilineTextAlignment(.center)
                                         .foregroundColor(Color(hex: "#020C1C"))
@@ -253,6 +253,23 @@ struct RandomSurveyCardView: View {
             return "그렇다"
         case 4:
             return "매우 그렇다"
+        default:
+            return ""
+        }
+    }
+    
+    private func getEmotionText(from index: Int) -> String {
+        switch index {
+        case 0:
+            return "매우 나쁘다"
+        case 1:
+            return "나쁘다"
+        case 2:
+            return "보통이다"
+        case 3:
+            return "좋다"
+        case 4:
+            return "매우 좋다"
         default:
             return ""
         }
