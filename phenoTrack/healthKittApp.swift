@@ -61,7 +61,7 @@ struct healthKittApp: App {
                 isLoogedIn = false
             }
             .onReceive(NotificationCenter.default.publisher(for: .updateSenorData)) { notification in
-                viewModel.fetchHealthDataAndProcess()
+//                viewModel.fetchHealthDataAndProcess()
             }
         }
     }

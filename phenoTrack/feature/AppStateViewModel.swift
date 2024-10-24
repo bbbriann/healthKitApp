@@ -97,6 +97,8 @@ class AppStateViewModel: ObservableObject {
         // 모든 작업이 끝났을 때 실행될 코드
         dispatchGroup.notify(queue: .main) {
             // 여기서 모든 데이터를 처리하고 후속 작업을 수행
+            // 새로운 endDate 저장 (현재 요청한 시간)
+            UserDefaults.standard.lastEndDate = Date()
             print("모든 데이터가 로드되었습니다.")
         }
     }

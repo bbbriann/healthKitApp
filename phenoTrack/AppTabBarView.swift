@@ -18,6 +18,8 @@ struct AppTabBarView: View {
     @State private var showTabBar = true
     
     @State private var homePath: [HomeViewStack] = []
+    @StateObject private var viewModel = AppStateViewModel()
+    
     
     var body: some View {
         ZStack {
@@ -82,6 +84,7 @@ struct AppTabBarView: View {
                     UserDefaults.standard.launchSensorData = false
                 }
             }
+            viewModel.fetchHealthDataAndProcess()
         })
         .onReceive(NotificationCenter.default.publisher(for: .showTabBar)) { notification in
             showTabBar = true

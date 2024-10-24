@@ -85,9 +85,6 @@ class HealthKitService {
         // startDate를 이전에 요청한 endDate로 설정, 없으면 기본적으로 1일 전으로 설정
         let startDate = lastEndDate
         
-        // 새로운 endDate 저장 (현재 요청한 시간)
-        UserDefaults.standard.lastEndDate = endDate
-        
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate)
         // 최신 데이터를 먼저 가져오도록 sort 기준 정의
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
