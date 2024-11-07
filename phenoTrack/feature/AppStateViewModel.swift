@@ -47,28 +47,57 @@ class AppStateViewModel: ObservableObject {
     func fetchHealthDataAndProcess() {
         let dispatchGroup = DispatchGroup()
         
-        let types: [HKQuantityTypeIdentifier] = [
-            .heartRate,
-            .restingHeartRate,
-            .walkingHeartRateAverage,
-            .heartRateVariabilitySDNN,
-            .distanceWalkingRunning,
-            .activeEnergyBurned,
-            .flightsClimbed,
-            .stepCount,
-            .basalEnergyBurned,
-            .appleExerciseTime,
-            .appleStandTime,
-            .bodyMassIndex
+        let types: [HKObjectType] = [
+            HKQuantityType.quantityType(forIdentifier: .heartRate)!,
+            HKQuantityType.quantityType(forIdentifier: .restingHeartRate)!,
+            HKQuantityType.quantityType(forIdentifier: .walkingHeartRateAverage)!,
+            HKQuantityType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!,
+            HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning)!,
+            HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)!,
+            HKQuantityType.quantityType(forIdentifier: .flightsClimbed)!,
+            HKQuantityType.quantityType(forIdentifier: .stepCount)!,
+            HKQuantityType.quantityType(forIdentifier: .basalEnergyBurned)!,
+            HKQuantityType.quantityType(forIdentifier: .appleExerciseTime)!,
+            HKQuantityType.quantityType(forIdentifier: .appleStandTime)!,
+            HKQuantityType.quantityType(forIdentifier: .bodyMassIndex)!,
+            HKQuantityType.quantityType(forIdentifier: .headphoneAudioExposure)!,
+            HKQuantityType.quantityType(forIdentifier: .environmentalAudioExposure)!,
+            HKCategoryType.categoryType(forIdentifier: .sleepAnalysis)!
         ]
-        
-        for typeIdentifier in types {
-            if let quantityType = HKQuantityType.quantityType(forIdentifier: typeIdentifier) {
+        for type in types {
+            if let quantityType = type as? HKQuantityType {
                 dispatchGroup.enter() // 작업 시작을 알림
                 HealthKitService.shared.getData(type: quantityType) { samples, error in
-                    
                     if let samples = samples,
-                       let processedData = self.processHealthSamples(samples, typeIdentifier: typeIdentifier) {
+                       let processedData = self.processHealthSamples(samples, type: quantityType) {
+                        self.interactor.sendSensorData(req: processedData)
+                            .sink(receiveCompletion: { [weak self] (completion: Subscribers.Completion<Error>) in
+                                switch completion {
+                                case .failure(let error):
+                                    print("[TEST] error \(error)")
+                                case .finished:
+                                    break
+                                }
+                            }, receiveValue: { [weak self] (res) in
+                                print("[TEST] res \(res)")
+                            })
+                            .store(in: &self.cancellables)
+                        // JSON으로 변환 (예시)
+                        if let jsonData = try? JSONEncoder().encode(processedData),
+                           let jsonString = String(data: jsonData, encoding: .utf8) {
+                            
+                            print("정제된 데이터: \(jsonString)")
+                        }
+                    }
+                    
+                    dispatchGroup.leave() // 작업 완료를 알림
+                }
+            } else if let categoryType = type as? HKCategoryType {
+                // HKCategoryType에 대한 처리
+                dispatchGroup.enter() // 작업 시작을 알림
+                HealthKitService.shared.getData(type: categoryType) { samples, error in
+                    if let samples = samples,
+                       let processedData = self.processHealthSamples(samples, type: categoryType) {
                         self.interactor.sendSensorData(req: processedData)
                             .sink(receiveCompletion: { [weak self] (completion: Subscribers.Completion<Error>) in
                                 switch completion {
@@ -104,10 +133,10 @@ class AppStateViewModel: ObservableObject {
     }
     
     // 데이터를 주어진 JSON 구조에 맞게 정제하는 함수
-    private func processHealthSamples(_ samples: [HKSample], typeIdentifier: HKQuantityTypeIdentifier) -> HealthData? {
+    private func processHealthSamples(_ samples: [HKSample], type: HKObjectType) -> HealthData? {
         guard let firstSample = samples.first else { return nil }
         
-        let sensorType = HealthKitTypeHelper.identifierString(for: typeIdentifier)
+        let sensorType = HealthKitTypeHelper.identifierString(for: type)
         let startAt = iso8601String(from: firstSample.startDate)
         let endAt = iso8601String(from: firstSample.endDate)
         
