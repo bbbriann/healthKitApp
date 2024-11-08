@@ -148,6 +148,13 @@ class AppStateViewModel: ObservableObject {
                     end_at: iso8601String(from: sample.endDate),
                     value: valueString
                 )
+            }  else if let categorySample = sample as? HKCategorySample {
+                let valueString = categorySample.value.description
+                return HealthDataValue(
+                    start_at: iso8601String(from: sample.startDate),
+                    end_at: iso8601String(from: sample.endDate),
+                    value: valueString
+                )
             }
             return nil
         }
