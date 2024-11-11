@@ -134,13 +134,20 @@ class AppStateViewModel: ObservableObject {
     
     // 데이터를 주어진 JSON 구조에 맞게 정제하는 함수
     private func processHealthSamples(_ samples: [HKSample], type: HKObjectType) -> HealthData? {
-        guard let firstSample = samples.first else { return nil }
+        guard !samples.isEmpty else { return nil }
+        
+        // startDate를 기준으로 정렬
+        let sortedSamples = samples.sorted { $0.startDate < $1.startDate }
+        
+        // 첫 번째 샘플과 마지막 샘플을 가져와서 start_at과 end_at으로 설정
+        let firstSample = sortedSamples.first!
+        let lastSample = sortedSamples.last!
         
         let sensorType = HealthKitTypeHelper.identifierString(for: type)
         let startAt = iso8601String(from: firstSample.startDate)
-        let endAt = iso8601String(from: firstSample.endDate)
+        let endAt = iso8601String(from: lastSample.endDate)
         
-        let values: [HealthDataValue] = samples.compactMap { sample in
+        let values: [HealthDataValue] = sortedSamples.compactMap { sample in
             if let quantitySample = sample as? HKQuantitySample {
                 let valueString = quantitySample.quantity.description
                 return HealthDataValue(
@@ -148,7 +155,7 @@ class AppStateViewModel: ObservableObject {
                     end_at: iso8601String(from: sample.endDate),
                     value: valueString
                 )
-            }  else if let categorySample = sample as? HKCategorySample {
+            } else if let categorySample = sample as? HKCategorySample {
                 let valueString = categorySample.value.description
                 return HealthDataValue(
                     start_at: iso8601String(from: sample.startDate),
